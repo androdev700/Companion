@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">SRM Companion</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="login">Enter Academia Details</string>
+    <string name="dayorder1">Day Order 1</string>
+    <string name="dayorder2">Day Order 2</string>
+    <string name="dayorder3">Day Order 3</string>
+    <string name="dayorder4">Day Order 4</string>
+    <string name="dayorder5">Day Order 5</string>
+    <string name="announcement">Announcements</string>
+    <string name="events">Events</string>
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
+    <string name="whatsnew">What\'s New</string>
+    <string name="timetable">Your Timetable</string>
+    <string name="share">Share</string>
+    <string name="select">Select Day Order    </string>
+    <string name="enter_details">Enter/Edit Details</string>
+    <string name="dy1">Hour 1</string>
+    <string name="dy2">Hour 2</string>
+    <string name="dy3">Hour 3</string>
+    <string name="dy4">Hour 4</string>
+    <string name="dy5">Hour 5</string>
+    <string name="dy6">Hour 6</string>
+    <string name="dy7">Hour 7</string>
+    <string name="dy8">Hour 8</string>
+    <string name="dy9">Hour 9</string>
+    <string name="dy10">Hour 10</string>
+    <string name="enter_course">Course</string>
+    <string name="enter_class">Room No.</string>
+    <string name="version">v2.2.0</string>
+    <string name="save">Save</string>
+    <string name="academia">Academia</string>
+    <string name="support">Support Dev</string>
+    <string name="update">Updates will fix bugs.</string>
+    <string name="time"> </string>
+    <string name="editing">Save when finished Adding/Editing</string>
+    <string name="select_year">Select Year</string>
+    <string name="srm_weebly">SRM Weebly</string>
+    <string name="study">Study</string>
+    <string name="lt_androdev"><![CDATA[<androdev/>]]></string>
+    <string name="androdev700_gmail_com">androdev700@gmail.com</string>
+    <string name="for_suggestions_amp_bugs"><![CDATA[For Suggestions & Bugs]]></string>
+    <string name="developed_by">Developed By</string>
+    <string name="ishuchita">iShuchita</string>
+    <string name="help_amp_support"><![CDATA[Help & Support]]></string>
+    <string-array name="days">
+        <item>Day Order 1</item>
+        <item>Day Order 2</item>
+        <item>Day Order 3</item>
+        <item>Day Order 4</item>
+        <item>Day Order 5</item>
+    </string-array>
+    <string-array name="year">
+        <item>1st Year</item>
+        <item>2nd Year</item>
+        <item>3rd Year</item>
+        <item>4th Year</item>
+    </string-array>
+    <string-array name="choice_year">
+        <item>2nd Year</item>
+        <item>3rd Year</item>
+        <item>4th Year</item>
+    </string-array>
+    <string-array name="choice_weebly">
+        <item>ODD Semester 2015–16</item>
+        <item>EVEN Semester 2015–16</item>
+        <item>ODD Semester 2016–17</item>
+    </string-array>
+    <string-array name="help_support">
+        <item>Make sure you have the latest version of Chrome installed.</item>
+        <item>To know the timings, touch on the respective hour.</item>
+        <item>Schedule not getting saved?</item>
+    </string-array>
+</resources>
