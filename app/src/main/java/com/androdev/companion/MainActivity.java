@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DateFormat df = new SimpleDateFormat("EEE");
         day = df.format(Calendar.getInstance().getTime());
         j = Integer.parseInt(localTime.replaceAll("[\\D]", ""));
-
         if (day.equals("Sat")||day.equals("Sun"))
             time.setText("Enjoy The Weekend");
         else
