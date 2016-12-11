@@ -1,6 +1,9 @@
 package com.androdev.companion;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -93,7 +96,7 @@ public class entery extends AppCompatActivity {
         AdapterView.OnItemSelectedListener day = new AdapterView.OnItemSelectedListener() {
             String[] days = {"You're Editing Day Order 1","You're Editing Day Order 2",
                     "You're Editing Day Order 3","You're Editing Day Order 4",
-                    "You're Editing Day Order 5"};
+                    "You're Editing Day Order 5","Now Saving in SQL Database"};
             @Override
             public void onItemSelected(AdapterView<?> spinner, View container,
                                        int position, long id) {
