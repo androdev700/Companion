@@ -1,42 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item android:title="@string/academia">
         <menu>
             <item
                 android:title="@string/academia"
                 android:id="@+id/academia"
-                android:icon="@drawable/ic_school_black_24dp">
+                android:icon="@drawable/ic_school">
             </item>
         </menu>
     </item>
     <item android:title="@string/timetable">
         <menu>
             <item
-                android:id="@+id/entery"
+                android:id="@+id/entry"
                 android:title="@string/enter_details"
-                android:icon="@drawable/ic_entery"/>
-            <item
-                android:id="@+id/nav_do1"
-                android:title="@string/dayorder1"
-                android:icon="@drawable/ic_day1"/>
-            <item
-                android:id="@+id/nav_do2"
-                android:title="@string/dayorder2"
-                android:icon="@drawable/ic_day2"/>
-            <item
-                android:id="@+id/nav_do3"
-                android:title="@string/dayorder3"
-                android:icon="@drawable/ic_day3"/>
-            <item
-                android:id="@+id/nav_do4"
-                android:title="@string/dayorder4"
-                android:icon="@drawable/ic_day4"/>
-            <item
-                android:id="@+id/nav_do5"
-                android:title="@string/dayorder5"
-                android:icon="@drawable/ic_day5"/>
+                android:icon="@drawable/ic_entry"/>
         </menu>
     </item>
     <item android:title="@string/study" >
@@ -51,32 +30,14 @@
                 android:icon="@drawable/ic_vstudy" />
         </menu>
     </item>
-    <item android:title="@string/whatsnew">
-        <menu>
-            <item
-                android:id="@+id/nav_news"
-                android:title="@string/announcement"
-                android:icon="@drawable/ic_news"/>
-            <item
-                android:id="@+id/nav_events"
-                android:title="@string/events"
-                android:icon="@drawable/ic_events"/>
-        </menu>
-    </item>
+
     <item android:title="@string/app_name">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/share" />
             <item
                 android:id="@+id/help"
                 android:icon="@drawable/ic_help"
                 android:title="@string/help_amp_support" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info"
-                android:title="@string/about" />
+
             <item
                 android:id="@+id/support"
                 android:icon="@drawable/ic_support"

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/enterycoordinate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.androdev.companion.Entry">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#FF0000"
+                android:textStyle="bold"
+                android:text="@string/help2"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/select"
+                    android:layout_alignParentStart="true" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/dayspinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/textView"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/save"
+                android:clickable="true" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed1" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class1"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth1"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class1"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed2" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class2"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth2"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class2"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy3"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed3" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class3"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth3"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class3"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy4"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed4" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class4"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth4"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class4"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy5"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed5" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class5"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth5"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class5"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy6"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed6" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class6"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth6"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class6"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy7"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed7" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class7"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth7"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class7"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy8"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed8" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class8"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth8"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class8"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy9"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed9" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class9"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth9"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class9"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:paddingTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dy10"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/ed10" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/class10"
+                    android:maxLength="4"
+                    android:hint="@string/enter_class"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+                <EditText
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eth10"
+                    android:hint="@string/enter_course"
+                    android:maxLength="20"
+                    android:layout_toStartOf="@id/class10"
+                    android:maxLines="1"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+    
+</android.support.design.widget.CoordinatorLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.androdev.companion">
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,59 +23,6 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity>
-        <activity
-            android:name=".dayorder1"
-            android:label="@string/dayorder1"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".dayorder2"
-            android:label="@string/dayorder2"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".dayorder3"
-            android:label="@string/dayorder3"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".dayorder4"
-            android:label="@string/dayorder4"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".dayorder5"
-            android:label="@string/dayorder5"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".news"
-            android:label="@string/announcement"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".events"
-            android:label="@string/events"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".about"
-            android:label="About"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".entery"
-            android:label="Enter Details"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".academia"
-            android:label="@string/academia"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
         </activity>
     </application>
-
 </manifest>

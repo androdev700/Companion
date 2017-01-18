@@ -27,8 +27,8 @@
     <string name="dy8">Hour 8</string>
     <string name="dy9">Hour 9</string>
     <string name="dy10">Hour 10</string>
-    <string name="enter_course">Course</string>
-    <string name="enter_class">Room No.</string>
+    <string name="enter_course">Course Name</string>
+    <string name="enter_class">Room</string>
     <string name="version">v2.2.0</string>
     <string name="save">Save</string>
     <string name="academia">Academia</string>
@@ -45,13 +45,18 @@
     <string name="developed_by">Developed By</string>
     <string name="ishuchita">iShuchita</string>
     <string name="help_amp_support"><![CDATA[Help & Support]]></string>
+    <string name="enjoy_weekend">Enjoy The Weekend</string>
+    <string name="good_night">Have a Good Night!</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="lunch_text">Go get some food!</string>
+    <string name="how_was_today">How was your day today?</string>
+    <string name="hi">Hi There!</string>
     <string-array name="days">
         <item>Day Order 1</item>
         <item>Day Order 2</item>
         <item>Day Order 3</item>
         <item>Day Order 4</item>
         <item>Day Order 5</item>
-        <item>Test Day</item>
     </string-array>
     <string-array name="year">
         <item>1st Year</item>
@@ -74,4 +79,29 @@
         <item>To know the timings, touch on the respective hour.</item>
         <item>Schedule not getting saved?</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hour_1">Hour 1 :</string>
+    <string name="n_a">N/A</string>
+    <string name="hour_2">Hour 2 :</string>
+    <string name="hour_3">Hour 3 :</string>
+    <string name="hour_4">Hour 4 :</string>
+    <string name="hour_5">Hour 5 :</string>
+    <string name="hour_6">Hour 6 :</string>
+    <string name="hour_7">Hour 7 :</string>
+    <string name="hour_8">Hour 8 :</string>
+    <string name="hour_9">Hour 9 :</string>
+    <string name="hour_10">Hour 10 :</string>
+    <string name="class_room">Class Room :</string>
+    <string name="your_time_table">Your Timetable</string>
+
+    <string name="help1">Goto any day order and give it a try!</string>
+    <string name="help2">Don\'t forget to press save after entering the data.</string>
+    <string name="app_link"><![CDATA[https://play.google.com/store/apps/details?id=com.android.chrome&hl=en]]></string>
+    <string name="ishucita">http://ishuchita.com/</string>
+    <string name="techcheckone">http://www.facebook.com/techcheckone</string>
+    <string name="free">Free/Not Set</string>
+    <string name="free1">N/A</string>
+
+
 </resources>
