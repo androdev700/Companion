@@ -74,7 +74,13 @@ class TimeHandler {
             t = Integer.toString(temp);
             return("Hour 4 will finish in " + t + " Mins.");
         } else if (j > 1130 && j <= 1230) {
-            return("Go get some food!");
+            if (j < 1200) {
+                temp = 1230 - j - 40;
+            } else {
+                temp = 1230 - j;
+            }
+            t = Integer.toString(temp);
+            return("Hour 5 will finish in " + t + " Mins.");
         } else if (j > 1230 && j <= 1320) {
             if (j < 1300) {
                 temp = 1320 - j - 40;

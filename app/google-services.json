@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "986261722845",
+    "firebase_url": "https://srmcompanion.firebaseio.com",
+    "project_id": "srmcompanion",
+    "storage_bucket": "srmcompanion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986261722845:android:30ffee33ca789ba3",
+        "android_client_info": {
+          "package_name": "com.androdev.companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986261722845-c9affh70e27djqi8jv9m13dmbjcicbb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.companion",
+            "certificate_hash": "4920CB3DF54A5FC928D80E494EB52B712BA99FD0"
+          }
+        },
+        {
+          "client_id": "986261722845-utdnfu0njgjs826av0ldps5augdqcjba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRzmptlDij8aEB93-MTEaEgqzkVwjMbZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986261722845-utdnfu0njgjs826av0ldps5augdqcjba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
