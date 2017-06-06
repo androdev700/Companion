@@ -33,17 +33,9 @@ public class DayFragment2 extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((AppCompatActivity)getActivity()).getSupportActionBar()
-                .setTitle(getString(R.string.dayorder2));
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_day_fragment2, container, false);
 
@@ -94,9 +86,7 @@ public class DayFragment2 extends Fragment {
         class8.setText(room1.getString("class8",getString(R.string.free1)));
         class9.setText(room1.getString("class9",getString(R.string.free1)));
         class10.setText(room1.getString("class10",getString(R.string.free1)));
-
         return v;
-
     }
 
     public static Fragment newInstance() {
@@ -105,17 +95,5 @@ public class DayFragment2 extends Fragment {
         fragment.setArguments(args);
         return fragment;
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment fragment = EntryFragment.newInstance();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
-                R.anim.enter_from_left,R.anim.exit_to_right)
-                .replace(R.id.main_frag, fragment)
-                .addToBackStack("null")
-                .commit();
-        return super.onOptionsItemSelected(item);
     }
 }

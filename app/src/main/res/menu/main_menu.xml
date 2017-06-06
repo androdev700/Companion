@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/edit_details"
+        android:orderInCategory="1"
+        android:title="@string/enter_details"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/help"
+        android:orderInCategory="2"
+        android:title="@string/help_amp_support"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/support"
+        android:orderInCategory="3"
+        android:title="@string/support"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="4"
+        android:title="@string/about"
+        app:showAsAction="never" />
+
+</menu>

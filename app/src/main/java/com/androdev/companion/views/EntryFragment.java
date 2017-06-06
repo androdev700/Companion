@@ -14,7 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.androdev.companion.MainActivity;
 import com.androdev.companion.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -72,10 +74,9 @@ public class EntryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((AppCompatActivity) getActivity()).getSupportActionBar()
-                .setTitle(getString(R.string.enter_details));
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_entry, container, false);
+
         hour1 = (EditText) v.findViewById(R.id.eth1);
         hour2 = (EditText) v.findViewById(R.id.eth2);
         hour3 = (EditText) v.findViewById(R.id.eth3);
@@ -106,37 +107,38 @@ public class EntryFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dsp.setAdapter(adapter);
 
-        pref0 = getActivity().getSharedPreferences("day1",MODE_PRIVATE);
-        pref1 = getActivity().getSharedPreferences("day2",MODE_PRIVATE);
-        pref2 = getActivity().getSharedPreferences("day3",MODE_PRIVATE);
-        pref3 = getActivity().getSharedPreferences("day4",MODE_PRIVATE);
-        pref4 = getActivity().getSharedPreferences("day5",MODE_PRIVATE);
-        class0 = getActivity().getSharedPreferences("class1",MODE_PRIVATE);
-        class1 = getActivity().getSharedPreferences("class2",MODE_PRIVATE);
-        class2 = getActivity().getSharedPreferences("class3",MODE_PRIVATE);
-        class3 = getActivity().getSharedPreferences("class4",MODE_PRIVATE);
-        class4 = getActivity().getSharedPreferences("class5",MODE_PRIVATE);
+        pref0 = getActivity().getSharedPreferences("day1", MODE_PRIVATE);
+        pref1 = getActivity().getSharedPreferences("day2", MODE_PRIVATE);
+        pref2 = getActivity().getSharedPreferences("day3", MODE_PRIVATE);
+        pref3 = getActivity().getSharedPreferences("day4", MODE_PRIVATE);
+        pref4 = getActivity().getSharedPreferences("day5", MODE_PRIVATE);
+        class0 = getActivity().getSharedPreferences("class1", MODE_PRIVATE);
+        class1 = getActivity().getSharedPreferences("class2", MODE_PRIVATE);
+        class2 = getActivity().getSharedPreferences("class3", MODE_PRIVATE);
+        class3 = getActivity().getSharedPreferences("class4", MODE_PRIVATE);
+        class4 = getActivity().getSharedPreferences("class5", MODE_PRIVATE);
 
         AdapterView.OnItemSelectedListener day = new AdapterView.OnItemSelectedListener() {
-            String[] days = {"You're Editing Day Order 1","You're Editing Day Order 2",
-                    "You're Editing Day Order 3","You're Editing Day Order 4",
-                    "You're Editing Day Order 5","Now Saving in SQL Database"};
+            String[] days = {"You're Editing Day Order 1", "You're Editing Day Order 2",
+                    "You're Editing Day Order 3", "You're Editing Day Order 4",
+                    "You're Editing Day Order 5", "Now Saving in SQL Database"};
+
             @Override
             public void onItemSelected(AdapterView<?> spinner, View container,
                                        int position, long id) {
                 if (position == 0) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, days[position], Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                    hour1.setText(pref0.getString("hour1",null));
-                    hour2.setText(pref0.getString("hour2",null));
-                    hour3.setText(pref0.getString("hour3",null));
-                    hour4.setText(pref0.getString("hour4",null));
-                    hour5.setText(pref0.getString("hour5","Lunch"));
-                    hour6.setText(pref0.getString("hour6",null));
-                    hour7.setText(pref0.getString("hour7",null));
-                    hour8.setText(pref0.getString("hour8",null));
-                    hour9.setText(pref0.getString("hour9",null));
-                    hour10.setText(pref0.getString("hour10",null));
+                    hour1.setText(pref0.getString("hour1", null));
+                    hour2.setText(pref0.getString("hour2", null));
+                    hour3.setText(pref0.getString("hour3", null));
+                    hour4.setText(pref0.getString("hour4", null));
+                    hour5.setText(pref0.getString("hour5", "Lunch"));
+                    hour6.setText(pref0.getString("hour6", null));
+                    hour7.setText(pref0.getString("hour7", null));
+                    hour8.setText(pref0.getString("hour8", null));
+                    hour9.setText(pref0.getString("hour9", null));
+                    hour10.setText(pref0.getString("hour10", null));
                     c1.setText(class0.getString("class1", null));
                     c2.setText(class0.getString("class2", null));
                     c3.setText(class0.getString("class3", null));
@@ -174,24 +176,23 @@ public class EntryFragment extends Fragment {
                             ceditor.putString("class9", c9.getText().toString());
                             ceditor.putString("class10", c10.getText().toString());
                             ceditor.apply();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved" , Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
                     });
-                }
-                else if (position == 1) {
+                } else if (position == 1) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, days[position], Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                    hour1.setText(pref1.getString("hour1",null));
-                    hour2.setText(pref1.getString("hour2",null));
-                    hour3.setText(pref1.getString("hour3",null));
-                    hour4.setText(pref1.getString("hour4",null));
-                    hour5.setText(pref1.getString("hour5","Lunch"));
-                    hour6.setText(pref1.getString("hour6",null));
-                    hour7.setText(pref1.getString("hour7",null));
-                    hour8.setText(pref1.getString("hour8",null));
-                    hour9.setText(pref1.getString("hour9",null));
-                    hour10.setText(pref1.getString("hour10",null));
+                    hour1.setText(pref1.getString("hour1", null));
+                    hour2.setText(pref1.getString("hour2", null));
+                    hour3.setText(pref1.getString("hour3", null));
+                    hour4.setText(pref1.getString("hour4", null));
+                    hour5.setText(pref1.getString("hour5", "Lunch"));
+                    hour6.setText(pref1.getString("hour6", null));
+                    hour7.setText(pref1.getString("hour7", null));
+                    hour8.setText(pref1.getString("hour8", null));
+                    hour9.setText(pref1.getString("hour9", null));
+                    hour10.setText(pref1.getString("hour10", null));
                     c1.setText(class1.getString("class1", null));
                     c2.setText(class1.getString("class2", null));
                     c3.setText(class1.getString("class3", null));
@@ -229,25 +230,24 @@ public class EntryFragment extends Fragment {
                             ceditor1.putString("class9", c9.getText().toString());
                             ceditor1.putString("class10", c10.getText().toString());
                             ceditor1.apply();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved" , Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
                             snackbar.show();
-                            Fragment fragment = HomeFragment.newInstance();
+                            Fragment fragment = HomeYourTimeTableFragment.newInstance();
                         }
                     });
-                }
-                else if (position == 2) {
+                } else if (position == 2) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, days[position], Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                    hour1.setText(pref2.getString("hour1",null));
-                    hour2.setText(pref2.getString("hour2",null));
-                    hour3.setText(pref2.getString("hour3",null));
-                    hour4.setText(pref2.getString("hour4",null));
-                    hour5.setText(pref2.getString("hour5","Lunch"));
-                    hour6.setText(pref2.getString("hour6",null));
-                    hour7.setText(pref2.getString("hour7",null));
-                    hour8.setText(pref2.getString("hour8",null));
-                    hour9.setText(pref2.getString("hour9",null));
-                    hour10.setText(pref2.getString("hour10",null));
+                    hour1.setText(pref2.getString("hour1", null));
+                    hour2.setText(pref2.getString("hour2", null));
+                    hour3.setText(pref2.getString("hour3", null));
+                    hour4.setText(pref2.getString("hour4", null));
+                    hour5.setText(pref2.getString("hour5", "Lunch"));
+                    hour6.setText(pref2.getString("hour6", null));
+                    hour7.setText(pref2.getString("hour7", null));
+                    hour8.setText(pref2.getString("hour8", null));
+                    hour9.setText(pref2.getString("hour9", null));
+                    hour10.setText(pref2.getString("hour10", null));
                     c1.setText(class2.getString("class1", null));
                     c2.setText(class2.getString("class2", null));
                     c3.setText(class2.getString("class3", null));
@@ -285,24 +285,23 @@ public class EntryFragment extends Fragment {
                             ceditor2.putString("class9", c9.getText().toString());
                             ceditor2.putString("class10", c10.getText().toString());
                             ceditor2.apply();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved" , Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
                     });
-                }
-                else if (position == 3) {
+                } else if (position == 3) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, days[position], Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                    hour1.setText(pref3.getString("hour1",null));
-                    hour2.setText(pref3.getString("hour2",null));
-                    hour3.setText(pref3.getString("hour3",null));
-                    hour4.setText(pref3.getString("hour4",null));
-                    hour5.setText(pref3.getString("hour5","Lunch"));
-                    hour6.setText(pref3.getString("hour6",null));
-                    hour7.setText(pref3.getString("hour7",null));
-                    hour8.setText(pref3.getString("hour8",null));
-                    hour9.setText(pref3.getString("hour9",null));
-                    hour10.setText(pref3.getString("hour10",null));
+                    hour1.setText(pref3.getString("hour1", null));
+                    hour2.setText(pref3.getString("hour2", null));
+                    hour3.setText(pref3.getString("hour3", null));
+                    hour4.setText(pref3.getString("hour4", null));
+                    hour5.setText(pref3.getString("hour5", "Lunch"));
+                    hour6.setText(pref3.getString("hour6", null));
+                    hour7.setText(pref3.getString("hour7", null));
+                    hour8.setText(pref3.getString("hour8", null));
+                    hour9.setText(pref3.getString("hour9", null));
+                    hour10.setText(pref3.getString("hour10", null));
                     c1.setText(class3.getString("class1", null));
                     c2.setText(class3.getString("class2", null));
                     c3.setText(class3.getString("class3", null));
@@ -340,24 +339,23 @@ public class EntryFragment extends Fragment {
                             ceditor3.putString("class9", c9.getText().toString());
                             ceditor3.putString("class10", c10.getText().toString());
                             ceditor3.apply();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved" , Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
                     });
-                }
-                else if (position == 4) {
+                } else if (position == 4) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, days[position], Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                    hour1.setText(pref4.getString("hour1",null));
-                    hour2.setText(pref4.getString("hour2",null));
-                    hour3.setText(pref4.getString("hour3",null));
-                    hour4.setText(pref4.getString("hour4",null));
-                    hour5.setText(pref4.getString("hour5","Lunch"));
-                    hour6.setText(pref4.getString("hour6",null));
-                    hour7.setText(pref4.getString("hour7",null));
-                    hour8.setText(pref4.getString("hour8",null));
-                    hour9.setText(pref4.getString("hour9",null));
-                    hour10.setText(pref4.getString("hour10",null));
+                    hour1.setText(pref4.getString("hour1", null));
+                    hour2.setText(pref4.getString("hour2", null));
+                    hour3.setText(pref4.getString("hour3", null));
+                    hour4.setText(pref4.getString("hour4", null));
+                    hour5.setText(pref4.getString("hour5", "Lunch"));
+                    hour6.setText(pref4.getString("hour6", null));
+                    hour7.setText(pref4.getString("hour7", null));
+                    hour8.setText(pref4.getString("hour8", null));
+                    hour9.setText(pref4.getString("hour9", null));
+                    hour10.setText(pref4.getString("hour10", null));
                     c1.setText(class4.getString("class1", null));
                     c2.setText(class4.getString("class2", null));
                     c3.setText(class4.getString("class3", null));
@@ -395,14 +393,16 @@ public class EntryFragment extends Fragment {
                             ceditor4.putString("class9", c9.getText().toString());
                             ceditor4.putString("class10", c10.getText().toString());
                             ceditor4.apply();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved" , Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
                     });
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
         };
         dsp.setOnItemSelectedListener(day);
         return v;

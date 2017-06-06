@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_time_table"
+        android:enabled="true"
+        android:icon="@drawable/ic_time_table"
+        android:title="@string/your_time_table"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_whats_new"
+        android:enabled="true"
+        android:icon="@drawable/ic_events"
+        android:title="@string/whatsnew"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_estudy"
+        android:enabled="true"
+        android:icon="@drawable/ic_estudy"
+        android:title="@string/estudy"
+        app:showAsAction="ifRoom" />
+</menu>

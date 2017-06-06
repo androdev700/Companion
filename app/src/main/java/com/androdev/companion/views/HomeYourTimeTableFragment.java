@@ -13,9 +13,9 @@ import com.androdev.companion.R;
  * Created by ayushsingh on 02/01/17.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeYourTimeTableFragment extends Fragment {
 
-    public HomeFragment() {
+    public HomeYourTimeTableFragment() {
         // Required empty public constructor
     }
 
@@ -28,17 +28,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Home");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_screen, container, false);
+        return inflater.inflate(R.layout.fragment_home_screen_your_time_table, container, false);
     }
 
     public static Fragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+        HomeYourTimeTableFragment fragment = new HomeYourTimeTableFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-
     }
-
 }

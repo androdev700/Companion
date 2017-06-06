@@ -17,16 +17,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androdev.companion.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
-import java.util.Objects;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
@@ -35,14 +38,14 @@ import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class EventsFragment extends Fragment {
 
-    String url1 = "";
-    Elements elements1;
-    ListView listView1;
+    String url = "";
+    Elements elements;
+    ListView listView;
+
     ProgressDialog mProgressDialog;
     ArrayAdapter<String> adapter;
-    static final String[] values1 = new String[]{"", "", "", "", "", "", "", ""};
-    static final String[] valuesUrl = new String[]{"about:blank", "about:blank", "about:blank",
-            "about:blank", "about:blank", "about:blank", "about:blank", "about:blank"};
+    ArrayList<String> values = new ArrayList<>();
+    ArrayList<String> valuesUrl = new ArrayList<>();
 
     public EventsFragment() {
         // Required empty public constructor
@@ -58,33 +61,24 @@ public class EventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((AppCompatActivity)getActivity()).getSupportActionBar()
-                .setTitle(getString(R.string.events));
-        View v = inflater.inflate(R.layout.fragment_events, container, false);
-        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id
-                .events_coordinator);
-        Snackbar.make(coordinatorLayout, "Testing Network.." ,250).show();
-        if (checkInternetConnection(inflater, container)) {
 
-            listView1 = (ListView) v.findViewById(R.id.events_list);
-            adapter = new ArrayAdapter<>(getContext(),
-                    android.R.layout.simple_list_item_1, android.R.id.text1, values1);
-            listView1.setAdapter(adapter);
-            listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        View v = inflater.inflate(R.layout.fragment_events, container, false);
+
+        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.events_coordinator);
+        Snackbar.make(coordinatorLayout, "Testing Network..", 250).show();
+        if (checkInternetConnection(inflater, container)) {
+            listView = (ListView) v.findViewById(R.id.events_list);
+            listView.setDivider(null);
+            adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, R.id.list_text, values);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(!Objects.equals(valuesUrl[position], "about:blank")) {
-                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                        builder.setShowTitle(true);
-                        builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
-                        CustomTabsIntent customTabsIntent = builder.build();
-                        customTabsIntent.launchUrl(getContext(), Uri.parse(valuesUrl[position]));
-                    }
-                    else {
-                        Snackbar snackbar = Snackbar.make(coordinatorLayout, " No Events Here!. ",
-                                Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                    }
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setShowTitle(true);
+                    builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(getContext(), Uri.parse(valuesUrl.get(position)));
                 }
             });
         }
@@ -96,13 +90,12 @@ public class EventsFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-
     }
 
     private boolean checkInternetConnection(final LayoutInflater inflater, final ViewGroup container) {
+
         View v = inflater.inflate(R.layout.fragment_events, container, false);
-        final CoordinatorLayout coordinatorLayout1 = (CoordinatorLayout) v.findViewById(R.id
-                .events_coordinator);
+        final CoordinatorLayout coordinatorLayout1 = (CoordinatorLayout) v.findViewById(R.id.events_coordinator);
 
         ConnectivityManager connect = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
         if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
@@ -113,9 +106,8 @@ public class EventsFragment extends Fragment {
             return true;
         } else if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
                 connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
-            Toast.makeText(getContext(),"Check Your Internet Connection.",Toast.LENGTH_LONG).show();
-            Snackbar.make(coordinatorLayout1,
-                    " Check Your Internet Connection. ", Snackbar.LENGTH_INDEFINITE).show();
+            Toast.makeText(getContext(), "Check Your Internet Connection.", Toast.LENGTH_LONG).show();
+            Snackbar.make(coordinatorLayout1, "Check Your Internet Connection.", Snackbar.LENGTH_INDEFINITE).show();
             return false;
         }
         return false;
@@ -124,6 +116,7 @@ public class EventsFragment extends Fragment {
     public class ParsePage extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(getContext());
             mProgressDialog.setTitle("Getting Events");
@@ -137,34 +130,30 @@ public class EventsFragment extends Fragment {
             org.jsoup.nodes.Document doc;
             try {
                 doc = Jsoup.connect("http://www.srmuniv.ac.in/featured-events").get();
-                elements1 = doc.getElementsByTag("h4");
-                url1 = elements1.toString();
-                url1 = url1.replaceAll("(<h4> )[^&]*(</h4>)", "");
-                url1 = url1.replace("<h4>FEATURED EVENTS</h4>", "");
-                url1 = url1.replaceAll("&amp;", "&");
+                elements = doc.getElementsByTag("h4");
+                url = elements.toString();
+                url = url.replaceAll("(<h4> )[^&]*(</h4>)", "");
+                url = url.replace("<h4>FEATURED EVENTS</h4>", "");
+                url = url.replaceAll("&amp;", "&");
                 Pattern p = Pattern.compile(">([^\"]*)</a>");
-                Matcher m = p.matcher(url1);
-                int c = 0;
+                Matcher m = p.matcher(url);
                 while (m.find()) {
-                    values1[c] = m.group(1);
-                    c++;
+                    values.add(m.group(1));
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
-                url1 = null;
+                url = null;
             }
-            return url1;
+            return url;
         }
+
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
             Pattern p1 = Pattern.compile("href=\"([^\"]*)\"");
-            Matcher m1 = p1.matcher(url1);
-            int c1 = 0;
+            Matcher m1 = p1.matcher(url);
             while (m1.find()) {
-                valuesUrl[c1] = m1.group(1);
-                c1++;
+                valuesUrl.add(m1.group(1));
             }
             adapter.notifyDataSetChanged();
         }

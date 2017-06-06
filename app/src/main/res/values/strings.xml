@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">SRM Companion</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">Companion</string>
     <string name="login">Enter Academia Details</string>
     <string name="dayorder1">Day Order 1</string>
     <string name="dayorder2">Day Order 2</string>
@@ -101,6 +99,8 @@
     <string name="techcheckone">http://www.facebook.com/techcheckone</string>
     <string name="free">Free/Not Set</string>
     <string name="free1">N/A</string>
+    <string name="home">Home</string>
+    <string name="estudy">eStudy</string>
 
 
 </resources>

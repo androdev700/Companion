@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androdev.companion.R;
@@ -40,10 +41,8 @@ public class AcademiaFragment extends Fragment {
                              final Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        ((AppCompatActivity)getActivity()).getSupportActionBar()
-                .setTitle(getString(R.string.academia));
-
         View v = inflater.inflate(R.layout.fragment_academia, container, false);
+
         if(checkInternetConnection(inflater, container, savedInstanceState)) {
             WebView webView = (WebView)v.findViewById(R.id.academia_web);
             webView.canGoForward();
