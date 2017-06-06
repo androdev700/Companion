@@ -12,7 +12,7 @@ import java.util.TimeZone;
 
 class TimeHandler {
     
-    String timeupdate() {
+    protected String timeUpdate() {
         
         String day;
         int temp,j;

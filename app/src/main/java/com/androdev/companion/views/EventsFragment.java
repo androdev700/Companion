@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.companion.views;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -18,6 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.androdev.companion.R;
+
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import java.io.IOException;

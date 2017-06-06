@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.companion.views;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import com.androdev.companion.R;
 
 /**
  * Created by ayushsingh on 09/01/17.

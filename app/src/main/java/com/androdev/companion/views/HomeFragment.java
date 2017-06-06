@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.companion.views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.androdev.companion.R;
 
 /**
  * Created by ayushsingh on 02/01/17.

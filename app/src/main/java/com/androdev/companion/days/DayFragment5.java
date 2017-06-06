@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.companion.days;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.androdev.companion.R;
+import com.androdev.companion.views.EntryFragment;
 
 /**
  * Created by ayushsingh on 02/01/17.

@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +21,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.androdev.companion.views.AcademiaFragment;
+import com.androdev.companion.days.DayFragment1;
+import com.androdev.companion.days.DayFragment2;
+import com.androdev.companion.days.DayFragment3;
+import com.androdev.companion.days.DayFragment4;
+import com.androdev.companion.days.DayFragment5;
+import com.androdev.companion.views.EntryFragment;
+import com.androdev.companion.views.EventsFragment;
+import com.androdev.companion.views.HomeFragment;
+import com.androdev.companion.views.NewsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -73,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Setting Timer
         final TimeHandler timeHandler = new TimeHandler();
         final TextView timeViewer = (TextView) findViewById(R.id.time_text);
-        timeViewer.setText(timeHandler.timeupdate());
+        timeViewer.setText(timeHandler.timeUpdate());
 
         Thread th = new Thread() {
             @Override
@@ -87,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            timeViewer.setText(timeHandler.timeupdate());
+                            timeViewer.setText(timeHandler.timeUpdate());
                         }
                     });
                 }

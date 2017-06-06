@@ -5,11 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.androdev.companion.DayFragment2">
+    tools:context="com.androdev.companion.days.DayFragment2">
 
-    <android.support.v7.widget.GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        app:orientation="vertical"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
@@ -70,8 +70,8 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -124,8 +124,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -178,8 +179,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -232,8 +234,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -286,8 +289,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -340,8 +344,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -394,8 +399,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -448,8 +454,9 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_height="80dp">
 
             <TextView
@@ -502,7 +509,6 @@
             app:cardBackgroundColor="@color/colorPrimary"
             android:elevation="2dp"
             android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="0dp"
             android:layout_margin="10dp"
             android:layout_height="80dp">
 
@@ -551,6 +557,6 @@
 
         </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.GridLayout>
+    </LinearLayout>
 
 </ScrollView>
