@@ -1,11 +1,11 @@
-package com.androdev.companion.views;
+package com.androdev.timetable.views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.androdev.companion.R;
+import com.androdev.timetable.R;
 
 /**
  * Created by andro on 06/06/17.

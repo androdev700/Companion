@@ -1,4 +1,4 @@
-package com.androdev.companion.views;
+package com.androdev.timetable.views;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,17 +8,15 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androdev.companion.R;
+import com.androdev.timetable.R;
 
 /**
  * Created by ayushsingh on 09/01/17.

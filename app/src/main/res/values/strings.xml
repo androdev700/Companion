@@ -36,7 +36,7 @@
     <string name="editing">Save when finished Adding/Editing</string>
     <string name="select_year">Select Year</string>
     <string name="srm_weebly">SRM Weebly</string>
-    <string name="study">Study</string>
+    <string name="estudy">Study</string>
     <string name="lt_androdev"><![CDATA[<androdev/>]]></string>
     <string name="androdev700_gmail_com">androdev700@gmail.com</string>
     <string name="for_suggestions_amp_bugs"><![CDATA[For Suggestions & Bugs]]></string>
@@ -100,7 +100,7 @@
     <string name="free">Free/Not Set</string>
     <string name="free1">N/A</string>
     <string name="home">Home</string>
-    <string name="estudy">eStudy</string>
+    <string name="back_button">Back Button</string>
 
 
 </resources>

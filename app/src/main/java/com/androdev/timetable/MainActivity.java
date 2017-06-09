@@ -1,5 +1,6 @@
-package com.androdev.companion;
+package com.androdev.timetable;
 
+import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,100 +17,34 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androdev.companion.days.DayFragment1;
-import com.androdev.companion.days.DayFragment2;
-import com.androdev.companion.days.DayFragment3;
-import com.androdev.companion.days.DayFragment4;
-import com.androdev.companion.days.DayFragment5;
-import com.androdev.companion.views.AcademiaFragment;
-import com.androdev.companion.views.EntryFragment;
-import com.androdev.companion.views.EventsFragment;
-import com.androdev.companion.views.HomeOthers;
-import com.androdev.companion.views.HomeWhatsNew;
-import com.androdev.companion.views.HomeYourTimeTableFragment;
-import com.androdev.companion.views.NewsFragment;
+import com.androdev.timetable.days.DayFragment1;
+import com.androdev.timetable.days.DayFragment2;
+import com.androdev.timetable.days.DayFragment3;
+import com.androdev.timetable.days.DayFragment4;
+import com.androdev.timetable.days.DayFragment5;
+import com.androdev.timetable.handlers.TimeHandler;
+import com.androdev.timetable.views.AcademiaFragment;
+import com.androdev.timetable.views.EntryFragment;
+import com.androdev.timetable.views.EventsFragment;
+import com.androdev.timetable.views.HomeOthers;
+import com.androdev.timetable.views.HomeWhatsNew;
+import com.androdev.timetable.views.HomeYourTimeTableFragment;
+import com.androdev.timetable.views.NewsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView actionBarTitle;
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        actionBarTitle.setText(R.string.home);
-        showBottomBar();
-    }
-
-    public void hideBottomBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setVisibility(View.GONE);
-    }
-
-    public void showBottomBar() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.edit_details :
-                hideBottomBar();
-                Fragment fragment = EntryFragment.newInstance();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
-                        R.anim.enter_from_left, R.anim.exit_to_right)
-                        .replace(R.id.main_frag, fragment)
-                        .addToBackStack("null")
-                        .commit();
-                break;
-            case R.id.help :
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.help_amp_support).setItems(R.array.help_support, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (i == 0) {
-                            Uri uri = Uri.parse(getString(R.string.app_link));
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                            startActivity(intent);
-                        } else if (i == 1) {
-                            Toast.makeText(getBaseContext(), R.string.help1,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (i == 2) {
-                            Toast.makeText(getBaseContext(), R.string.help2,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-                break;
-            case R.id.support :
-                Uri uri = Uri.parse(getString(R.string.techcheckone));
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-                break;
-            case R.id.about :
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                builder1.setTitle(R.string.app_name);
-                builder1.setMessage(R.string.version);
-                AlertDialog alertDialog = builder1.create();
-                alertDialog.show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    ImageView view;
+    BottomNavigationView bottomNavigationView;
+    FrameLayout header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,10 +52,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
-
+        view = (ImageView) findViewById(R.id.toolbar_image);
+        view.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
         actionBarTitle.setText(R.string.home);
+        header = (FrameLayout) findViewById(R.id.header);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         final Fragment fragment = HomeYourTimeTableFragment.newInstance();
         //First Run Check
@@ -179,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     Fragment frag;
+                    int location;
 
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -188,18 +127,21 @@ public class MainActivity extends AppCompatActivity {
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.main_frag, frag)
                                         .commit();
+                                location = 1;
                                 break;
                             case R.id.action_whats_new:
                                 frag = HomeWhatsNew.newInstance();
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.main_frag, frag)
                                         .commit();
+                                location = 2;
                                 break;
                             case R.id.action_estudy:
                                 frag = HomeOthers.newInstance();
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.main_frag, frag)
                                         .commit();
+                                location = 3;
                                 break;
                         }
                         return true;
@@ -207,7 +149,101 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.edit_details:
+                hideBottomBar();
+                revealBack();
+                Fragment fragment = EntryFragment.newInstance();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
+                        R.anim.enter_from_left, R.anim.exit_to_right)
+                        .replace(R.id.main_frag, fragment)
+                        .addToBackStack("null")
+                        .commit();
+                break;
+            case R.id.help:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.help_amp_support).setItems(R.array.help_support, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (i == 0) {
+                            Uri uri = Uri.parse(getString(R.string.app_link));
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                            startActivity(intent);
+                        } else if (i == 1) {
+                            Toast.makeText(getBaseContext(), R.string.help1,
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (i == 2) {
+                            Toast.makeText(getBaseContext(), R.string.help2,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                break;
+            case R.id.support:
+                Uri uri = Uri.parse(getString(R.string.techcheckone));
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                break;
+            case R.id.about:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setTitle(R.string.app_name);
+                builder1.setMessage(R.string.version);
+                AlertDialog alertDialog = builder1.create();
+                alertDialog.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        actionBarTitle.setText(R.string.home);
+        showBottomBar();
+        view.setVisibility(View.GONE);
+    }
+
+    public void revealBack() {
+        int cx = view.getWidth() / 2;
+        int cy = view.getHeight() / 2;
+        // get the final radius for the clipping circle
+        float finalRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        view.setVisibility(View.VISIBLE);
+        anim.start();
+    }
+
+    public void hideBottomBar() {
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, bottomNavigationView.getHeight());
+        animation.setDuration(250);
+        bottomNavigationView.setAnimation(animation);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomBar() {
+        TranslateAnimation animation = new TranslateAnimation(0, 0, bottomNavigationView.getHeight(), 0);
+        animation.setDuration(200);
+        bottomNavigationView.setAnimation(animation);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
     public void card1(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.dayorder1);
         Fragment fragment = DayFragment1.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -219,6 +255,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card2(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.dayorder2);
         Fragment fragment = DayFragment2.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -230,6 +268,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card3(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.dayorder3);
         Fragment fragment = DayFragment3.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -241,6 +281,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card4(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.dayorder4);
         Fragment fragment = DayFragment4.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -252,6 +294,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card5(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.dayorder5);
         Fragment fragment = DayFragment5.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -263,6 +307,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void news(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.announcement);
         Fragment fragment = NewsFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -274,6 +320,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void event(View view) {
+        hideBottomBar();
+        revealBack();
         actionBarTitle.setText(R.string.events);
         Fragment fragment = EventsFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -286,6 +334,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void academia(View view) {
         hideBottomBar();
+        revealBack();
+        actionBarTitle.setText(R.string.academia);
         Fragment fragment = AcademiaFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
@@ -334,5 +384,9 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void backPressed(View view) {
+        onBackPressed();
     }
 }

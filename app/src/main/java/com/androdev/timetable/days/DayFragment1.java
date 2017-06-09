@@ -1,20 +1,14 @@
-package com.androdev.companion.days;
+package com.androdev.timetable.days;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.androdev.companion.R;
-import com.androdev.companion.views.EntryFragment;
+import com.androdev.timetable.R;
 
 /**
  * Created by ayushsingh on 02/01/17.

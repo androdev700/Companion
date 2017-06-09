@@ -21,6 +21,14 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary">
 
+                <ImageView
+                    android:id="@+id/toolbar_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/back_button"
+                    android:onClick="backPressed"
+                    android:src="@drawable/ic_back" />
+
                 <TextView
                     android:id="@+id/action_bar_title"
                     android:layout_width="wrap_content"
@@ -36,8 +44,9 @@
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="56dp"
             android:background="@color/colorPrimaryDark"
             android:elevation="4dp">
 
@@ -62,19 +71,18 @@
             <FrameLayout
                 android:id="@+id/main_frag"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/bottom_navigation" />
+                android:layout_height="match_parent" />
 
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
+                android:background="@android:color/white"
                 app:elevation="8dp"
-                app:itemBackground="@color/colorPrimaryDark"
-                app:itemIconTint="@android:color/white"
-                app:itemTextColor="@android:color/white"
+                app:itemIconTint="@drawable/selector"
+                app:itemTextColor="@drawable/selector"
                 app:menu="@menu/bottom_navigation_main" />
 
         </RelativeLayout>

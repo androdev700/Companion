@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.timetable;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

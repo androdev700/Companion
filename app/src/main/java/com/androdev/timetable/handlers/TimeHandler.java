@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.timetable.handlers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,9 +10,9 @@ import java.util.TimeZone;
  * Created by ayushsingh on 02/01/17.
  */
 
-class TimeHandler {
+public class TimeHandler {
     
-    protected String timeUpdate() {
+    public String timeUpdate() {
         
         String day;
         int temp,j;

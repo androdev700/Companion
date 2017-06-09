@@ -1,4 +1,4 @@
-package com.androdev.companion;
+package com.androdev.timetable;
 
 import org.junit.Test;
 
