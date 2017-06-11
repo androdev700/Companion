@@ -3,6 +3,7 @@ package com.androdev.timetable;
 import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,11 +21,11 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androdev.timetable.dayorder.DayOrder;
 import com.androdev.timetable.days.DayFragment1;
 import com.androdev.timetable.days.DayFragment2;
 import com.androdev.timetable.days.DayFragment3;
@@ -38,18 +39,57 @@ import com.androdev.timetable.views.HomeOthers;
 import com.androdev.timetable.views.HomeWhatsNew;
 import com.androdev.timetable.views.HomeYourTimeTableFragment;
 import com.androdev.timetable.views.NewsFragment;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView actionBarTitle;
-    ImageView view;
-    BottomNavigationView bottomNavigationView;
-    FrameLayout header;
+    private static final int RC_SIGN_IN = 1;
+    private String mUsername;
+
+    private TextView actionBarTitle;
+    private ImageView view;
+    private BottomNavigationView bottomNavigationView;
+
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private DatabaseReference mDatabaseReference;
+    private static DatabaseReference userRef;
+
+    SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
+    String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6", "hour7",
+            "hour8", "hour9", "hour10"};
+    String[] className = new String[]{"class1", "class2", "class3", "class4", "class5", "class6",
+            "class7", "class8", "class9", "class10"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        pref0 = getSharedPreferences("day1", MODE_PRIVATE);
+        pref1 = getSharedPreferences("day2", MODE_PRIVATE);
+        pref2 = getSharedPreferences("day3", MODE_PRIVATE);
+        pref3 = getSharedPreferences("day4", MODE_PRIVATE);
+        pref4 = getSharedPreferences("day5", MODE_PRIVATE);
+        class0 = getSharedPreferences("class1", MODE_PRIVATE);
+        class1 = getSharedPreferences("class2", MODE_PRIVATE);
+        class2 = getSharedPreferences("class3", MODE_PRIVATE);
+        class3 = getSharedPreferences("class4", MODE_PRIVATE);
+        class4 = getSharedPreferences("class5", MODE_PRIVATE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         view = (ImageView) findViewById(R.id.toolbar_image);
@@ -57,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
         actionBarTitle.setText(R.string.home);
-        header = (FrameLayout) findViewById(R.id.header);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         final Fragment fragment = HomeYourTimeTableFragment.newInstance();
@@ -74,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.main_frag, fragment1)
                     .addToBackStack(null)
                     .commit();
-            Toast.makeText(getBaseContext(), "Press back when done entering details", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Press back when done entering details",
+                    Toast.LENGTH_LONG).show();
             hideBottomBar();
 
         } else {
@@ -147,11 +187,154 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    mUsername = user.getUid();
+                    userRef = mDatabaseReference.child(mUsername);
+
+                    DatabaseReference fetchDayOrder1 = userRef.child("day_order1");
+                    fetchDayOrder1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue(DayOrder.class) != null) {
+                                DayOrder order = dataSnapshot.getValue(DayOrder.class);
+                                ArrayList<String> course = order.getCourse();
+                                ArrayList<String> room = order.getRoom();
+                                setData(course, room, pref0, class0);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    DatabaseReference fetchDayOrder2 = userRef.child("day_order2");
+                    fetchDayOrder2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue(DayOrder.class) != null) {
+                                DayOrder order = dataSnapshot.getValue(DayOrder.class);
+                                ArrayList<String> course = order.getCourse();
+                                ArrayList<String> room = order.getRoom();
+                                setData(course, room, pref1, class1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    DatabaseReference fetchDayOrder3 = userRef.child("day_order3");
+                    fetchDayOrder3.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue(DayOrder.class) != null) {
+                                DayOrder order = dataSnapshot.getValue(DayOrder.class);
+                                ArrayList<String> course = order.getCourse();
+                                ArrayList<String> room = order.getRoom();
+                                setData(course, room, pref2, class2);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    DatabaseReference fetchDayOrder4 = userRef.child("day_order4");
+                    fetchDayOrder4.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue(DayOrder.class) != null) {
+                                DayOrder order = dataSnapshot.getValue(DayOrder.class);
+                                ArrayList<String> course = order.getCourse();
+                                ArrayList<String> room = order.getRoom();
+                                setData(course, room, pref3, class3);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    DatabaseReference fetchDayOrder5 = userRef.child("day_order5");
+                    fetchDayOrder5.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue(DayOrder.class) != null) {
+                                DayOrder order = dataSnapshot.getValue(DayOrder.class);
+                                ArrayList<String> course = order.getCourse();
+                                ArrayList<String> room = order.getRoom();
+                                setData(course, room, pref4, class4);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                } else {
+                    // User is signed out
+                    startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+                            .setProviders(Arrays.asList(
+                                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                            .setTheme(R.style.AppTheme)
+                            .build(), RC_SIGN_IN);
+                }
+            }
+        };
+    }
+
+    public void clearData() {
+        pref0.edit().clear().apply();
+        pref1.edit().clear().apply();
+        pref2.edit().clear().apply();
+        pref3.edit().clear().apply();
+        pref4.edit().clear().apply();
+        class0.edit().clear().apply();
+        class1.edit().clear().apply();
+        class2.edit().clear().apply();
+        class3.edit().clear().apply();
+        class4.edit().clear().apply();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -170,6 +353,10 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.main_frag, fragment)
                         .addToBackStack("null")
                         .commit();
+                break;
+            case R.id.sign_out:
+                clearData();
+                AuthUI.getInstance().signOut(this);
                 break;
             case R.id.help:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -219,7 +406,6 @@ public class MainActivity extends AppCompatActivity {
     public void revealBack() {
         int cx = view.getWidth() / 2;
         int cy = view.getHeight() / 2;
-        // get the final radius for the clipping circle
         float finalRadius = (float) Math.hypot(cx, cy);
         Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -345,13 +531,13 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void suchita(View view) {
+    /*public void suchita(View view) {
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         builder.setShowTitle(true);
         builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(MainActivity.this, Uri.parse(getString(R.string.ishucita)));
-    }
+    }*/
 
     public void weebly(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -388,5 +574,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void backPressed(View view) {
         onBackPressed();
+    }
+
+    public static void writeData(String dayOrder, DayOrder obj) {
+        DatabaseReference dayOrderRef = userRef.child(dayOrder);
+        dayOrderRef.setValue(obj);
+    }
+
+    public void setData(ArrayList<String> course, ArrayList<String> room, SharedPreferences pref,
+                        SharedPreferences clas) {
+        int index = 0;
+        SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences.Editor editorClass = clas.edit();
+        for (int i = 0; i < 10; i++) {
+            editor.putString(hourName[index], course.get(index));
+            editorClass.putString(className[index], room.get(index));
+            index++;
+        }
+        editor.apply();
+        editorClass.apply();
     }
 }

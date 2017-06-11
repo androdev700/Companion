@@ -14,7 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.androdev.timetable.MainActivity;
 import com.androdev.timetable.R;
+import com.androdev.timetable.dayorder.DayOrder;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -25,37 +32,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class EntryFragment extends Fragment {
 
     Button button;
-    EditText hour1;
-    EditText hour2;
-    EditText hour3;
-    EditText hour4;
-    EditText hour5;
-    EditText hour6;
-    EditText hour7;
-    EditText hour8;
-    EditText hour9;
-    EditText hour10;
-    EditText c1;
-    EditText c2;
-    EditText c3;
-    EditText c4;
-    EditText c5;
-    EditText c6;
-    EditText c7;
-    EditText c8;
-    EditText c9;
-    EditText c10;
+    EditText hour1,hour2,hour3,hour4,hour5,hour6,hour7,hour8,hour9,hour10;
+    EditText c1,c2,c3,c4,c5,c6,c7,c8,c9,c10;
     Spinner dsp;
-    SharedPreferences pref0;
-    SharedPreferences pref1;
-    SharedPreferences pref2;
-    SharedPreferences pref3;
-    SharedPreferences pref4;
-    SharedPreferences class0;
-    SharedPreferences class1;
-    SharedPreferences class2;
-    SharedPreferences class3;
-    SharedPreferences class4;
+    SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
 
     public EntryFragment() {
         // Required empty public constructor
@@ -74,30 +54,29 @@ public class EntryFragment extends Fragment {
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_entry, container, false);
 
-        hour1 = (EditText) v.findViewById(R.id.eth1);
-        hour2 = (EditText) v.findViewById(R.id.eth2);
-        hour3 = (EditText) v.findViewById(R.id.eth3);
-        hour4 = (EditText) v.findViewById(R.id.eth4);
-        hour5 = (EditText) v.findViewById(R.id.eth5);
-        hour6 = (EditText) v.findViewById(R.id.eth6);
-        hour7 = (EditText) v.findViewById(R.id.eth7);
-        hour8 = (EditText) v.findViewById(R.id.eth8);
-        hour9 = (EditText) v.findViewById(R.id.eth9);
-        hour10 = (EditText) v.findViewById(R.id.eth10);
-        c1 = (EditText) v.findViewById(R.id.class1);
-        c2 = (EditText) v.findViewById(R.id.class2);
-        c3 = (EditText) v.findViewById(R.id.class3);
-        c4 = (EditText) v.findViewById(R.id.class4);
-        c5 = (EditText) v.findViewById(R.id.class5);
-        c6 = (EditText) v.findViewById(R.id.class6);
-        c7 = (EditText) v.findViewById(R.id.class7);
-        c8 = (EditText) v.findViewById(R.id.class8);
-        c9 = (EditText) v.findViewById(R.id.class9);
-        c10 = (EditText) v.findViewById(R.id.class10);
-        dsp = (Spinner) v.findViewById(R.id.dayspinner);
-        button = (Button) v.findViewById(R.id.save);
-        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id
-                .enterycoordinate);
+        hour1 = v.findViewById(R.id.eth1);
+        hour2 = v.findViewById(R.id.eth2);
+        hour3 = v.findViewById(R.id.eth3);
+        hour4 = v.findViewById(R.id.eth4);
+        hour5 = v.findViewById(R.id.eth5);
+        hour6 = v.findViewById(R.id.eth6);
+        hour7 = v.findViewById(R.id.eth7);
+        hour8 = v.findViewById(R.id.eth8);
+        hour9 = v.findViewById(R.id.eth9);
+        hour10 = v.findViewById(R.id.eth10);
+        c1 = v.findViewById(R.id.class1);
+        c2 = v.findViewById(R.id.class2);
+        c3 = v.findViewById(R.id.class3);
+        c4 = v.findViewById(R.id.class4);
+        c5 = v.findViewById(R.id.class5);
+        c6 = v.findViewById(R.id.class6);
+        c7 = v.findViewById(R.id.class7);
+        c8 = v.findViewById(R.id.class8);
+        c9 = v.findViewById(R.id.class9);
+        c10 = v.findViewById(R.id.class10);
+        dsp = v.findViewById(R.id.dayspinner);
+        button = v.findViewById(R.id.save);
+        final CoordinatorLayout coordinatorLayout = v.findViewById(R.id.enterycoordinate);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.days, android.R.layout.simple_spinner_item);
@@ -149,6 +128,24 @@ public class EntryFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            String[] course = new String[]{hour1.getText().toString(),
+                                    hour2.getText().toString(), hour3.getText().toString(),
+                                    hour4.getText().toString(), hour5.getText().toString(),
+                                    hour6.getText().toString(), hour7.getText().toString(),
+                                    hour8.getText().toString(), hour9.getText().toString(),
+                                    hour10.getText().toString()};
+                            String[] room = new String[]{c1.getText().toString(),
+                                    c2.getText().toString(), c3.getText().toString(),
+                                    c4.getText().toString(), c5.getText().toString(),
+                                    c6.getText().toString(), c7.getText().toString(),
+                                    c8.getText().toString(), c9.getText().toString(),
+                                    c10.getText().toString()};
+                            ArrayList<String> courses = new ArrayList<>(Arrays.asList(course));
+                            ArrayList<String> rooms = new ArrayList<>(Arrays.asList(room));
+                            DayOrder order = new DayOrder(courses, rooms);
+                            MainActivity.writeData("day_order1", order);
+
                             SharedPreferences.Editor editor0 = pref0.edit();
                             editor0.putString("hour1", hour1.getText().toString());
                             editor0.putString("hour2", hour2.getText().toString());
@@ -203,6 +200,24 @@ public class EntryFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            String[] course = new String[]{hour1.getText().toString(),
+                                    hour2.getText().toString(), hour3.getText().toString(),
+                                    hour4.getText().toString(), hour5.getText().toString(),
+                                    hour6.getText().toString(), hour7.getText().toString(),
+                                    hour8.getText().toString(), hour9.getText().toString(),
+                                    hour10.getText().toString()};
+                            String[] room = new String[]{c1.getText().toString(),
+                                    c2.getText().toString(), c3.getText().toString(),
+                                    c4.getText().toString(), c5.getText().toString(),
+                                    c6.getText().toString(), c7.getText().toString(),
+                                    c8.getText().toString(), c9.getText().toString(),
+                                    c10.getText().toString()};
+                            ArrayList<String> courses = new ArrayList<>(Arrays.asList(course));
+                            ArrayList<String> rooms = new ArrayList<>(Arrays.asList(room));
+                            DayOrder order = new DayOrder(courses, rooms);
+                            MainActivity.writeData("day_order2", order);
+
                             SharedPreferences.Editor editor1 = pref1.edit();
                             editor1.putString("hour1", hour1.getText().toString());
                             editor1.putString("hour2", hour2.getText().toString());
@@ -258,6 +273,24 @@ public class EntryFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            String[] course = new String[]{hour1.getText().toString(),
+                                    hour2.getText().toString(), hour3.getText().toString(),
+                                    hour4.getText().toString(), hour5.getText().toString(),
+                                    hour6.getText().toString(), hour7.getText().toString(),
+                                    hour8.getText().toString(), hour9.getText().toString(),
+                                    hour10.getText().toString()};
+                            String[] room = new String[]{c1.getText().toString(),
+                                    c2.getText().toString(), c3.getText().toString(),
+                                    c4.getText().toString(), c5.getText().toString(),
+                                    c6.getText().toString(), c7.getText().toString(),
+                                    c8.getText().toString(), c9.getText().toString(),
+                                    c10.getText().toString()};
+                            ArrayList<String> courses = new ArrayList<>(Arrays.asList(course));
+                            ArrayList<String> rooms = new ArrayList<>(Arrays.asList(room));
+                            DayOrder order = new DayOrder(courses, rooms);
+                            MainActivity.writeData("day_order3", order);
+
                             SharedPreferences.Editor editor2 = pref2.edit();
                             editor2.putString("hour1", hour1.getText().toString());
                             editor2.putString("hour2", hour2.getText().toString());
@@ -312,6 +345,24 @@ public class EntryFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            String[] course = new String[]{hour1.getText().toString(),
+                                    hour2.getText().toString(), hour3.getText().toString(),
+                                    hour4.getText().toString(), hour5.getText().toString(),
+                                    hour6.getText().toString(), hour7.getText().toString(),
+                                    hour8.getText().toString(), hour9.getText().toString(),
+                                    hour10.getText().toString()};
+                            String[] room = new String[]{c1.getText().toString(),
+                                    c2.getText().toString(), c3.getText().toString(),
+                                    c4.getText().toString(), c5.getText().toString(),
+                                    c6.getText().toString(), c7.getText().toString(),
+                                    c8.getText().toString(), c9.getText().toString(),
+                                    c10.getText().toString()};
+                            ArrayList<String> courses = new ArrayList<>(Arrays.asList(course));
+                            ArrayList<String> rooms = new ArrayList<>(Arrays.asList(room));
+                            DayOrder order = new DayOrder(courses, rooms);
+                            MainActivity.writeData("day_order4", order);
+
                             SharedPreferences.Editor editor3 = pref3.edit();
                             editor3.putString("hour1", hour1.getText().toString());
                             editor3.putString("hour2", hour2.getText().toString());
@@ -366,6 +417,24 @@ public class EntryFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
+                            String[] course = new String[]{hour1.getText().toString(),
+                                    hour2.getText().toString(), hour3.getText().toString(),
+                                    hour4.getText().toString(), hour5.getText().toString(),
+                                    hour6.getText().toString(), hour7.getText().toString(),
+                                    hour8.getText().toString(), hour9.getText().toString(),
+                                    hour10.getText().toString()};
+                            String[] room = new String[]{c1.getText().toString(),
+                                    c2.getText().toString(), c3.getText().toString(),
+                                    c4.getText().toString(), c5.getText().toString(),
+                                    c6.getText().toString(), c7.getText().toString(),
+                                    c8.getText().toString(), c9.getText().toString(),
+                                    c10.getText().toString()};
+                            ArrayList<String> courses = new ArrayList<>(Arrays.asList(course));
+                            ArrayList<String> rooms = new ArrayList<>(Arrays.asList(room));
+                            DayOrder order = new DayOrder(courses, rooms);
+                            MainActivity.writeData("day_order5", order);
+
                             SharedPreferences.Editor editor4 = pref4.edit();
                             editor4.putString("hour1", hour1.getText().toString());
                             editor4.putString("hour2", hour2.getText().toString());
@@ -390,7 +459,8 @@ public class EntryFragment extends Fragment {
                             ceditor4.putString("class9", c9.getText().toString());
                             ceditor4.putString("class10", c10.getText().toString());
                             ceditor4.apply();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved",
+                                    Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
                     });

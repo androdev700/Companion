@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "986261722845",
-    "firebase_url": "https://srmcompanion.firebaseio.com",
-    "project_id": "srmcompanion",
-    "storage_bucket": "srmcompanion.appspot.com"
+    "project_number": "9492694600",
+    "firebase_url": "https://companion-63425.firebaseio.com",
+    "project_id": "companion-63425",
+    "storage_bucket": "companion-63425.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:986261722845:android:30ffee33ca789ba3",
+        "mobilesdk_app_id": "1:9492694600:android:2ec73f80db3327af",
         "android_client_info": {
-          "package_name": "com.androdev.companion"
+          "package_name": "com.androdev.timetable"
         }
       },
       "oauth_client": [
         {
-          "client_id": "986261722845-c9affh70e27djqi8jv9m13dmbjcicbb4.apps.googleusercontent.com",
+          "client_id": "9492694600-v6836ruq6f2sb4boioo8r46ksoeo0slr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.androdev.companion",
-            "certificate_hash": "4920CB3DF54A5FC928D80E494EB52B712BA99FD0"
+            "package_name": "com.androdev.timetable",
+            "certificate_hash": "6963396d796dfd424dd39b35daf63f48747fc8ab"
           }
         },
         {
-          "client_id": "986261722845-utdnfu0njgjs826av0ldps5augdqcjba.apps.googleusercontent.com",
+          "client_id": "9492694600-i1of66rdrp8mdkr4bj2maljoaaac8i7s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDRzmptlDij8aEB93-MTEaEgqzkVwjMbZw"
+          "current_key": "AIzaSyCLqsmK6AojxzX1x_A63wXPj7z7EiVVxAE"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "986261722845-utdnfu0njgjs826av0ldps5augdqcjba.apps.googleusercontent.com",
+              "client_id": "9492694600-i1of66rdrp8mdkr4bj2maljoaaac8i7s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

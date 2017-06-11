@@ -37,27 +37,27 @@ public class DayFragment1 extends Fragment {
         pref0 = getContext().getSharedPreferences("day1",0);
         room0 = getContext().getSharedPreferences("class1",0);
 
-        TextView hour1 = (TextView) v.findViewById(R.id.d1class1);
-        TextView hour2 = (TextView) v.findViewById(R.id.d1class2);
-        TextView hour3 = (TextView) v.findViewById(R.id.d1class3);
-        TextView hour4 = (TextView) v.findViewById(R.id.d1class4);
-        TextView hour5 = (TextView) v.findViewById(R.id.d1class5);
-        TextView hour6 = (TextView) v.findViewById(R.id.d1class6);
-        TextView hour7 = (TextView) v.findViewById(R.id.d1class7);
-        TextView hour8 = (TextView) v.findViewById(R.id.d1class8);
-        TextView hour9 = (TextView) v.findViewById(R.id.d1class9);
-        TextView hour10 = (TextView) v.findViewById(R.id.d1class10);
+        TextView hour1 = v.findViewById(R.id.d1class1);
+        TextView hour2 = v.findViewById(R.id.d1class2);
+        TextView hour3 = v.findViewById(R.id.d1class3);
+        TextView hour4 = v.findViewById(R.id.d1class4);
+        TextView hour5 = v.findViewById(R.id.d1class5);
+        TextView hour6 = v.findViewById(R.id.d1class6);
+        TextView hour7 = v.findViewById(R.id.d1class7);
+        TextView hour8 = v.findViewById(R.id.d1class8);
+        TextView hour9 = v.findViewById(R.id.d1class9);
+        TextView hour10 = v.findViewById(R.id.d1class10);
 
-        TextView class1 = (TextView) v.findViewById(R.id.d1room1);
-        TextView class2 = (TextView) v.findViewById(R.id.d1room2);
-        TextView class3 = (TextView) v.findViewById(R.id.d1room3);
-        TextView class4 = (TextView) v.findViewById(R.id.d1room4);
-        TextView class5 = (TextView) v.findViewById(R.id.d1room5);
-        TextView class6 = (TextView) v.findViewById(R.id.d1room6);
-        TextView class7 = (TextView) v.findViewById(R.id.d1room7);
-        TextView class8 = (TextView) v.findViewById(R.id.d1room8);
-        TextView class9 = (TextView) v.findViewById(R.id.d1room9);
-        TextView class10 = (TextView) v.findViewById(R.id.d1room10);
+        TextView class1 = v.findViewById(R.id.d1room1);
+        TextView class2 = v.findViewById(R.id.d1room2);
+        TextView class3 = v.findViewById(R.id.d1room3);
+        TextView class4 = v.findViewById(R.id.d1room4);
+        TextView class5 = v.findViewById(R.id.d1room5);
+        TextView class6 = v.findViewById(R.id.d1room6);
+        TextView class7 = v.findViewById(R.id.d1room7);
+        TextView class8 = v.findViewById(R.id.d1room8);
+        TextView class9 = v.findViewById(R.id.d1room9);
+        TextView class10 = v.findViewById(R.id.d1room10);
 
         hour1.setText(pref0.getString("hour1",getString(R.string.free)));
         hour2.setText(pref0.getString("hour2",getString(R.string.free)));
