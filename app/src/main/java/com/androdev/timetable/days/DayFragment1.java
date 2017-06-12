@@ -88,6 +88,5 @@ public class DayFragment1 extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-
     }
 }

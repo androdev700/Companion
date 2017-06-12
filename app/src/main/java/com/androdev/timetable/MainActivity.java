@@ -15,11 +15,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +36,7 @@ import com.androdev.timetable.days.DayFragment2;
 import com.androdev.timetable.days.DayFragment3;
 import com.androdev.timetable.days.DayFragment4;
 import com.androdev.timetable.days.DayFragment5;
+import com.androdev.timetable.handlers.DayOrderHandler;
 import com.androdev.timetable.handlers.TimeHandler;
 import com.androdev.timetable.views.AcademiaFragment;
 import com.androdev.timetable.views.EntryFragment;
@@ -44,16 +50,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
+    private static final String TAG = "MainActivity";
+    private String dayOrder = "Today is ";
     private String mUsername;
 
     private TextView actionBarTitle;
@@ -65,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private static DatabaseReference userRef;
 
-    SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
-    String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6", "hour7",
-            "hour8", "hour9", "hour10"};
-    String[] className = new String[]{"class1", "class2", "class3", "class4", "class5", "class6",
-            "class7", "class8", "class9", "class10"};
+    private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
+    private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
+            "hour7", "hour8", "hour9", "hour10"};
+    private String[] className = new String[]{"class1", "class2", "class3", "class4", "class5",
+            "class6", "class7", "class8", "class9", "class10"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,52 +104,82 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        view = (ImageView) findViewById(R.id.toolbar_image);
-        view.setVisibility(View.GONE);
         setSupportActionBar(toolbar);
+
+        view = (ImageView) findViewById(R.id.toolbar_image);
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
-        actionBarTitle.setText(R.string.home);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-        final Fragment fragment = HomeYourTimeTableFragment.newInstance();
-        //First Run Check
+        view.setVisibility(View.GONE);
+        actionBarTitle.setText(R.string.home);
+
+        final Animation in = new AlphaAnimation(0.0f, 1.0f);
+        in.setDuration(500);
+
+        Fragment fragment = HomeYourTimeTableFragment.newInstance();
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            //Starting the Home Page
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_frag, fragment)
-                    .commit();
-            Fragment fragment1 = EntryFragment.newInstance();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_frag, fragment1)
-                    .addToBackStack(null)
-                    .commit();
-            Toast.makeText(getBaseContext(), "Press back when done entering details",
+            Toast.makeText(getBaseContext(), "Enter your details from menu options!",
                     Toast.LENGTH_LONG).show();
-            hideBottomBar();
-
-        } else {
-            //Starting the Home Page
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_frag, fragment)
-                    .commit();
-
         }
+        //Starting the Home Page
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_frag, fragment)
+                .commit();
+
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).apply();
 
         //Setting Timer
         final TimeHandler timeHandler = new TimeHandler();
         final TextView timeViewer = (TextView) findViewById(R.id.time_text);
-        timeViewer.setText(timeHandler.timeUpdate());
+
+        //Setting Day Order
+        Date date = new Date();
+        String day = (String) DateFormat.format("dd", date);
+        String monthNumber = (String) DateFormat.format("MM", date);
+        String todayDate = day + " " + monthNumber;
+        Log.d(TAG, todayDate);
+
+        DayOrderHandler orderHandler = new DayOrderHandler();
+        DatabaseReference dayRef = orderHandler.initDatabase(todayDate);
+        dayRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                try {
+                    if (dataSnapshot.getValue(Long.class) != null) {
+                        dayOrder = Long.toString(dataSnapshot.getValue(Long.class));
+                        timeViewer.startAnimation(in);
+                        timeViewer.setText(String.format("%s %s", getString(R.string.today_is), dayOrder));
+                        Log.d(TAG, dayOrder);
+                    } else {
+                        timeViewer.startAnimation(in);
+                        timeViewer.setText(timeHandler.timeUpdate());
+                    }
+                } catch (DatabaseException e) {
+                    dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
+                    timeViewer.startAnimation(in);
+                    timeViewer.setText(dayOrder);
+                    Log.d(TAG, dayOrder);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
         Thread th = new Thread() {
             @Override
             public void run() {
                 while (!isInterrupted()) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(15000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -152,8 +194,6 @@ public class MainActivity extends AppCompatActivity {
         };
         th.start();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     Fragment frag;
@@ -211,6 +251,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", databaseError.toException());
+                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -228,6 +272,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", databaseError.toException());
+                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -245,6 +293,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", databaseError.toException());
+                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -262,6 +314,10 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", databaseError.toException());
+                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -279,9 +335,12 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            // Failed to read value
+                            Log.w(TAG, "Failed to read value.", databaseError.toException());
+                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
-
                 } else {
                     // User is signed out
                     startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
@@ -293,19 +352,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-    }
-
-    public void clearData() {
-        pref0.edit().clear().apply();
-        pref1.edit().clear().apply();
-        pref2.edit().clear().apply();
-        pref3.edit().clear().apply();
-        pref4.edit().clear().apply();
-        class0.edit().clear().apply();
-        class1.edit().clear().apply();
-        class2.edit().clear().apply();
-        class3.edit().clear().apply();
-        class4.edit().clear().apply();
     }
 
     @Override
@@ -403,29 +449,7 @@ public class MainActivity extends AppCompatActivity {
         view.setVisibility(View.GONE);
     }
 
-    public void revealBack() {
-        int cx = view.getWidth() / 2;
-        int cy = view.getHeight() / 2;
-        float finalRadius = (float) Math.hypot(cx, cy);
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        view.setVisibility(View.VISIBLE);
-        anim.start();
-    }
-
-    public void hideBottomBar() {
-        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, bottomNavigationView.getHeight());
-        animation.setDuration(250);
-        bottomNavigationView.setAnimation(animation);
-        bottomNavigationView.setVisibility(View.GONE);
-    }
-
-    public void showBottomBar() {
-        TranslateAnimation animation = new TranslateAnimation(0, 0, bottomNavigationView.getHeight(), 0);
-        animation.setDuration(200);
-        bottomNavigationView.setAnimation(animation);
-        bottomNavigationView.setVisibility(View.VISIBLE);
-    }
+    // View Listeners
 
     public void card1(View view) {
         hideBottomBar();
@@ -576,16 +600,31 @@ public class MainActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    // UI Control
+
+    public void clearData() {
+        pref0.edit().clear().apply();
+        pref1.edit().clear().apply();
+        pref2.edit().clear().apply();
+        pref3.edit().clear().apply();
+        pref4.edit().clear().apply();
+        class0.edit().clear().apply();
+        class1.edit().clear().apply();
+        class2.edit().clear().apply();
+        class3.edit().clear().apply();
+        class4.edit().clear().apply();
+    }
+
     public static void writeData(String dayOrder, DayOrder obj) {
         DatabaseReference dayOrderRef = userRef.child(dayOrder);
         dayOrderRef.setValue(obj);
     }
 
     public void setData(ArrayList<String> course, ArrayList<String> room, SharedPreferences pref,
-                        SharedPreferences clas) {
+                        SharedPreferences classPreferences) {
         int index = 0;
         SharedPreferences.Editor editor = pref.edit();
-        SharedPreferences.Editor editorClass = clas.edit();
+        SharedPreferences.Editor editorClass = classPreferences.edit();
         for (int i = 0; i < 10; i++) {
             editor.putString(hourName[index], course.get(index));
             editorClass.putString(className[index], room.get(index));
@@ -593,5 +632,29 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.apply();
         editorClass.apply();
+    }
+
+    public void revealBack() {
+        int cx = view.getWidth() / 2;
+        int cy = view.getHeight() / 2;
+        float finalRadius = (float) Math.hypot(cx, cy);
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        view.setVisibility(View.VISIBLE);
+        anim.start();
+    }
+
+    public void hideBottomBar() {
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, bottomNavigationView.getHeight());
+        animation.setDuration(250);
+        bottomNavigationView.setAnimation(animation);
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomBar() {
+        TranslateAnimation animation = new TranslateAnimation(0, 0, bottomNavigationView.getHeight(), 0);
+        animation.setDuration(200);
+        bottomNavigationView.setAnimation(animation);
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

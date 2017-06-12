@@ -27,7 +27,7 @@
     <string name="dy10">Hour 10</string>
     <string name="enter_course">Course Name</string>
     <string name="enter_class">Room</string>
-    <string name="version">v2.2.0</string>
+    <string name="version">v3.0b</string>
     <string name="save">Save</string>
     <string name="academia">Academia</string>
     <string name="support">Support Dev</string>
@@ -101,6 +101,7 @@
     <string name="free1">N/A</string>
     <string name="home">Home</string>
     <string name="back_button">Back Button</string>
+    <string name="today_is">Today is day order</string>
 
 
 </resources>
