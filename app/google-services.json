@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "9492694600-v6836ruq6f2sb4boioo8r46ksoeo0slr.apps.googleusercontent.com",
+          "client_id": "9492694600-ta8ghn86v7srdk82lsm6c6av9trh997b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.androdev.timetable",
-            "certificate_hash": "6963396d796dfd424dd39b35daf63f48747fc8ab"
+            "certificate_hash": "435ab47a9c6ff41dfb109ecf36b2bcc44b5f8d54"
           }
         },
         {

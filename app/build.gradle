@@ -8,7 +8,7 @@ android {
         applicationId "com.androdev.timetable"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 16
+        versionCode 17
         versionName "3.0b"
     }
     buildTypes {

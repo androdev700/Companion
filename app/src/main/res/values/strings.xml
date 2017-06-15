@@ -101,7 +101,8 @@
     <string name="free1">N/A</string>
     <string name="home">Home</string>
     <string name="back_button">Back Button</string>
-    <string name="today_is">Today is day order</string>
+    <string name="today_is_day">Today is day order</string>
+    <string name="today_is">Today is</string>
 
 
 </resources>

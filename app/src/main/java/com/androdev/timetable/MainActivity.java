@@ -64,6 +64,7 @@ import java.util.TimeZone;
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
+    private int count = 0;
     private static final String TAG = "MainActivity";
     private String dayOrder = "Today is ";
     private String mUsername;
@@ -71,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView actionBarTitle;
     private ImageView view;
     private BottomNavigationView bottomNavigationView;
+    private TextView timeViewer;
 
+    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference mDatabaseReference;
@@ -84,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
             "class6", "class7", "class8", "class9", "class10"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) throws IllegalThreadStateException {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference();
 
         pref0 = getSharedPreferences("day1", MODE_PRIVATE);
         pref1 = getSharedPreferences("day2", MODE_PRIVATE);
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         view = (ImageView) findViewById(R.id.toolbar_image);
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        timeViewer = (TextView) findViewById(R.id.time_text);
 
         view.setVisibility(View.GONE);
         actionBarTitle.setText(R.string.home);
@@ -116,70 +121,30 @@ public class MainActivity extends AppCompatActivity {
         final Animation in = new AlphaAnimation(0.0f, 1.0f);
         in.setDuration(500);
 
-        Fragment fragment = HomeYourTimeTableFragment.newInstance();
+        //First Run Check
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             Toast.makeText(getBaseContext(), "Enter your details from menu options!",
                     Toast.LENGTH_LONG).show();
         }
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).apply();
+
         //Starting the Home Page
+        Fragment fragment = HomeYourTimeTableFragment.newInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_frag, fragment)
                 .commit();
 
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).apply();
-
         //Setting Timer
         final TimeHandler timeHandler = new TimeHandler();
-        final TextView timeViewer = (TextView) findViewById(R.id.time_text);
-
-        //Setting Day Order
-        Date date = new Date();
-        String day = (String) DateFormat.format("dd", date);
-        String monthNumber = (String) DateFormat.format("MM", date);
-        String todayDate = day + " " + monthNumber;
-        Log.d(TAG, todayDate);
-
-        DayOrderHandler orderHandler = new DayOrderHandler();
-        DatabaseReference dayRef = orderHandler.initDatabase(todayDate);
-        dayRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                try {
-                    if (dataSnapshot.getValue(Long.class) != null) {
-                        dayOrder = Long.toString(dataSnapshot.getValue(Long.class));
-                        timeViewer.startAnimation(in);
-                        timeViewer.setText(String.format("%s %s", getString(R.string.today_is), dayOrder));
-                        Log.d(TAG, dayOrder);
-                    } else {
-                        timeViewer.startAnimation(in);
-                        timeViewer.setText(timeHandler.timeUpdate());
-                    }
-                } catch (DatabaseException e) {
-                    dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
-                    timeViewer.startAnimation(in);
-                    timeViewer.setText(dayOrder);
-                    Log.d(TAG, dayOrder);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-
-        Thread th = new Thread() {
+        final Thread th = new Thread() {
             @Override
             public void run() {
                 while (!isInterrupted()) {
                     try {
-                        Thread.sleep(15000);
+                        Thread.sleep(13000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -193,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         th.start();
+
+        //Setting Day Order
+        Date date = new Date();
+        String day = (String) DateFormat.format("dd", date);
+        String monthNumber = (String) DateFormat.format("MM", date);
+        final String todayDate = day + " " + monthNumber;
+        Log.d(TAG, todayDate);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -251,10 +223,6 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to read value.", databaseError.toException());
-                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
-                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -272,10 +240,6 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to read value.", databaseError.toException());
-                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
-                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -293,10 +257,6 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to read value.", databaseError.toException());
-                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
-                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -314,10 +274,6 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to read value.", databaseError.toException());
-                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
-                                    Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -335,12 +291,37 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            // Failed to read value
-                            Log.w(TAG, "Failed to read value.", databaseError.toException());
-                            Toast.makeText(getBaseContext(), "Failed to fetch data.",
-                                    Toast.LENGTH_LONG).show();
                         }
                     });
+
+                    DayOrderHandler orderHandler = new DayOrderHandler();
+                    DatabaseReference dayRef = orderHandler.initDatabase(todayDate);
+                    dayRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            try {
+                                if (dataSnapshot.getValue(Long.class) != null) {
+                                    dayOrder = Long.toString(dataSnapshot.getValue(Long.class));
+                                    dayOrder = String.format("%s %s", getString(R.string.today_is_day), dayOrder);
+                                    timeViewer.startAnimation(in);
+                                    timeViewer.setText(dayOrder);
+                                    Log.d(TAG, dayOrder);
+                                    Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
+                                }
+                            } catch (DatabaseException e) {
+                                dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
+                                timeViewer.startAnimation(in);
+                                timeViewer.setText(dayOrder);
+                                Log.d(TAG, dayOrder);
+                                Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                        }
+                    });
+
                 } else {
                     // User is signed out
                     startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
@@ -352,6 +333,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        timeViewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (count++ % 2 == 0) {
+                    timeViewer.startAnimation(in);
+                    timeViewer.setText(timeHandler.timeUpdate());
+                } else {
+                    timeViewer.startAnimation(in);
+                    timeViewer.setText(dayOrder);
+                }
+            }
+        });
     }
 
     @Override
@@ -601,7 +595,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // UI Control
-
     public void clearData() {
         pref0.edit().clear().apply();
         pref1.edit().clear().apply();
