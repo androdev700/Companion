@@ -103,6 +103,8 @@
     <string name="back_button">Back Button</string>
     <string name="today_is_day">Today is day order</string>
     <string name="today_is">Today is</string>
+    <string name="error_fetch">Error Fetching Day Order, check your internet connection.</string>
+    <string name="fetching_day">Fetching today\'s day order...</string>
 
 
 </resources>

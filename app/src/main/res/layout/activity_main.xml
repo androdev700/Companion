@@ -61,6 +61,15 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
+            <ProgressBar
+                android:id="@+id/progressBarDayOrder"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="6dp"
+                android:background="@xml/progress" />
+
         </FrameLayout>
 
         <RelativeLayout

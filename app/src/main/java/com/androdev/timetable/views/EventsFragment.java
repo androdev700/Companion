@@ -62,10 +62,10 @@ public class EventsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_events, container, false);
 
-        final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.events_coordinator);
+        final CoordinatorLayout coordinatorLayout = v.findViewById(R.id.events_coordinator);
         Snackbar.make(coordinatorLayout, "Testing Network..", 250).show();
         if (checkInternetConnection(inflater, container)) {
-            listView = (ListView) v.findViewById(R.id.events_list);
+            listView = v.findViewById(R.id.events_list);
             listView.setDivider(null);
             adapter = new ArrayAdapter<>(getContext(), R.layout.list_item, R.id.list_text, values);
             listView.setAdapter(adapter);
@@ -93,7 +93,7 @@ public class EventsFragment extends Fragment {
     private boolean checkInternetConnection(final LayoutInflater inflater, final ViewGroup container) {
 
         View v = inflater.inflate(R.layout.fragment_events, container, false);
-        final CoordinatorLayout coordinatorLayout1 = (CoordinatorLayout) v.findViewById(R.id.events_coordinator);
+        final CoordinatorLayout coordinatorLayout1 = v.findViewById(R.id.events_coordinator);
 
         ConnectivityManager connect = (ConnectivityManager) getActivity().getSystemService(CONNECTIVITY_SERVICE);
         if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
@@ -111,7 +111,7 @@ public class EventsFragment extends Fragment {
         return false;
     }
 
-    public class ParsePage extends AsyncTask<String, Void, String> {
+    private class ParsePage extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
 

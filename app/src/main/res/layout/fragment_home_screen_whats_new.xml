@@ -53,14 +53,13 @@
             android:id="@+id/events_card"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:onClick="event"
             android:stateListAnimator="@animator/raise"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:contentPaddingBottom="10dp">
+            app:cardBackgroundColor="@color/colorPrimary">
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"

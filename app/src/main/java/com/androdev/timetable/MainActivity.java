@@ -1,15 +1,22 @@
 package com.androdev.timetable;
 
 import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.transition.Fade;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -25,8 +32,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView view;
     private BottomNavigationView bottomNavigationView;
     private TextView timeViewer;
+    private ProgressBar progressBarDayOrder;
 
-    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference mDatabaseReference;
@@ -92,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
         pref0 = getSharedPreferences("day1", MODE_PRIVATE);
@@ -114,12 +123,17 @@ public class MainActivity extends AppCompatActivity {
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         timeViewer = (TextView) findViewById(R.id.time_text);
+        progressBarDayOrder = (ProgressBar) findViewById(R.id.progressBarDayOrder);
 
         view.setVisibility(View.GONE);
         actionBarTitle.setText(R.string.home);
 
         final Animation in = new AlphaAnimation(0.0f, 1.0f);
-        in.setDuration(500);
+        final Animation out = new AlphaAnimation(1.0f, 0.0f);
+        in.setDuration(400);
+        in.setInterpolator(new AccelerateDecelerateInterpolator());
+        out.setDuration(400);
+        out.setInterpolator(new AccelerateDecelerateInterpolator());
 
         //First Run Check
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
@@ -139,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting Timer
         final TimeHandler timeHandler = new TimeHandler();
-        final Thread th = new Thread() {
+        final Thread timeThread = new Thread() {
             @Override
             public void run() {
                 while (!isInterrupted()) {
@@ -151,13 +165,36 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            timeViewer.startAnimation(in);
                             timeViewer.setText(timeHandler.timeUpdate());
                         }
                     });
                 }
             }
         };
-        th.start();
+        timeThread.start();
+
+        final Thread connectionThread = new Thread() {
+            @Override
+            public void run() {
+                while (!isInterrupted()) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!checkConnection()) {
+                                Log.d(TAG, "Checking");
+                            }
+                        }
+                    });
+                }
+            }
+        };
+        connectionThread.start();
 
         //Setting Day Order
         Date date = new Date();
@@ -169,36 +206,32 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     Fragment frag;
-                    int location;
+                    FragmentTransaction transaction;
 
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_time_table:
                                 frag = HomeYourTimeTableFragment.newInstance();
-                                getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.main_frag, frag)
-                                        .commit();
-                                location = 1;
+                                transaction = getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.main_frag, frag).commit();
                                 break;
                             case R.id.action_whats_new:
                                 frag = HomeWhatsNew.newInstance();
-                                getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.main_frag, frag)
-                                        .commit();
-                                location = 2;
+                                transaction = getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.main_frag, frag).commit();
                                 break;
                             case R.id.action_estudy:
                                 frag = HomeOthers.newInstance();
-                                getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.main_frag, frag)
-                                        .commit();
-                                location = 3;
+                                transaction = getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.main_frag, frag).commit();
                                 break;
                         }
                         return true;
                     }
                 });
+
+        Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -306,7 +339,6 @@ public class MainActivity extends AppCompatActivity {
                                     timeViewer.startAnimation(in);
                                     timeViewer.setText(dayOrder);
                                     Log.d(TAG, dayOrder);
-                                    Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
                                 }
                             } catch (DatabaseException e) {
                                 dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
@@ -315,6 +347,8 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG, dayOrder);
                                 Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
                             }
+                            progressBarDayOrder.setAnimation(out);
+                            progressBarDayOrder.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -346,6 +380,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void loadActivity() {
+
     }
 
     @Override
@@ -627,6 +665,20 @@ public class MainActivity extends AppCompatActivity {
         editorClass.apply();
     }
 
+    public boolean checkConnection() {
+        ConnectivityManager connect = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+            return true;
+        } else if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+            return false;
+        }
+        return false;
+    }
+
     public void revealBack() {
         int cx = view.getWidth() / 2;
         int cy = view.getHeight() / 2;
@@ -639,14 +691,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideBottomBar() {
         TranslateAnimation animation = new TranslateAnimation(0, 0, 0, bottomNavigationView.getHeight());
-        animation.setDuration(250);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setDuration(400);
         bottomNavigationView.setAnimation(animation);
         bottomNavigationView.setVisibility(View.GONE);
     }
 
     public void showBottomBar() {
         TranslateAnimation animation = new TranslateAnimation(0, 0, bottomNavigationView.getHeight(), 0);
-        animation.setDuration(200);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setDuration(400);
         bottomNavigationView.setAnimation(animation);
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
