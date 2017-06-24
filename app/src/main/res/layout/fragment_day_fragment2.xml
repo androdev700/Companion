@@ -1,559 +1,569 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="com.androdev.timetable.days.DayFragment2">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
+            android:layout_height="80dp"
             android:layout_margin="10dp"
             android:elevation="2dp"
+            android:onClick="showTimeClass1"
             android:stateListAnimator="@animator/raise"
-            android:layout_height="80dp">
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_1"
                 android:id="@+id/hour1"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_1"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class1"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass2"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_2"
                 android:id="@+id/hour2"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_2"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class2"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass3"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_3"
                 android:id="@+id/hour3"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_3"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class3"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass4"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_4"
                 android:id="@+id/hour4"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_4"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class4"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass5"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_5"
                 android:id="@+id/hour5"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_5"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class5"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass6"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_6"
                 android:id="@+id/hour6"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_6"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class6"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass7"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_7"
                 android:id="@+id/hour7"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_7"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class7"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass8"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_8"
                 android:id="@+id/hour8"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_8"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class8"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="80dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:onClick="showTimeClass9"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_9"
                 android:id="@+id/hour9"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_9"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/colorPrimary"
-            android:elevation="2dp"
-            android:stateListAnimator="@animator/raise"
+            android:layout_height="80dp"
             android:layout_margin="10dp"
-            android:layout_height="80dp">
+            android:elevation="2dp"
+            android:onClick="showTimeClass10"
+            android:stateListAnimator="@animator/raise"
+            app:cardBackgroundColor="@color/cardColor">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/hour_10"
                 android:id="@+id/hour10"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textSize="20sp"
-                android:textColor="@color/cardview_light_background"
-                android:layout_height="wrap_content" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/hour_10"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
                 android:id="@+id/d2class10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:layout_gravity="end"
-                android:textColor="@color/cardview_light_background"
                 android:text="@string/n_a"
-                android:layout_height="wrap_content" />
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/class_room"
-                android:textColor="@color/cardview_light_background"
-                android:layout_marginStart="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="45dp"
-                android:textSize="20dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/class_room"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/n_a"
                 android:id="@+id/d2room10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:textSize="20dp"
-                android:textColor="@color/cardview_light_background"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="45dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/n_a"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>
 

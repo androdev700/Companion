@@ -1,29 +1,23 @@
 package com.androdev.timetable;
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.transition.Fade;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,8 +25,6 @@ import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -66,9 +58,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private static DatabaseReference userRef;
 
+    final Animation animationFadeIn = new AlphaAnimation(0.0f, 1.0f);
+    final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
+
     private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
     private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
             "hour7", "hour8", "hour9", "hour10"};
@@ -101,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         pref0 = getSharedPreferences("day1", MODE_PRIVATE);
         pref1 = getSharedPreferences("day2", MODE_PRIVATE);
@@ -124,22 +116,26 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         timeViewer = (TextView) findViewById(R.id.time_text);
         progressBarDayOrder = (ProgressBar) findViewById(R.id.progressBarDayOrder);
+        progressBarDayOrder.getIndeterminateDrawable()
+                .setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
 
-        view.setVisibility(View.GONE);
+        //Setting Home ActionBarText
         actionBarTitle.setText(R.string.home);
+        view.setVisibility(View.GONE);
 
-        final Animation in = new AlphaAnimation(0.0f, 1.0f);
-        final Animation out = new AlphaAnimation(1.0f, 0.0f);
-        in.setDuration(400);
-        in.setInterpolator(new AccelerateDecelerateInterpolator());
-        out.setDuration(400);
-        out.setInterpolator(new AccelerateDecelerateInterpolator());
+        //Customizing Animations
+        animationFadeIn.setDuration(400);
+        animationFadeIn.setInterpolator(new AccelerateDecelerateInterpolator());
+        animationFadeOut.setDuration(400);
+        animationFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
 
         //First Run Check
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            Toast.makeText(getBaseContext(), "Enter your details from menu options!",
+            Toast.makeText(getBaseContext(), "Tap edit to enter/edit your details!",
                     Toast.LENGTH_LONG).show();
         }
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
@@ -151,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.main_frag, fragment)
                 .commit();
 
-        //Setting Timer
+        //Setting Timer Thread
         final TimeHandler timeHandler = new TimeHandler();
         final Thread timeThread = new Thread() {
             @Override
@@ -165,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            timeViewer.startAnimation(in);
+                            timeViewer.startAnimation(animationFadeIn);
                             timeViewer.setText(timeHandler.timeUpdate());
                         }
                     });
@@ -174,35 +170,13 @@ public class MainActivity extends AppCompatActivity {
         };
         timeThread.start();
 
-        final Thread connectionThread = new Thread() {
-            @Override
-            public void run() {
-                while (!isInterrupted()) {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!checkConnection()) {
-                                Log.d(TAG, "Checking");
-                            }
-                        }
-                    });
-                }
-            }
-        };
-        connectionThread.start();
-
         //Setting Day Order
         Date date = new Date();
         String day = (String) DateFormat.format("dd", date);
         String monthNumber = (String) DateFormat.format("MM", date);
         final String todayDate = day + " " + monthNumber;
-        Log.d(TAG, todayDate);
 
+        //Navigation Switcher
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     Fragment frag;
@@ -231,8 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
-
+        //Auth State Listener
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -248,8 +221,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
-                                ArrayList<String> course = order.getCourse();
-                                ArrayList<String> room = order.getRoom();
+                                ArrayList<String> course = null;
+                                ArrayList<String> room = null;
+                                if (order != null) {
+                                    course = order.getCourse();
+                                    room = order.getRoom();
+                                }
                                 setData(course, room, pref0, class0);
                             }
                         }
@@ -265,8 +242,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
-                                ArrayList<String> course = order.getCourse();
-                                ArrayList<String> room = order.getRoom();
+                                ArrayList<String> course = null;
+                                ArrayList<String> room = null;
+                                if (order != null) {
+                                    course = order.getCourse();
+                                    room = order.getRoom();
+                                }
                                 setData(course, room, pref1, class1);
                             }
                         }
@@ -282,8 +263,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
-                                ArrayList<String> course = order.getCourse();
-                                ArrayList<String> room = order.getRoom();
+                                ArrayList<String> course = null;
+                                ArrayList<String> room = null;
+                                if (order != null) {
+                                    course = order.getCourse();
+                                    room = order.getRoom();
+                                }
                                 setData(course, room, pref2, class2);
                             }
                         }
@@ -299,8 +284,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
-                                ArrayList<String> course = order.getCourse();
-                                ArrayList<String> room = order.getRoom();
+                                ArrayList<String> course = null;
+                                ArrayList<String> room = null;
+                                if (order != null) {
+                                    course = order.getCourse();
+                                    room = order.getRoom();
+                                }
                                 setData(course, room, pref3, class3);
                             }
                         }
@@ -316,8 +305,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
-                                ArrayList<String> course = order.getCourse();
-                                ArrayList<String> room = order.getRoom();
+                                ArrayList<String> course = null;
+                                ArrayList<String> room = null;
+                                if (order != null) {
+                                    course = order.getCourse();
+                                    room = order.getRoom();
+                                }
                                 setData(course, room, pref4, class4);
                             }
                         }
@@ -336,18 +329,16 @@ public class MainActivity extends AppCompatActivity {
                                 if (dataSnapshot.getValue(Long.class) != null) {
                                     dayOrder = Long.toString(dataSnapshot.getValue(Long.class));
                                     dayOrder = String.format("%s %s", getString(R.string.today_is_day), dayOrder);
-                                    timeViewer.startAnimation(in);
+                                    timeViewer.startAnimation(animationFadeIn);
                                     timeViewer.setText(dayOrder);
-                                    Log.d(TAG, dayOrder);
                                 }
                             } catch (DatabaseException e) {
                                 dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
-                                timeViewer.startAnimation(in);
+                                timeViewer.startAnimation(animationFadeIn);
                                 timeViewer.setText(dayOrder);
-                                Log.d(TAG, dayOrder);
                                 Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
                             }
-                            progressBarDayOrder.setAnimation(out);
+                            progressBarDayOrder.setAnimation(animationFadeOut);
                             progressBarDayOrder.setVisibility(View.GONE);
                         }
 
@@ -359,31 +350,33 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
-                            .setProviders(Arrays.asList(
+                            .setAvailableProviders(Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                     new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
-                            .setTheme(R.style.AppTheme)
+                            .setTheme(R.style.LoginTheme)
                             .build(), RC_SIGN_IN);
                 }
             }
         };
 
+        //Multi Touch Magic :P
         timeViewer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count++ % 2 == 0) {
-                    timeViewer.startAnimation(in);
+                if (count++ % 2 == 1) {
+                    timeViewer.startAnimation(animationFadeIn);
                     timeViewer.setText(timeHandler.timeUpdate());
                 } else {
-                    timeViewer.startAnimation(in);
-                    timeViewer.setText(dayOrder);
+                    if (dayOrder.equals("Today is ")) {
+                        timeViewer.startAnimation(animationFadeIn);
+                        timeViewer.setText(R.string.fetching_day);
+                    } else {
+                        timeViewer.startAnimation(animationFadeIn);
+                        timeViewer.setText(dayOrder);
+                    }
                 }
             }
         });
-    }
-
-    public void loadActivity() {
-
     }
 
     @Override
@@ -482,7 +475,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // View Listeners
-
     public void card1(View view) {
         hideBottomBar();
         revealBack();
@@ -621,6 +613,13 @@ public class MainActivity extends AppCompatActivity {
                             CustomTabsIntent customTabsIntent = builder.build();
                             customTabsIntent.launchUrl(MainActivity.this,
                                     Uri.parse("http://srmnotes.weebly.com/odd-semester-2016-17.html"));
+                        } else if (which == 3) {
+                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                            builder.setShowTitle(true);
+                            builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
+                            CustomTabsIntent customTabsIntent = builder.build();
+                            customTabsIntent.launchUrl(MainActivity.this,
+                                    Uri.parse("http://srmnotes.weebly.com/even-semester-2016-17.html"));
                         }
                     }
                 });
@@ -630,6 +629,46 @@ public class MainActivity extends AppCompatActivity {
 
     public void backPressed(View view) {
         onBackPressed();
+    }
+
+    public void showTimeClass1(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour1,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass2(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour2,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass3(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour3,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass4(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour4,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass5(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour5,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass6(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour6,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass7(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour7,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass8(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour8,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass9(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour9,Toast.LENGTH_SHORT).show();
+    }
+
+    public void showTimeClass10(View view) {
+        Toast.makeText(getBaseContext(), R.string.time_hour10,Toast.LENGTH_SHORT).show();
     }
 
     // UI Control
@@ -704,4 +743,5 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setAnimation(animation);
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
+
 }

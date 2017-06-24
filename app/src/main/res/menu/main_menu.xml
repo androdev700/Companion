@@ -6,12 +6,13 @@
         android:id="@+id/edit_details"
         android:orderInCategory="1"
         android:title="@string/enter_details"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/sign_out"
         android:orderInCategory="2"
-        android:title="Sign Out"
+        android:title="@string/sign_out"
         app:showAsAction="never" />
 
     <item

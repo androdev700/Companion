@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class EntryFragment extends Fragment {
         hour8 = v.findViewById(R.id.eth8);
         hour9 = v.findViewById(R.id.eth9);
         hour10 = v.findViewById(R.id.eth10);
+
         c1 = v.findViewById(R.id.class1);
         c2 = v.findViewById(R.id.class2);
         c3 = v.findViewById(R.id.class3);
@@ -74,8 +76,21 @@ public class EntryFragment extends Fragment {
         c8 = v.findViewById(R.id.class8);
         c9 = v.findViewById(R.id.class9);
         c10 = v.findViewById(R.id.class10);
+
         dsp = v.findViewById(R.id.dayspinner);
         button = v.findViewById(R.id.save);
+
+        hour1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour3.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour4.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour5.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour6.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour7.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour8.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour9.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        hour10.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+
         final CoordinatorLayout coordinatorLayout = v.findViewById(R.id.enterycoordinate);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -95,9 +110,9 @@ public class EntryFragment extends Fragment {
         class4 = getActivity().getSharedPreferences("class5", MODE_PRIVATE);
 
         AdapterView.OnItemSelectedListener day = new AdapterView.OnItemSelectedListener() {
-            String[] days = {"You're Editing Day Order 1", "You're Editing Day Order 2",
-                    "You're Editing Day Order 3", "You're Editing Day Order 4",
-                    "You're Editing Day Order 5", "Now Saving in SQL Database"};
+            String[] days = {"You're now editing Day Order 1", "You're now editing Day Order 2",
+                    "You're now editing Day Order 3", "You're now editing Day Order 4",
+                    "You're now editing Day Order 5"};
 
             @Override
             public void onItemSelected(AdapterView<?> spinner, View container,

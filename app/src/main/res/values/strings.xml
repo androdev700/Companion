@@ -70,6 +70,8 @@
         <item>ODD Semester 2015–16</item>
         <item>EVEN Semester 2015–16</item>
         <item>ODD Semester 2016–17</item>
+        <item>EVEN Semester 2016–17</item>
+        <item>ODD Semester 2017–18</item>
     </string-array>
     <string-array name="help_support">
         <item>Make sure you have the latest version of Chrome installed.</item>
@@ -104,7 +106,18 @@
     <string name="today_is_day">Today is day order</string>
     <string name="today_is">Today is</string>
     <string name="error_fetch">Error Fetching Day Order, check your internet connection.</string>
-    <string name="fetching_day">Fetching today\'s day order...</string>
+    <string name="fetching_day">Fetching today\'s day order…</string>
+    <string name="sign_out">Sign Out</string>
 
+    <string name="time_hour1">Hour 1 : 08:00 – 08:50</string>
+    <string name="time_hour2">Hour 2 : 08:50 – 09:40</string>
+    <string name="time_hour3">Hour 3 : 09:45 – 10:35</string>
+    <string name="time_hour4">Hour 4 : 10:40 – 11:30</string>
+    <string name="time_hour5">Hour 5 : 11:35 – 12:25</string>
+    <string name="time_hour6">Hour 6 : 12:30 – 13:20</string>
+    <string name="time_hour7">Hour 7 : 13:25 – 14:15</string>
+    <string name="time_hour8">Hour 8 : 14:20 – 15:10</string>
+    <string name="time_hour9">Hour 9 : 15:15 – 16:05</string>
+    <string name="time_hour10">Hour 10 : 16:05 – 16:55</string>
 
 </resources>
