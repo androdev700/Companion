@@ -1,4 +1,4 @@
-package com.androdev.timetable.views;
+package com.androdev.timetable.viewFragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +18,6 @@ import android.widget.Spinner;
 import com.androdev.timetable.MainActivity;
 import com.androdev.timetable.R;
 import com.androdev.timetable.dayorder.DayOrder;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;

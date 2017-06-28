@@ -1,4 +1,4 @@
-package com.androdev.timetable.views;
+package com.androdev.timetable.viewFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

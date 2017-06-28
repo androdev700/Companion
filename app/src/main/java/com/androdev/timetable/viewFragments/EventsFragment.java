@@ -1,4 +1,4 @@
-package com.androdev.timetable.views;
+package com.androdev.timetable.viewFragments;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;

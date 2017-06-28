@@ -39,13 +39,13 @@ import com.androdev.timetable.days.DayFragment4;
 import com.androdev.timetable.days.DayFragment5;
 import com.androdev.timetable.handlers.DayOrderHandler;
 import com.androdev.timetable.handlers.TimeHandler;
-import com.androdev.timetable.views.AcademiaFragment;
-import com.androdev.timetable.views.EntryFragment;
-import com.androdev.timetable.views.EventsFragment;
-import com.androdev.timetable.views.HomeOthers;
-import com.androdev.timetable.views.HomeWhatsNew;
-import com.androdev.timetable.views.HomeYourTimeTableFragment;
-import com.androdev.timetable.views.NewsFragment;
+import com.androdev.timetable.viewFragments.AcademiaFragment;
+import com.androdev.timetable.viewFragments.EntryFragment;
+import com.androdev.timetable.viewFragments.EventsFragment;
+import com.androdev.timetable.viewFragments.HomeOthers;
+import com.androdev.timetable.viewFragments.HomeWhatsNew;
+import com.androdev.timetable.viewFragments.HomeYourTimeTableFragment;
+import com.androdev.timetable.viewFragments.NewsFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -424,6 +424,9 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.main_frag, fragment)
                         .addToBackStack("null")
                         .commit();
+                break;
+            case R.id.edit_slot:
+                startActivity(new Intent(this, SlotSelector.class));
                 break;
             case R.id.sign_out:
                 clearData();

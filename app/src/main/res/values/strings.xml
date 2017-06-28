@@ -14,7 +14,7 @@
     <string name="timetable">Your Timetable</string>
     <string name="share">Share</string>
     <string name="select">Select Day Order    </string>
-    <string name="enter_details">Enter/Edit Details</string>
+    <string name="enter_details">View/Edit Details</string>
     <string name="dy1">Hour 1</string>
     <string name="dy2">Hour 2</string>
     <string name="dy3">Hour 3</string>
@@ -119,5 +119,7 @@
     <string name="time_hour8">Hour 8 : 14:20 – 15:10</string>
     <string name="time_hour9">Hour 9 : 15:15 – 16:05</string>
     <string name="time_hour10">Hour 10 : 16:05 – 16:55</string>
+    <string name="edit_slots">Edit Slots</string>
+    <string name="slot_selector">Slot Selector</string>
 
 </resources>
