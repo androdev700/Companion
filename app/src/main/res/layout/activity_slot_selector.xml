@@ -266,7 +266,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 android:onClick="slotChoice"
                 android:stateListAnimator="@animator/raise">
@@ -285,6 +284,115 @@
 
                 <TextView
                     android:id="@+id/courseG"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="40dp"
+                    android:paddingStart="40dp"
+                    android:paddingTop="40dp"
+                    android:text="Tap to select slot"
+                    android:textColor="@android:color/black" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/slotLab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:onClick="slotChoiceLab"
+                android:stateListAnimator="@animator/raise">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="40dp"
+                    android:paddingStart="40dp"
+                    android:paddingTop="20dp"
+                    android:text="Slot - Lab 1"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/courseLab1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="40dp"
+                    android:paddingStart="40dp"
+                    android:paddingTop="40dp"
+                    android:text="Tap to select slot"
+                    android:textColor="@android:color/black" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/slotLab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:onClick="slotChoiceLab"
+                android:stateListAnimator="@animator/raise">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="40dp"
+                    android:paddingStart="40dp"
+                    android:paddingTop="20dp"
+                    android:text="Slot - Lab 2"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/courseLab2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="40dp"
+                    android:paddingStart="40dp"
+                    android:paddingTop="40dp"
+                    android:text="Tap to select slot"
+                    android:textColor="@android:color/black" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/slotLab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="slotChoiceLab"
+                android:stateListAnimator="@animator/raise">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="40dp"
+                    android:paddingStart="40dp"
+                    android:paddingTop="20dp"
+                    android:text="Slot - Lab 3"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/courseLab3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

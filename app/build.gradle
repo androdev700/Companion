@@ -1,35 +1,38 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'Companion'
+            keyPassword 'L@mb0ayu21'
+            storeFile file('/Users/andro/Documents/AndroidStudioProjects/Companion.jks')
+            storePassword 'L@mb0ayu21'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
-
     defaultConfig {
         applicationId "com.androdev.timetable"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 17
-        versionName "3.0b"
+        versionCode 20
+        versionName "3.0PublicBeta"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/jsoup-1.9.1.jar')
-
     // Support Library
-    
-
     // Firebase
-    
     // Firebase UI
-    
     compile 'com.android.support:support-annotations:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'

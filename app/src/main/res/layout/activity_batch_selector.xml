@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.androdev.timetable.BatchSelector">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarSlotSelector"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/LightOverflow"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/batch_selector"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/warning"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="Check your connection and try again!"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/batch_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:text="@string/hello_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/batch_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearButton"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="Selected an option"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/linearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/radioBatch1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Batch 1" />
+
+            <Button
+                android:id="@+id/radioBatch2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Batch 2" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/fill_slots"
+            android:text="Fill Slots"
+            android:layout_marginBottom="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/proceed_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/proceed_batch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:buttonTint="@color/white"
+            android:onClick="proceed"
+            android:text="Proceed" />
+
+    </RelativeLayout>
+
+</LinearLayout>

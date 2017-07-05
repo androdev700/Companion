@@ -14,7 +14,7 @@
     <string name="timetable">Your Timetable</string>
     <string name="share">Share</string>
     <string name="select">Select Day Order    </string>
-    <string name="enter_details">View/Edit Details</string>
+    <string name="enter_details">Edit Details</string>
     <string name="dy1">Hour 1</string>
     <string name="dy2">Hour 2</string>
     <string name="dy3">Hour 3</string>
@@ -27,7 +27,7 @@
     <string name="dy10">Hour 10</string>
     <string name="enter_course">Course Name</string>
     <string name="enter_class">Room</string>
-    <string name="version">v3.0b</string>
+    <string name="version">v3.0PublicBeta</string>
     <string name="save">Save</string>
     <string name="academia">Academia</string>
     <string name="support">Support Dev</string>
@@ -121,5 +121,8 @@
     <string name="time_hour10">Hour 10 : 16:05 – 16:55</string>
     <string name="edit_slots">Edit Slots</string>
     <string name="slot_selector">Slot Selector</string>
+    <string name="batch_selector">Choose your batch</string>
+    <string name="hello_text">Hello!\n Take a moment to choose your batch and open academia to fill in your slots and leave the rest to me ;)</string>
+    <string name="batch_menu">Change Batch</string>
 
 </resources>

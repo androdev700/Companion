@@ -31,7 +31,6 @@ public class DayFragment3 extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_day_fragment3, container, false);
 
         SharedPreferences pref2,room2;

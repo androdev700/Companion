@@ -16,7 +16,7 @@ public class DayOrderHandler {
 
     public DatabaseReference initDatabase(String date) {
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("DayOrder");
+        databaseReference = database.getReference("CheckOrder");
         dayReference = databaseReference.child(date);
         return dayReference;
     }

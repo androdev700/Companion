@@ -30,7 +30,6 @@ public class DayFragment5 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_day_fragment5, container, false);
 
         SharedPreferences pref4,room4;

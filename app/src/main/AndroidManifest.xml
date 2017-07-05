@@ -37,6 +37,11 @@
             android:label="@string/slot_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".BatchSelector"
+            android:label="@string/batch_selector"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

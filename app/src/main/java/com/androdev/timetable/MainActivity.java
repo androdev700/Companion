@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,8 @@ import com.androdev.timetable.days.DayFragment4;
 import com.androdev.timetable.days.DayFragment5;
 import com.androdev.timetable.handlers.DayOrderHandler;
 import com.androdev.timetable.handlers.TimeHandler;
+import com.androdev.timetable.labslot.LabSlot;
+import com.androdev.timetable.slot.Slot;
 import com.androdev.timetable.viewFragments.AcademiaFragment;
 import com.androdev.timetable.viewFragments.EntryFragment;
 import com.androdev.timetable.viewFragments.EventsFragment;
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private String mUsername;
 
     private TextView actionBarTitle;
+    private Toolbar toolbar;
     private ImageView view;
     private BottomNavigationView bottomNavigationView;
     private TextView timeViewer;
@@ -88,10 +92,21 @@ public class MainActivity extends AppCompatActivity {
     private String[] className = new String[]{"class1", "class2", "class3", "class4", "class5",
             "class6", "class7", "class8", "class9", "class10"};
 
+    private String[] courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE", "courseF", "courseG"};
+    private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) throws IllegalThreadStateException {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //First Run Check
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            Toast.makeText(getBaseContext(), "Thanks for downloading!", Toast.LENGTH_LONG).show();
+        }
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -107,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         class3 = getSharedPreferences("class4", MODE_PRIVATE);
         class4 = getSharedPreferences("class5", MODE_PRIVATE);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -130,16 +145,6 @@ public class MainActivity extends AppCompatActivity {
         animationFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
 
         Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
-
-        //First Run Check
-        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                .getBoolean("isFirstRun", true);
-        if (isFirstRun) {
-            Toast.makeText(getBaseContext(), "Tap edit to enter/edit your details!",
-                    Toast.LENGTH_LONG).show();
-        }
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).apply();
 
         //Starting the Home Page
         Fragment fragment = HomeYourTimeTableFragment.newInstance();
@@ -173,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         //Setting Day Order
         Date date = new Date();
         String day = (String) DateFormat.format("dd", date);
-        String monthNumber = (String) DateFormat.format("MM", date);
+        final String monthNumber = (String) DateFormat.format("MM", date);
         final String todayDate = day + " " + monthNumber;
 
         //Navigation Switcher
@@ -214,6 +219,66 @@ public class MainActivity extends AppCompatActivity {
                     // User is signed in
                     mUsername = user.getUid();
                     userRef = mDatabaseReference.child(mUsername);
+
+                    DatabaseReference reference = userRef.child("batch");
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String data = dataSnapshot.getValue(String.class);
+                            if (data != null) {
+                                getSharedPreferences("batch", MODE_PRIVATE).edit().putString("batch", data).apply();
+                                if ((data.equals("1") || data.equals("2"))) {
+                                    Log.d(TAG, "Fetched");
+                                }
+                            } else {
+                                startActivity(new Intent(MainActivity.this, BatchSelector.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    DatabaseReference slotRef = userRef.child("slot");
+                    slotRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Slot slot = dataSnapshot.getValue(Slot.class);
+                            ArrayList<String> course;
+                            ArrayList<String> room;
+                            if (slot != null) {
+                                course = slot.getCourse();
+                                room = slot.getRoom();
+                                setSlot(course, room);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    DatabaseReference slotLabRef = userRef.child("lab_slot");
+                    slotLabRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            LabSlot labSlot = dataSnapshot.getValue(LabSlot.class);
+                            ArrayList<String> course;
+                            ArrayList<String> room;
+                            ArrayList<String> time;
+                            if (labSlot != null) {
+                                course = labSlot.getCourse();
+                                room = labSlot.getRoom();
+                                time = labSlot.getTime();
+                                setLabSlot(course, room, time);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
 
                     DatabaseReference fetchDayOrder1 = userRef.child("day_order1");
                     fetchDayOrder1.addValueEventListener(new ValueEventListener() {
@@ -320,6 +385,31 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    /*
+                    DatabaseReference checkReference = mDatabaseReference.child("CheckOrder");
+                    int day = 1;
+                    int month = 10;
+                    String dayString;
+                    int order = 5;
+                    for (; day < 32; day++) {
+                        if (day < 10) {
+                            dayString = "0".concat(Integer.toString(day));
+                        } else {
+                            dayString = Integer.toString(day);
+                        }
+                        if (order > 5) {
+                            order = 1;
+                        }
+                        if (day == 1 || day == 2 || day == 7 || day == 8 || day == 14 || day == 15 || day == 18 || day == 21 || day == 22 || day == 28 || day == 29) {
+                            DatabaseReference hello = checkReference.child(dayString.concat(" ").concat(Integer.toString(month)));
+                            hello.setValue("a holiday");
+                        } else {
+                            DatabaseReference hello = checkReference.child(dayString.concat(" ").concat(Integer.toString(month)));
+                            hello.setValue(order++);
+                        }
+                    }
+                    */
+
                     DayOrderHandler orderHandler = new DayOrderHandler();
                     DatabaseReference dayRef = orderHandler.initDatabase(todayDate);
                     dayRef.addValueEventListener(new ValueEventListener() {
@@ -353,7 +443,6 @@ public class MainActivity extends AppCompatActivity {
                             .setAvailableProviders(Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                     new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
-                            .setTheme(R.style.LoginTheme)
                             .build(), RC_SIGN_IN);
                 }
             }
@@ -384,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Signed in!, Fetching previous data if it exists!", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -415,8 +504,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.edit_details:
+                toolbar.getMenu().clear();
                 hideBottomBar();
                 revealBack();
+                actionBarTitle.setText(R.string.enter_details);
                 Fragment fragment = EntryFragment.newInstance();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
@@ -461,7 +552,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about:
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle(R.string.app_name);
-                builder1.setMessage(R.string.version);
+                String message = getString(R.string.version) + "\nDeveloped by: andro\nGraphics by: APSR Creatix";
+                builder1.setMessage(message);
                 AlertDialog alertDialog = builder1.create();
                 alertDialog.show();
                 break;
@@ -475,12 +567,14 @@ public class MainActivity extends AppCompatActivity {
         actionBarTitle.setText(R.string.home);
         showBottomBar();
         view.setVisibility(View.GONE);
+        toolbar.inflateMenu(R.menu.main_menu);
     }
 
     // View Listeners
     public void card1(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder1);
         Fragment fragment = DayFragment1.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -494,6 +588,7 @@ public class MainActivity extends AppCompatActivity {
     public void card2(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder2);
         Fragment fragment = DayFragment2.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -507,6 +602,7 @@ public class MainActivity extends AppCompatActivity {
     public void card3(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder3);
         Fragment fragment = DayFragment3.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -520,6 +616,7 @@ public class MainActivity extends AppCompatActivity {
     public void card4(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder4);
         Fragment fragment = DayFragment4.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -533,6 +630,7 @@ public class MainActivity extends AppCompatActivity {
     public void card5(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder5);
         Fragment fragment = DayFragment5.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -546,6 +644,7 @@ public class MainActivity extends AppCompatActivity {
     public void news(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.announcement);
         Fragment fragment = NewsFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -559,6 +658,7 @@ public class MainActivity extends AppCompatActivity {
     public void event(View view) {
         hideBottomBar();
         revealBack();
+        toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.events);
         Fragment fragment = EventsFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -572,14 +672,12 @@ public class MainActivity extends AppCompatActivity {
     public void academia(View view) {
         hideBottomBar();
         revealBack();
-        actionBarTitle.setText(R.string.academia);
-        Fragment fragment = AcademiaFragment.newInstance();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
-                R.anim.enter_from_left, R.anim.exit_to_right)
-                .replace(R.id.main_frag, fragment)
-                .addToBackStack("null")
-                .commit();
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setShowTitle(true);
+        builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(MainActivity.this,
+                Uri.parse("http://academia.srmuniv.ac.in"));
     }
 
     /*public void suchita(View view) {
@@ -635,43 +733,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showTimeClass1(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour1,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour1, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass2(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour2,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour2, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass3(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour3,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour3, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass4(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour4,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour4, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass5(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour5,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour5, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass6(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour6,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour6, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass7(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour7,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour7, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass8(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour8,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour8, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass9(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour9,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour9, Toast.LENGTH_SHORT).show();
     }
 
     public void showTimeClass10(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour10,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), R.string.time_hour10, Toast.LENGTH_SHORT).show();
     }
 
     // UI Control
@@ -686,11 +784,33 @@ public class MainActivity extends AppCompatActivity {
         class2.edit().clear().apply();
         class3.edit().clear().apply();
         class4.edit().clear().apply();
+        SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
+        SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
+        SharedPreferences labTime = getSharedPreferences("LabTime", MODE_PRIVATE);
+        slotPref.edit().clear().apply();
+        slotRoomPref.edit().clear().apply();
+        labTime.edit().clear().apply();
+        getSharedPreferences("batch", MODE_PRIVATE).edit().clear().apply();
     }
 
     public static void writeData(String dayOrder, DayOrder obj) {
         DatabaseReference dayOrderRef = userRef.child(dayOrder);
         dayOrderRef.setValue(obj);
+    }
+
+    public static void writeDataSlot(Slot slot) {
+        DatabaseReference slotRef = userRef.child("slot");
+        slotRef.setValue(slot);
+    }
+
+    public static void writeLabSlot(LabSlot labSlot) {
+        DatabaseReference labRef = userRef.child("lab_slot");
+        labRef.setValue(labSlot);
+    }
+
+    public static void writeBatch(String batch) {
+        DatabaseReference batchRef = userRef.child("batch");
+        batchRef.setValue(batch);
     }
 
     public void setData(ArrayList<String> course, ArrayList<String> room, SharedPreferences pref,
@@ -705,6 +825,36 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.apply();
         editorClass.apply();
+    }
+
+    public void setSlot(ArrayList<String> course, ArrayList<String> room) {
+        SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
+        SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
+        SharedPreferences.Editor editor = slotPref.edit();
+        SharedPreferences.Editor editorRoom = slotRoomPref.edit();
+        for (int i = 0; i < 7; i++) {
+            editor.putString(courses[i], course.get(i));
+            editorRoom.putString(courses[i], room.get(i));
+        }
+        editor.apply();
+        editorRoom.apply();
+    }
+
+    public void setLabSlot(ArrayList<String> course, ArrayList<String> room, ArrayList<String> time) {
+        SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
+        SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
+        SharedPreferences labTime = getSharedPreferences("LabTime", MODE_PRIVATE);
+        SharedPreferences.Editor editor = slotPref.edit();
+        SharedPreferences.Editor editorRoom = slotRoomPref.edit();
+        SharedPreferences.Editor editorTime = labTime.edit();
+        for (int i = 0; i < 3; i++) {
+            editor.putString(labCourses[i], course.get(i));
+            editorRoom.putString(labCourses[i], room.get(i));
+            editorTime.putString(labCourses[i], time.get(i));
+        }
+        editor.apply();
+        editorRoom.apply();
+        editorTime.apply();
     }
 
     public boolean checkConnection() {
@@ -746,5 +896,4 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setAnimation(animation);
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
-
 }

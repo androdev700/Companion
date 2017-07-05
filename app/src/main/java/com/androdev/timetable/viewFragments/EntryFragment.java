@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.androdev.timetable.MainActivity;
 import com.androdev.timetable.R;
@@ -30,9 +31,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class EntryFragment extends Fragment {
 
+    String clientBatch;
     Button button;
-    EditText hour1,hour2,hour3,hour4,hour5,hour6,hour7,hour8,hour9,hour10;
-    EditText c1,c2,c3,c4,c5,c6,c7,c8,c9,c10;
+    EditText hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8, hour9, hour10;
+    EditText c1, c2, c3, c4, c5, c6, c7, c8, c9, c10;
     Spinner dsp;
     SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
 
@@ -50,8 +52,8 @@ public class EntryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_entry, container, false);
+        setHasOptionsMenu(false);
 
         hour1 = v.findViewById(R.id.eth1);
         hour2 = v.findViewById(R.id.eth2);
@@ -107,6 +109,12 @@ public class EntryFragment extends Fragment {
         class3 = getActivity().getSharedPreferences("class4", MODE_PRIVATE);
         class4 = getActivity().getSharedPreferences("class5", MODE_PRIVATE);
 
+        SharedPreferences batchPref = getActivity().getSharedPreferences("batch", MODE_PRIVATE);
+        TextView batchChoice = v.findViewById(R.id.batch_text);
+        String batch = "You are batch : ".concat(batchPref.getString("batch", "Error!"));
+        batchChoice.setText(batch);
+        clientBatch = batchPref.getString("batch", "Error!");
+
         AdapterView.OnItemSelectedListener day = new AdapterView.OnItemSelectedListener() {
             String[] days = {"You're now editing Day Order 1", "You're now editing Day Order 2",
                     "You're now editing Day Order 3", "You're now editing Day Order 4",
@@ -122,7 +130,7 @@ public class EntryFragment extends Fragment {
                     hour2.setText(pref0.getString("hour2", null));
                     hour3.setText(pref0.getString("hour3", null));
                     hour4.setText(pref0.getString("hour4", null));
-                    hour5.setText(pref0.getString("hour5", "Lunch"));
+                    hour5.setText(pref0.getString("hour5", null));
                     hour6.setText(pref0.getString("hour6", null));
                     hour7.setText(pref0.getString("hour7", null));
                     hour8.setText(pref0.getString("hour8", null));
@@ -194,7 +202,7 @@ public class EntryFragment extends Fragment {
                     hour2.setText(pref1.getString("hour2", null));
                     hour3.setText(pref1.getString("hour3", null));
                     hour4.setText(pref1.getString("hour4", null));
-                    hour5.setText(pref1.getString("hour5", "Lunch"));
+                    hour5.setText(pref1.getString("hour5", null));
                     hour6.setText(pref1.getString("hour6", null));
                     hour7.setText(pref1.getString("hour7", null));
                     hour8.setText(pref1.getString("hour8", null));
@@ -257,7 +265,6 @@ public class EntryFragment extends Fragment {
                             ceditor1.apply();
                             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Saved", Snackbar.LENGTH_SHORT);
                             snackbar.show();
-                            Fragment fragment = HomeYourTimeTableFragment.newInstance();
                         }
                     });
                 } else if (position == 2) {
@@ -267,7 +274,7 @@ public class EntryFragment extends Fragment {
                     hour2.setText(pref2.getString("hour2", null));
                     hour3.setText(pref2.getString("hour3", null));
                     hour4.setText(pref2.getString("hour4", null));
-                    hour5.setText(pref2.getString("hour5", "Lunch"));
+                    hour5.setText(pref2.getString("hour5", null));
                     hour6.setText(pref2.getString("hour6", null));
                     hour7.setText(pref2.getString("hour7", null));
                     hour8.setText(pref2.getString("hour8", null));
@@ -339,7 +346,7 @@ public class EntryFragment extends Fragment {
                     hour2.setText(pref3.getString("hour2", null));
                     hour3.setText(pref3.getString("hour3", null));
                     hour4.setText(pref3.getString("hour4", null));
-                    hour5.setText(pref3.getString("hour5", "Lunch"));
+                    hour5.setText(pref3.getString("hour5", null));
                     hour6.setText(pref3.getString("hour6", null));
                     hour7.setText(pref3.getString("hour7", null));
                     hour8.setText(pref3.getString("hour8", null));
@@ -411,7 +418,7 @@ public class EntryFragment extends Fragment {
                     hour2.setText(pref4.getString("hour2", null));
                     hour3.setText(pref4.getString("hour3", null));
                     hour4.setText(pref4.getString("hour4", null));
-                    hour5.setText(pref4.getString("hour5", "Lunch"));
+                    hour5.setText(pref4.getString("hour5", null));
                     hour6.setText(pref4.getString("hour6", null));
                     hour7.setText(pref4.getString("hour7", null));
                     hour8.setText(pref4.getString("hour8", null));
@@ -486,6 +493,10 @@ public class EntryFragment extends Fragment {
         };
         dsp.setOnItemSelectedListener(day);
         return v;
+    }
+
+    public void prepScreen() {
+
     }
 
     public static Fragment newInstance() {
