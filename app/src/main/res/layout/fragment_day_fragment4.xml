@@ -8,13 +8,16 @@
     <android.support.v7.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
         app:orientation="vertical">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass1"
             android:stateListAnimator="@animator/raise"
@@ -44,45 +47,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass2"
             android:stateListAnimator="@animator/raise"
@@ -112,45 +96,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass3"
             android:stateListAnimator="@animator/raise"
@@ -180,45 +145,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass4"
             android:stateListAnimator="@animator/raise"
@@ -248,45 +194,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room4"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass5"
             android:stateListAnimator="@animator/raise"
@@ -316,45 +243,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room5"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass6"
             android:stateListAnimator="@animator/raise"
@@ -384,45 +292,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room6"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass7"
             android:stateListAnimator="@animator/raise"
@@ -452,45 +341,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room7"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass8"
             android:stateListAnimator="@animator/raise"
@@ -520,45 +390,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room8"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass9"
             android:stateListAnimator="@animator/raise"
@@ -588,44 +439,26 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room9"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/d4card10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_marginTop="0dp"
             android:elevation="2dp"
             android:onClick="showTimeClass10"
             android:stateListAnimator="@animator/raise"
@@ -655,35 +488,15 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp" />
 
-                <LinearLayout
-                    android:layout_marginBottom="5dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/d4room10"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/class_room"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/d4room10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight=".5"
-                        android:text="@string/n_a"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/n_a"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 

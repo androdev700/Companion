@@ -15,13 +15,13 @@
 
             <TextView
                 android:id="@+id/batch_text"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:text="Your Batch"
-                android:textSize="17sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/your_batch"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                 android:clickable="true"
                 android:text="@string/save" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -79,7 +79,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,25 +88,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
                     android:id="@+id/eth1"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-                
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
-                
-            </LinearLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/ed1"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            <LinearLayout
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -117,7 +111,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,25 +120,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth2"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed2"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -155,7 +143,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -165,25 +152,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth3"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed3"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -193,7 +175,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -203,25 +184,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth4"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed4"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -231,7 +207,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -241,25 +216,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth5"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed5"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -269,7 +239,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -279,25 +248,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth6"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed6"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -307,7 +271,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,25 +280,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth7"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed7"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -345,7 +303,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -355,25 +312,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth8"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed8"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -383,7 +335,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -393,25 +344,20 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth9"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed9"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -421,7 +367,6 @@
                 android:paddingTop="0dp">
 
                 <TextView
-                    android:layout_weight=".1"
                     android:id="@+id/ed10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -431,23 +376,18 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_weight=".3"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:id="@+id/eth10"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/enter_course"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_weight=".1"
-                    android:id="@+id/class10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_class"
-                    android:inputType="number"
-                    android:maxLines="1" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/ed10"
+                    android:hint="@string/enter_course"
+                    android:maxLines="1"
+                    android:textAlignment="viewEnd" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 

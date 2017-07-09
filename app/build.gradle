@@ -15,8 +15,8 @@ android {
         applicationId "com.androdev.timetable"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 20
-        versionName "3.0PublicBeta"
+        versionCode 21
+        versionName "3.0"
     }
     buildTypes {
         release {

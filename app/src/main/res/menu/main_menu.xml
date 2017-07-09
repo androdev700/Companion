@@ -34,9 +34,21 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/about"
+        android:id="@+id/share"
         android:orderInCategory="7"
+        android:title="Share"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="8"
         android:title="@string/about"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/report"
+        android:orderInCategory="9"
+        android:title="@string/report_issue"
         app:showAsAction="never" />
 
 </menu>

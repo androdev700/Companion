@@ -28,13 +28,13 @@
 
     <TextView
         android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:text="Check your connection and try again!"
         android:textColor="@android:color/holo_red_dark"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:id="@+id/batch_view"
@@ -47,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:textAlignment="center"
             android:text="@string/hello_text"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -61,7 +61,7 @@
             android:padding="10dp"
             android:text="Selected an option"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:id="@+id/linearButton"
@@ -86,12 +86,23 @@
 
         <Button
             android:id="@+id/fill_slots"
-            android:text="Fill Slots"
-            android:layout_marginBottom="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@+id/proceed_batch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/linearButton"
+            android:text="Fill Slots" />
+
+        <TextView
+            android:padding="10dp"
+            android:layout_below="@+id/fill_slots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR\nProceed, Slots can be filled later too!"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/proceed_batch"

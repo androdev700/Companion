@@ -42,7 +42,6 @@ import com.androdev.timetable.handlers.DayOrderHandler;
 import com.androdev.timetable.handlers.TimeHandler;
 import com.androdev.timetable.labslot.LabSlot;
 import com.androdev.timetable.slot.Slot;
-import com.androdev.timetable.viewFragments.AcademiaFragment;
 import com.androdev.timetable.viewFragments.EntryFragment;
 import com.androdev.timetable.viewFragments.EventsFragment;
 import com.androdev.timetable.viewFragments.HomeOthers;
@@ -86,11 +85,9 @@ public class MainActivity extends AppCompatActivity {
     final Animation animationFadeIn = new AlphaAnimation(0.0f, 1.0f);
     final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
 
-    private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
+    private SharedPreferences pref0, pref1, pref2, pref3, pref4;
     private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
             "hour7", "hour8", "hour9", "hour10"};
-    private String[] className = new String[]{"class1", "class2", "class3", "class4", "class5",
-            "class6", "class7", "class8", "class9", "class10"};
 
     private String[] courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE", "courseF", "courseG"};
     private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3"};
@@ -116,11 +113,6 @@ public class MainActivity extends AppCompatActivity {
         pref2 = getSharedPreferences("day3", MODE_PRIVATE);
         pref3 = getSharedPreferences("day4", MODE_PRIVATE);
         pref4 = getSharedPreferences("day5", MODE_PRIVATE);
-        class0 = getSharedPreferences("class1", MODE_PRIVATE);
-        class1 = getSharedPreferences("class2", MODE_PRIVATE);
-        class2 = getSharedPreferences("class3", MODE_PRIVATE);
-        class3 = getSharedPreferences("class4", MODE_PRIVATE);
-        class4 = getSharedPreferences("class5", MODE_PRIVATE);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -287,12 +279,10 @@ public class MainActivity extends AppCompatActivity {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
                                 ArrayList<String> course = null;
-                                ArrayList<String> room = null;
                                 if (order != null) {
                                     course = order.getCourse();
-                                    room = order.getRoom();
                                 }
-                                setData(course, room, pref0, class0);
+                                setData(course, pref0);
                             }
                         }
 
@@ -308,12 +298,10 @@ public class MainActivity extends AppCompatActivity {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
                                 ArrayList<String> course = null;
-                                ArrayList<String> room = null;
                                 if (order != null) {
                                     course = order.getCourse();
-                                    room = order.getRoom();
                                 }
-                                setData(course, room, pref1, class1);
+                                setData(course, pref1);
                             }
                         }
 
@@ -329,12 +317,10 @@ public class MainActivity extends AppCompatActivity {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
                                 ArrayList<String> course = null;
-                                ArrayList<String> room = null;
                                 if (order != null) {
                                     course = order.getCourse();
-                                    room = order.getRoom();
                                 }
-                                setData(course, room, pref2, class2);
+                                setData(course, pref2);
                             }
                         }
 
@@ -350,12 +336,10 @@ public class MainActivity extends AppCompatActivity {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
                                 ArrayList<String> course = null;
-                                ArrayList<String> room = null;
                                 if (order != null) {
                                     course = order.getCourse();
-                                    room = order.getRoom();
                                 }
-                                setData(course, room, pref3, class3);
+                                setData(course, pref3);
                             }
                         }
 
@@ -371,12 +355,10 @@ public class MainActivity extends AppCompatActivity {
                             if (dataSnapshot.getValue(DayOrder.class) != null) {
                                 DayOrder order = dataSnapshot.getValue(DayOrder.class);
                                 ArrayList<String> course = null;
-                                ArrayList<String> room = null;
                                 if (order != null) {
                                     course = order.getCourse();
-                                    room = order.getRoom();
                                 }
-                                setData(course, room, pref4, class4);
+                                setData(course, pref4);
                             }
                         }
 
@@ -423,10 +405,12 @@ public class MainActivity extends AppCompatActivity {
                                     timeViewer.setText(dayOrder);
                                 }
                             } catch (DatabaseException e) {
-                                dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
-                                timeViewer.startAnimation(animationFadeIn);
-                                timeViewer.setText(dayOrder);
-                                Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
+                                if (dayOrder.equals("Today is ")) {
+                                    dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
+                                    timeViewer.startAnimation(animationFadeIn);
+                                    timeViewer.setText(dayOrder);
+                                    Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
+                                }
                             }
                             progressBarDayOrder.setAnimation(animationFadeOut);
                             progressBarDayOrder.setVisibility(View.GONE);
@@ -443,6 +427,7 @@ public class MainActivity extends AppCompatActivity {
                             .setAvailableProviders(Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                     new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                            .setTheme(R.style.LoginTheme)
                             .build(), RC_SIGN_IN);
                 }
             }
@@ -529,15 +514,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
-                            Uri uri = Uri.parse(getString(R.string.app_link));
-                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                            startActivity(intent);
+                            Toast.makeText(getBaseContext(), R.string.help0, Toast.LENGTH_LONG).show();
                         } else if (i == 1) {
                             Toast.makeText(getBaseContext(), R.string.help1,
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         } else if (i == 2) {
                             Toast.makeText(getBaseContext(), R.string.help2,
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -552,10 +535,24 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about:
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle(R.string.app_name);
-                String message = getString(R.string.version) + "\nDeveloped by: andro\nGraphics by: APSR Creatix";
+                String message = getString(R.string.version) + "\nDeveloped by: Andro\nGraphics by: APSR Creatix";
                 builder1.setMessage(message);
                 AlertDialog alertDialog = builder1.create();
                 alertDialog.show();
+                break;
+            case R.id.report:
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain")
+                        .putExtra(Intent.EXTRA_EMAIL, "androdev700@gmail.com")
+                        .putExtra(Intent.EXTRA_SUBJECT, "Companion : ISSUE");
+                startActivity(Intent.createChooser(emailIntent, "Send Email"));
+                break;
+            case R.id.share:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this app, to ease out your timetable. https://drive.google.com/open?id=0B3ydVLQnm1oLZkF0QnRjOFVqX1k");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Share App with Friends"));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -779,11 +776,6 @@ public class MainActivity extends AppCompatActivity {
         pref2.edit().clear().apply();
         pref3.edit().clear().apply();
         pref4.edit().clear().apply();
-        class0.edit().clear().apply();
-        class1.edit().clear().apply();
-        class2.edit().clear().apply();
-        class3.edit().clear().apply();
-        class4.edit().clear().apply();
         SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
         SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
         SharedPreferences labTime = getSharedPreferences("LabTime", MODE_PRIVATE);
@@ -813,18 +805,14 @@ public class MainActivity extends AppCompatActivity {
         batchRef.setValue(batch);
     }
 
-    public void setData(ArrayList<String> course, ArrayList<String> room, SharedPreferences pref,
-                        SharedPreferences classPreferences) {
+    public void setData(ArrayList<String> course, SharedPreferences pref) {
         int index = 0;
         SharedPreferences.Editor editor = pref.edit();
-        SharedPreferences.Editor editorClass = classPreferences.edit();
         for (int i = 0; i < 10; i++) {
             editor.putString(hourName[index], course.get(index));
-            editorClass.putString(className[index], room.get(index));
             index++;
         }
         editor.apply();
-        editorClass.apply();
     }
 
     public void setSlot(ArrayList<String> course, ArrayList<String> room) {
@@ -857,6 +845,7 @@ public class MainActivity extends AppCompatActivity {
         editorTime.apply();
     }
 
+    @Deprecated
     public boolean checkConnection() {
         ConnectivityManager connect = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||

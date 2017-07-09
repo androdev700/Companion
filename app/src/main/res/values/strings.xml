@@ -27,7 +27,7 @@
     <string name="dy10">Hour 10</string>
     <string name="enter_course">Course Name</string>
     <string name="enter_class">Room</string>
-    <string name="version">v3.0PublicBeta</string>
+    <string name="version">v3.0</string>
     <string name="save">Save</string>
     <string name="academia">Academia</string>
     <string name="support">Support Dev</string>
@@ -74,9 +74,9 @@
         <item>ODD Semester 2017–18</item>
     </string-array>
     <string-array name="help_support">
-        <item>Make sure you have the latest version of Chrome installed.</item>
+        <item>Indefinite Loading.</item>
         <item>To know the timings, touch on the respective hour.</item>
-        <item>Schedule not getting saved?</item>
+        <item>Edits not getting saved?</item>
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -93,12 +93,12 @@
     <string name="hour_10">Hour 10 :</string>
     <string name="class_room">Class Room :</string>
     <string name="your_time_table">Your Timetable</string>
-
+    <string name="help0">Check your internet connection or try signing out and signing in again.</string>
     <string name="help1">Goto any day order and give it a try!</string>
     <string name="help2">Don\'t forget to press save after entering the data.</string>
     <string name="app_link"><![CDATA[https://play.google.com/store/apps/details?id=com.android.chrome&hl=en]]></string>
     <string name="ishucita">http://ishuchita.com/</string>
-    <string name="techcheckone">http://www.facebook.com/techcheckone</string>
+    <string name="techcheckone">https://twitter.com/androdev700</string>
     <string name="free">Free/Not Set</string>
     <string name="free1">N/A</string>
     <string name="home">Home</string>
@@ -122,7 +122,9 @@
     <string name="edit_slots">Edit Slots</string>
     <string name="slot_selector">Slot Selector</string>
     <string name="batch_selector">Choose your batch</string>
-    <string name="hello_text">Hello!\n Take a moment to choose your batch and open academia to fill in your slots and leave the rest to me ;)</string>
+    <string name="hello_text">Hello!\n Take a moment to choose your batch and open academia to fill in your slots and leave the rest to us.</string>
     <string name="batch_menu">Change Batch</string>
+    <string name="your_batch">Your Batch</string>
+    <string name="report_issue">Report Issue</string>
 
 </resources>

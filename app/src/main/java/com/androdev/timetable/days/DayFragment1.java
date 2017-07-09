@@ -3,6 +3,7 @@ package com.androdev.timetable.days;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,9 @@ public class DayFragment1 extends Fragment {
         setHasOptionsMenu(false);
         View v = inflater.inflate(R.layout.fragment_day_fragment1, container, false);
 
-        SharedPreferences pref0,room0;
-        pref0 = getContext().getSharedPreferences("day1",0);
-        room0 = getContext().getSharedPreferences("class1",0);
+        SharedPreferences pref0, room0;
+        pref0 = getContext().getSharedPreferences("day1", 0);
+        room0 = getContext().getSharedPreferences("class1", 0);
 
         TextView hour1 = v.findViewById(R.id.d1class1);
         TextView hour2 = v.findViewById(R.id.d1class2);
@@ -59,27 +60,71 @@ public class DayFragment1 extends Fragment {
         TextView class9 = v.findViewById(R.id.d1room9);
         TextView class10 = v.findViewById(R.id.d1room10);
 
-        hour1.setText(pref0.getString("hour1",getString(R.string.free)));
-        hour2.setText(pref0.getString("hour2",getString(R.string.free)));
-        hour3.setText(pref0.getString("hour3",getString(R.string.free)));
-        hour4.setText(pref0.getString("hour4",getString(R.string.free)));
-        hour5.setText(pref0.getString("hour5",getString(R.string.free)));
-        hour6.setText(pref0.getString("hour6",getString(R.string.free)));
-        hour7.setText(pref0.getString("hour7",getString(R.string.free)));
-        hour8.setText(pref0.getString("hour8",getString(R.string.free)));
-        hour9.setText(pref0.getString("hour9",getString(R.string.free)));
-        hour10.setText(pref0.getString("hour10",getString(R.string.free)));
+        hour1.setText(pref0.getString("hour1", getString(R.string.free)));
+        hour2.setText(pref0.getString("hour2", getString(R.string.free)));
+        hour3.setText(pref0.getString("hour3", getString(R.string.free)));
+        hour4.setText(pref0.getString("hour4", getString(R.string.free)));
+        hour5.setText(pref0.getString("hour5", getString(R.string.free)));
+        hour6.setText(pref0.getString("hour6", getString(R.string.free)));
+        hour7.setText(pref0.getString("hour7", getString(R.string.free)));
+        hour8.setText(pref0.getString("hour8", getString(R.string.free)));
+        hour9.setText(pref0.getString("hour9", getString(R.string.free)));
+        hour10.setText(pref0.getString("hour10", getString(R.string.free)));
 
-        class1.setText(room0.getString("class1",getString(R.string.free1)));
-        class2.setText(room0.getString("class2",getString(R.string.free1)));
-        class3.setText(room0.getString("class3",getString(R.string.free1)));
-        class4.setText(room0.getString("class4",getString(R.string.free1)));
-        class5.setText(room0.getString("class5",getString(R.string.free1)));
-        class6.setText(room0.getString("class6",getString(R.string.free1)));
-        class7.setText(room0.getString("class7",getString(R.string.free1)));
-        class8.setText(room0.getString("class8",getString(R.string.free1)));
-        class9.setText(room0.getString("class9",getString(R.string.free1)));
-        class10.setText(room0.getString("class10",getString(R.string.free1)));
+        class1.setText(room0.getString("class1", getString(R.string.free1)));
+        class2.setText(room0.getString("class2", getString(R.string.free1)));
+        class3.setText(room0.getString("class3", getString(R.string.free1)));
+        class4.setText(room0.getString("class4", getString(R.string.free1)));
+        class5.setText(room0.getString("class5", getString(R.string.free1)));
+        class6.setText(room0.getString("class6", getString(R.string.free1)));
+        class7.setText(room0.getString("class7", getString(R.string.free1)));
+        class8.setText(room0.getString("class8", getString(R.string.free1)));
+        class9.setText(room0.getString("class9", getString(R.string.free1)));
+        class10.setText(room0.getString("class10", getString(R.string.free1)));
+
+        //Refine Cards
+
+        if (hour1.getText().equals(getString(R.string.free)) || hour1.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card1);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour2.getText().equals(getString(R.string.free)) || hour2.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card2);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour3.getText().equals(getString(R.string.free)) || hour3.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card3);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour4.getText().equals(getString(R.string.free)) || hour4.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card4);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour5.getText().equals(getString(R.string.free)) || hour5.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card5);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour6.getText().equals(getString(R.string.free)) || hour6.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card6);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour7.getText().equals(getString(R.string.free)) || hour7.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card7);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour8.getText().equals(getString(R.string.free)) || hour8.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card8);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour9.getText().equals(getString(R.string.free)) || hour9.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card9);
+            cardView.setVisibility(View.GONE);
+        }
+        if (hour10.getText().equals(getString(R.string.free)) || hour10.getText().equals("")) {
+            CardView cardView = v.findViewById(R.id.d1card10);
+            cardView.setVisibility(View.GONE);
+        }
+
         return v;
     }
 
