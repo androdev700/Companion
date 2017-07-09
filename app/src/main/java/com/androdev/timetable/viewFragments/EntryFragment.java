@@ -17,9 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.androdev.timetable.MainActivity;
+import com.androdev.timetable.activities.MainActivity;
 import com.androdev.timetable.R;
 import com.androdev.timetable.dayorder.DayOrder;
 

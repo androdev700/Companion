@@ -1,30 +1,25 @@
-package com.androdev.timetable;
+package com.androdev.timetable.activities;
 
-import android.app.ActivityOptions;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androdev.timetable.R;
 import com.androdev.timetable.labslot.LabSlot;
 import com.androdev.timetable.slot.Slot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class SlotSelector extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.androdev.timetable;
+package com.androdev.timetable.activities;
 
 import android.animation.Animator;
 import android.content.DialogInterface;
@@ -32,6 +32,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androdev.timetable.R;
 import com.androdev.timetable.dayorder.DayOrder;
 import com.androdev.timetable.days.DayFragment1;
 import com.androdev.timetable.days.DayFragment2;

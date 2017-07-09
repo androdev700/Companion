@@ -1,9 +1,11 @@
-package com.androdev.timetable;
+package com.androdev.timetable.activities;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.androdev.timetable.R;
 
 public class SplashScreen extends AppCompatActivity {
 
