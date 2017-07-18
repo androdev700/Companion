@@ -61,7 +61,7 @@ public class EntryFragment extends Fragment {
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Guide")
+            builder.setTitle("Guide..")
                     .setMessage("If your faculty decides to skip an hour, just clear out the hour and it won't show up in your schedule.")
                     .setNeutralButton("Gotcha!", new DialogInterface.OnClickListener() {
                         @Override

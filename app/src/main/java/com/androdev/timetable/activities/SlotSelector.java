@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androdev.timetable.R;
+import com.androdev.timetable.dayorder.DayOrder;
 import com.androdev.timetable.labslot.LabSlot;
 import com.androdev.timetable.slot.Slot;
 
@@ -38,6 +39,9 @@ public class SlotSelector extends AppCompatActivity {
     private SharedPreferences batchPref;
     private SharedPreferences.Editor edit;
     private SharedPreferences.Editor venueEdit;
+    private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
+            "hour7", "hour8", "hour9", "hour10"};
+    private String[] dayName = new String[]{"day_order1", "day_order2", "day_order3", "day_order4", "day_order5"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +75,6 @@ public class SlotSelector extends AppCompatActivity {
         courseLabList.add(courseLab3);
 
         startDatabase();
-        if (getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "").equals("1")) {
-            initDatabaseFirst();
-        } else if (getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "").equals("2")) {
-            initDatabaseSecond();
-        }
     }
 
     public void startDatabase() {
@@ -151,6 +150,23 @@ public class SlotSelector extends AppCompatActivity {
         LabSlot labSlot = new LabSlot(courseLab, roomLab, timeLab);
         MainActivity.writeDataSlot(slot);
         MainActivity.writeLabSlot(labSlot);
+
+        for (int i = 0; i < 5; i++) {
+            String courseDay[] = new String[10];
+            SharedPreferences pushDay = coursePrefList.get(i);
+            Log.d(dayName[i],"--------------");
+            for (int j = 0; j < 10; j++) {
+                String data = pushDay.getString(hourName[j], "");
+                if (data.isEmpty()) {
+                    courseDay[j] = "";
+                }
+                courseDay[j] = data;
+                Log.d(hourName[j], courseDay[j]);
+            }
+            ArrayList<String> courseData = new ArrayList<>(Arrays.asList(courseDay));
+            DayOrder order = new DayOrder(courseData);
+            MainActivity.writeData(dayName[i], order);
+        }
     }
 
     public void slotChoice(View view) {
@@ -692,304 +708,6 @@ public class SlotSelector extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void initDatabaseFirst() {
-        int index = 0;
-        edit = coursePrefList.get(0).edit();
-        venueEdit = courseClassPrefList.get(0).edit();
-        edit.putString("hour1", slotPref.getString(courses[index], ""));
-        edit.putString("hour2", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(1).edit();
-        venueEdit = courseClassPrefList.get(1).edit();
-        edit.putString("hour10", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour3", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 1;
-        edit = coursePrefList.get(1).edit();
-        venueEdit = courseClassPrefList.get(1).edit();
-        edit.putString("hour6", slotPref.getString(courses[index], ""));
-        edit.putString("hour7", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour8", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour4", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 2;
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour1", slotPref.getString(courses[index], ""));
-        edit.putString("hour2", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour9", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour5", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 3;
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour6", slotPref.getString(courses[index], ""));
-        edit.putString("hour7", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(0).edit();
-        venueEdit = courseClassPrefList.get(0).edit();
-        edit.putString("hour5", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour5", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 4;
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour1", slotPref.getString(courses[index], ""));
-        edit.putString("hour2", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour3", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 5;
-        edit = coursePrefList.get(0).edit();
-        venueEdit = courseClassPrefList.get(0).edit();
-        edit.putString("hour3", slotPref.getString(courses[index], ""));
-        edit.putString("hour4", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour4", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 6;
-        edit = coursePrefList.get(1).edit();
-        venueEdit = courseClassPrefList.get(1).edit();
-        edit.putString("hour8", slotPref.getString(courses[index], ""));
-        edit.putString("hour9", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour10", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-    }
-
-    public void initDatabaseSecond() {
-        int index = 0;
-        edit = coursePrefList.get(0).edit();
-        venueEdit = courseClassPrefList.get(0).edit();
-        edit.putString("hour6", slotPref.getString(courses[index], ""));
-        edit.putString("hour7", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(1).edit();
-        venueEdit = courseClassPrefList.get(1).edit();
-        edit.putString("hour5", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour8", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 1;
-        edit = coursePrefList.get(1).edit();
-        venueEdit = courseClassPrefList.get(1).edit();
-        edit.putString("hour1", slotPref.getString(courses[index], ""));
-        edit.putString("hour2", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour3", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour9", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 2;
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour6", slotPref.getString(courses[index], ""));
-        edit.putString("hour7", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour4", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour10", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 3;
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour1", slotPref.getString(courses[index], ""));
-        edit.putString("hour2", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(0).edit();
-        venueEdit = courseClassPrefList.get(0).edit();
-        edit.putString("hour10", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour10", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 4;
-        edit = coursePrefList.get(4).edit();
-        venueEdit = courseClassPrefList.get(4).edit();
-        edit.putString("hour6", slotPref.getString(courses[index], ""));
-        edit.putString("hour7", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour8", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 5;
-        edit = coursePrefList.get(0).edit();
-        venueEdit = courseClassPrefList.get(0).edit();
-        edit.putString("hour8", slotPref.getString(courses[index], ""));
-        edit.putString("hour9", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(2).edit();
-        venueEdit = courseClassPrefList.get(2).edit();
-        edit.putString("hour9", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        index = 6;
-        edit = coursePrefList.get(1).edit();
-        venueEdit = courseClassPrefList.get(1).edit();
-        edit.putString("hour3", slotPref.getString(courses[index], ""));
-        edit.putString("hour4", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
-        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
-
-        edit = coursePrefList.get(3).edit();
-        venueEdit = courseClassPrefList.get(3).edit();
-        edit.putString("hour5", slotPref.getString(courses[index], ""));
-        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
-        edit.apply();
-        venueEdit.apply();
     }
 
     public boolean batchCheck(int start, int end) {

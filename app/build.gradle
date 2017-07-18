@@ -2,12 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'Companion'
-            keyPassword 'L@mb0ayu21'
-            storeFile file('/Users/andro/Documents/AndroidStudioProjects/Companion.jks')
-            storePassword 'L@mb0ayu21'
-        }
     }
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -15,14 +9,13 @@ android {
         applicationId "com.androdev.timetable"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 21
-        versionName "3.0"
+        versionCode 23
+        versionName "3.1"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
 }

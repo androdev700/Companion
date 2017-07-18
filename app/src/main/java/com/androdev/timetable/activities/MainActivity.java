@@ -50,6 +50,7 @@ import com.androdev.timetable.viewFragments.HomeWhatsNew;
 import com.androdev.timetable.viewFragments.HomeYourTimeTableFragment;
 import com.androdev.timetable.viewFragments.NewsFragment;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -86,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
     final Animation animationFadeIn = new AlphaAnimation(0.0f, 1.0f);
     final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
 
-    private SharedPreferences pref0, pref1, pref2, pref3, pref4;
+    private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
+    private SharedPreferences dayOrderPref;
     private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
             "hour7", "hour8", "hour9", "hour10"};
 
@@ -114,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         pref2 = getSharedPreferences("day3", MODE_PRIVATE);
         pref3 = getSharedPreferences("day4", MODE_PRIVATE);
         pref4 = getSharedPreferences("day5", MODE_PRIVATE);
+        class0 = getSharedPreferences("class1", MODE_PRIVATE);
+        class1 = getSharedPreferences("class2", MODE_PRIVATE);
+        class2 = getSharedPreferences("class3", MODE_PRIVATE);
+        class3 = getSharedPreferences("class4", MODE_PRIVATE);
+        class4 = getSharedPreferences("class5", MODE_PRIVATE);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -161,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             timeViewer.startAnimation(animationFadeIn);
                             timeViewer.setText(timeHandler.timeUpdate());
+                            count = 1;
                         }
                     });
                 }
@@ -210,8 +218,48 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    prepSync();
                     mUsername = user.getUid();
                     userRef = mDatabaseReference.child(mUsername);
+
+                    DatabaseReference appVersion = mDatabaseReference.child("version");
+                    appVersion.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String version = dataSnapshot.getValue(String.class);
+                            if (version != null) {
+                                int code = com.androdev.timetable.BuildConfig.VERSION_CODE;
+                                if (!version.equals(Integer.toString(code))) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                    builder.setTitle("Update Available..")
+                                            .setCancelable(false)
+                                            .setMessage("An improved version of the app is available, it's highly recommended to update to the latest build!")
+                                            .setNegativeButton("Later!", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    MainActivity.this.finish();
+                                                    System.exit(0);
+                                                }
+                                            })
+                                            .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    Toast.makeText(MainActivity.this, "Choose the file in google drive.", Toast.LENGTH_SHORT).show();
+                                                    Uri uri = Uri.parse("https://drive.google.com/open?id=0B3ydVLQnm1oLZkF0QnRjOFVqX1k");
+                                                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
 
                     DatabaseReference reference = userRef.child("batch");
                     reference.addValueEventListener(new ValueEventListener() {
@@ -244,6 +292,12 @@ public class MainActivity extends AppCompatActivity {
                                 course = slot.getCourse();
                                 room = slot.getRoom();
                                 setSlot(course, room);
+                                String data = getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "");
+                                if (data.equals("1")) {
+                                    initDatabaseFirst();
+                                } else if (data.equals("2")) {
+                                    initDatabaseSecond();
+                                }
                             }
                         }
 
@@ -438,10 +492,12 @@ public class MainActivity extends AppCompatActivity {
         timeViewer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count++ % 2 == 1) {
+                if (count % 2 == 0) {
                     timeViewer.startAnimation(animationFadeIn);
                     timeViewer.setText(timeHandler.timeUpdate());
+                    count = 1;
                 } else {
+                    count = 0;
                     if (dayOrder.equals("Today is ")) {
                         timeViewer.startAnimation(animationFadeIn);
                         timeViewer.setText(R.string.fetching_day);
@@ -670,12 +726,37 @@ public class MainActivity extends AppCompatActivity {
     public void academia(View view) {
         hideBottomBar();
         revealBack();
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        builder.setShowTitle(true);
-        builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(MainActivity.this,
-                Uri.parse("http://academia.srmuniv.ac.in"));
+
+        //First Run Check
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE_ACADEMIA", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Just a reminder..")
+                    .setMessage("Login in once here, and never log in again. \n(Signing into Academia on other device might sign you out of Companion.)")
+                    .setNeutralButton("Gotcha!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                            builder.setShowTitle(true);
+                            builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
+                            CustomTabsIntent customTabsIntent = builder.build();
+                            customTabsIntent.launchUrl(MainActivity.this,
+                                    Uri.parse("http://academia.srmuniv.ac.in"));
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setShowTitle(true);
+            builder.setToolbarColor(Color.parseColor("#FF03A9F4"));
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(MainActivity.this,
+                    Uri.parse("http://academia.srmuniv.ac.in"));
+        }
+        getSharedPreferences("PREFERENCE_ACADEMIA", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+
     }
 
     /*public void suchita(View view) {
@@ -777,6 +858,11 @@ public class MainActivity extends AppCompatActivity {
         pref2.edit().clear().apply();
         pref3.edit().clear().apply();
         pref4.edit().clear().apply();
+        class0.edit().clear().apply();
+        class1.edit().clear().apply();
+        class2.edit().clear().apply();
+        class3.edit().clear().apply();
+        class4.edit().clear().apply();
         SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
         SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
         SharedPreferences labTime = getSharedPreferences("LabTime", MODE_PRIVATE);
@@ -844,6 +930,196 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
         editorRoom.apply();
         editorTime.apply();
+    }
+
+    private SharedPreferences.Editor venueEdit;
+    private ArrayList<SharedPreferences> courseClassPrefList;
+    private SharedPreferences slotRoomPref;
+
+    public void prepSync() {
+        courseClassPrefList = new ArrayList<>();
+        courseClassPrefList.add(class0);
+        courseClassPrefList.add(class1);
+        courseClassPrefList.add(class2);
+        courseClassPrefList.add(class3);
+        courseClassPrefList.add(class4);
+        slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
+    }
+
+    public void initDatabaseFirst() {
+        int index = 0;
+        venueEdit = courseClassPrefList.get(0).edit();
+        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(1).edit();
+        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 1;
+        venueEdit = courseClassPrefList.get(1).edit();
+        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 2;
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 3;
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(0).edit();
+        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 4;
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 5;
+        venueEdit = courseClassPrefList.get(0).edit();
+        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 6;
+        venueEdit = courseClassPrefList.get(1).edit();
+        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+    }
+
+    public void initDatabaseSecond() {
+        int index = 0;
+        venueEdit = courseClassPrefList.get(0).edit();
+        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(1).edit();
+        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 1;
+        venueEdit = courseClassPrefList.get(1).edit();
+        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 2;
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 3;
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class1", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class2", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(0).edit();
+        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class10", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 4;
+        venueEdit = courseClassPrefList.get(4).edit();
+        venueEdit.putString("class6", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class7", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 5;
+        venueEdit = courseClassPrefList.get(0).edit();
+        venueEdit.putString("class8", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(2).edit();
+        venueEdit.putString("class9", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        index = 6;
+        venueEdit = courseClassPrefList.get(1).edit();
+        venueEdit.putString("class3", slotRoomPref.getString(courses[index], ""));
+        venueEdit.putString("class4", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
+
+        venueEdit = courseClassPrefList.get(3).edit();
+        venueEdit.putString("class5", slotRoomPref.getString(courses[index], ""));
+        venueEdit.apply();
     }
 
     @Deprecated

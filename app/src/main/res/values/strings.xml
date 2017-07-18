@@ -27,7 +27,7 @@
     <string name="dy10">Hour 10</string>
     <string name="enter_course">Course Name</string>
     <string name="enter_class">Room</string>
-    <string name="version">v3.0</string>
+    <string name="version">v3.1</string>
     <string name="save">Save</string>
     <string name="academia">Academia</string>
     <string name="support">Support Dev</string>
@@ -94,7 +94,7 @@
     <string name="class_room">Class Room :</string>
     <string name="your_time_table">Your Timetable</string>
     <string name="help0">Check your internet connection or try signing out and signing in again.</string>
-    <string name="help1">Goto any day order and give it a try!</string>
+    <string name="help1">Goto any Day Order and give it a try!</string>
     <string name="help2">Don\'t forget to press save after entering the data.</string>
     <string name="app_link"><![CDATA[https://play.google.com/store/apps/details?id=com.android.chrome&hl=en]]></string>
     <string name="ishucita">http://ishuchita.com/</string>
@@ -103,7 +103,7 @@
     <string name="free1">N/A</string>
     <string name="home">Home</string>
     <string name="back_button">Back Button</string>
-    <string name="today_is_day">Today is day order</string>
+    <string name="today_is_day">Today is Day Order</string>
     <string name="today_is">Today is</string>
     <string name="error_fetch">Error Fetching Day Order, check your internet connection.</string>
     <string name="fetching_day">Fetching today\'s day order…</string>
