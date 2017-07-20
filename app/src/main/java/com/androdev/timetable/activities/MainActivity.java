@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity {
         view.setVisibility(View.GONE);
 
         //Customizing Animations
-        animationFadeIn.setDuration(400);
+        animationFadeIn.setDuration(300);
         animationFadeIn.setInterpolator(new AccelerateDecelerateInterpolator());
-        animationFadeOut.setDuration(400);
+        animationFadeOut.setDuration(300);
         animationFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
 
         Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
@@ -244,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
                                             .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    Toast.makeText(MainActivity.this, "Choose the file in google drive.", Toast.LENGTH_SHORT).show();
-                                                    Uri uri = Uri.parse("https://drive.google.com/open?id=0B3ydVLQnm1oLZkF0QnRjOFVqX1k");
+                                                    Toast.makeText(MainActivity.this, "Download the file from OneDrive.", Toast.LENGTH_SHORT).show();
+                                                    Uri uri = Uri.parse("https://1drv.ms/f/s!ApQyeTQ9lnmjzHh-KLxmiisHUVSv");
                                                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                                     startActivity(intent);
                                                 }
@@ -319,6 +319,16 @@ public class MainActivity extends AppCompatActivity {
                                 room = labSlot.getRoom();
                                 time = labSlot.getTime();
                                 setLabSlot(course, room, time);
+                                int count = 0;
+                                String batch = getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "");
+                                for (String e : time) {
+                                    String[] labTime = e.split(" ");
+                                    if (batch.equals("1")) {
+                                        initLabDatabaseFirst(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                    } else if (batch.equals("2")) {
+                                        initLabDatabaseSecond(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                    }
+                                }
                             }
                         }
 
@@ -515,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Signed in!, Fetching previous data if it exists!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Signed in!, Fetching previous data if it exists!", Toast.LENGTH_LONG).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -599,10 +609,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.report:
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("text/plain")
-                        .putExtra(Intent.EXTRA_EMAIL, "androdev700@gmail.com")
-                        .putExtra(Intent.EXTRA_SUBJECT, "Companion : ISSUE");
-                startActivity(Intent.createChooser(emailIntent, "Send Email"));
+                emailIntent.setType("message/rfc822");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"androdev700@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "COMPANION : ISSUE");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Send mail.."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.share:
                 Intent sendIntent = new Intent();
@@ -1122,6 +1137,54 @@ public class MainActivity extends AppCompatActivity {
         venueEdit.apply();
     }
 
+    public void initLabDatabaseFirst(int startTime, int endTime, int indexLab) {
+        if (endTime < 11) {
+            venueEdit = courseClassPrefList.get(0).edit();
+        } else if (endTime < 16) {
+            venueEdit = courseClassPrefList.get(1).edit();
+        } else if (endTime < 31) {
+            venueEdit = courseClassPrefList.get(2).edit();
+        } else if (endTime < 36) {
+            venueEdit = courseClassPrefList.get(3).edit();
+        } else if (endTime < 51) {
+            venueEdit = courseClassPrefList.get(4).edit();
+        }
+        String s = Integer.toString(startTime % 10);
+
+        while (startTime <= endTime) {
+            Log.d("TAG", "hour".concat(s));
+            venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
+            startTime++;
+            int n = Integer.parseInt(s);
+            s = Integer.toString(++n);
+        }
+        venueEdit.apply();
+    }
+
+    public void initLabDatabaseSecond(int startTime, int endTime, int indexLab) {
+        if (endTime < 6) {
+            venueEdit = courseClassPrefList.get(0).edit();
+        } else if (endTime < 21) {
+            venueEdit = courseClassPrefList.get(1).edit();
+        } else if (endTime < 26) {
+            venueEdit = courseClassPrefList.get(2).edit();
+        } else if (endTime < 41) {
+            venueEdit = courseClassPrefList.get(3).edit();
+        } else if (endTime < 46) {
+            venueEdit = courseClassPrefList.get(4).edit();
+        }
+        String s = Integer.toString(startTime % 10);
+
+        while (startTime <= endTime) {
+            Log.d("TAG", "hour".concat(s));
+            venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
+            startTime++;
+            int n = Integer.parseInt(s);
+            s = Integer.toString(++n);
+        }
+        venueEdit.apply();
+    }
+
     @Deprecated
     public boolean checkConnection() {
         ConnectivityManager connect = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -1150,7 +1213,7 @@ public class MainActivity extends AppCompatActivity {
     public void hideBottomBar() {
         TranslateAnimation animation = new TranslateAnimation(0, 0, 0, bottomNavigationView.getHeight());
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
-        animation.setDuration(400);
+        animation.setDuration(300);
         bottomNavigationView.setAnimation(animation);
         bottomNavigationView.setVisibility(View.GONE);
     }
@@ -1158,7 +1221,7 @@ public class MainActivity extends AppCompatActivity {
     public void showBottomBar() {
         TranslateAnimation animation = new TranslateAnimation(0, 0, bottomNavigationView.getHeight(), 0);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
-        animation.setDuration(400);
+        animation.setDuration(300);
         bottomNavigationView.setAnimation(animation);
         bottomNavigationView.setVisibility(View.VISIBLE);
     }

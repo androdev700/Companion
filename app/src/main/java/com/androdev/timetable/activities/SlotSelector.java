@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -585,6 +586,16 @@ public class SlotSelector extends AppCompatActivity {
             start.setText(info[0]);
             end.setText(info[1]);
         }
+
+        start.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (start.getText().length() == 2) {
+                    end.requestFocus();
+                }
+                return false;
+            }
+        });
 
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
