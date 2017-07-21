@@ -113,7 +113,7 @@ public class EntryFragment extends Fragment {
 
         SharedPreferences batchPref = getActivity().getSharedPreferences("batch", MODE_PRIVATE);
         TextView batchChoice = v.findViewById(R.id.batch_text);
-        String batch = "You are batch : ".concat(batchPref.getString("batch", "Error!"));
+        String batch = "You are in batch : ".concat(batchPref.getString("batch", "Error!"));
         batchChoice.setText(batch);
         clientBatch = batchPref.getString("batch", "Error!");
 

@@ -622,7 +622,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this app, to ease out your timetable. https://drive.google.com/open?id=0B3ydVLQnm1oLZkF0QnRjOFVqX1k");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this app, to ease out your timetable. https://1drv.ms/f/s!ApQyeTQ9lnmjzHh-KLxmiisHUVSv");
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share App with Friends"));
                 break;

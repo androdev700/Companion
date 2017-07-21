@@ -83,43 +83,43 @@ public class DayFragment2 extends Fragment {
 
         //Refine Cards
 
-        if (hour1.getText().equals(getString(R.string.free)) || hour1.getText().equals("")) {
+        if (hour1.getText().equals(getString(R.string.free)) || hour1.getText().equals("") || hour1.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card1);
             cardView.setVisibility(View.GONE);
         }
-        if (hour2.getText().equals(getString(R.string.free)) || hour2.getText().equals("")) {
+        if (hour2.getText().equals(getString(R.string.free)) || hour2.getText().equals("") || hour2.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card2);
             cardView.setVisibility(View.GONE);
         }
-        if (hour3.getText().equals(getString(R.string.free)) || hour3.getText().equals("")) {
+        if (hour3.getText().equals(getString(R.string.free)) || hour3.getText().equals("") || hour3.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card3);
             cardView.setVisibility(View.GONE);
         }
-        if (hour4.getText().equals(getString(R.string.free)) || hour4.getText().equals("")) {
+        if (hour4.getText().equals(getString(R.string.free)) || hour4.getText().equals("") || hour4.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card4);
             cardView.setVisibility(View.GONE);
         }
-        if (hour5.getText().equals(getString(R.string.free)) || hour5.getText().equals("")) {
+        if (hour5.getText().equals(getString(R.string.free)) || hour5.getText().equals("") || hour5.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card5);
             cardView.setVisibility(View.GONE);
         }
-        if (hour6.getText().equals(getString(R.string.free)) || hour6.getText().equals("")) {
+        if (hour6.getText().equals(getString(R.string.free)) || hour6.getText().equals("") || hour6.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card6);
             cardView.setVisibility(View.GONE);
         }
-        if (hour7.getText().equals(getString(R.string.free)) || hour7.getText().equals("")) {
+        if (hour7.getText().equals(getString(R.string.free)) || hour7.getText().equals("") || hour7.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card7);
             cardView.setVisibility(View.GONE);
         }
-        if (hour8.getText().equals(getString(R.string.free)) || hour8.getText().equals("")) {
+        if (hour8.getText().equals(getString(R.string.free)) || hour8.getText().equals("") || hour8.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card8);
             cardView.setVisibility(View.GONE);
         }
-        if (hour9.getText().equals(getString(R.string.free)) || hour9.getText().equals("")) {
+        if (hour9.getText().equals(getString(R.string.free)) || hour9.getText().equals("") || hour9.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card9);
             cardView.setVisibility(View.GONE);
         }
-        if (hour10.getText().equals(getString(R.string.free)) || hour10.getText().equals("")) {
+        if (hour10.getText().equals(getString(R.string.free)) || hour10.getText().equals("") || hour10.getText().equals("Tap to select slot")) {
             CardView cardView = v.findViewById(R.id.d2card10);
             cardView.setVisibility(View.GONE);
         }
