@@ -49,7 +49,7 @@ public class SlotSelector extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slot_selector);
 
-        TextView courseA, courseB, courseC, courseD, courseE, courseF, courseG, courseLab1, courseLab2, courseLab3;
+        TextView courseA, courseB, courseC, courseD, courseE, courseF, courseG, courseLab1, courseLab2, courseLab3, courseLab4;
         courseA = (TextView) findViewById(R.id.courseA);
         courseB = (TextView) findViewById(R.id.courseB);
         courseC = (TextView) findViewById(R.id.courseC);
@@ -60,6 +60,7 @@ public class SlotSelector extends AppCompatActivity {
         courseLab1 = (TextView) findViewById(R.id.courseLab1);
         courseLab2 = (TextView) findViewById(R.id.courseLab2);
         courseLab3 = (TextView) findViewById(R.id.courseLab3);
+        courseLab4 = (TextView) findViewById(R.id.courseLab4);
 
         courseList = new ArrayList<>();
         courseList.add(courseA);
@@ -74,6 +75,7 @@ public class SlotSelector extends AppCompatActivity {
         courseLabList.add(courseLab1);
         courseLabList.add(courseLab2);
         courseLabList.add(courseLab3);
+        courseLabList.add(courseLab4);
 
         startDatabase();
     }
@@ -81,13 +83,13 @@ public class SlotSelector extends AppCompatActivity {
     public void startDatabase() {
         Arrays.sort(COURSES);
         courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE", "courseF", "courseG"};
-        labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3"};
+        labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3", "courseLab4"};
 
         slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
         for (int i = 0; i < 7; i++) {
             courseList.get(i).setText(slotPref.getString(courses[i], "Tap to select slot"));
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             courseLabList.get(i).setText(slotPref.getString(labCourses[i], "Tap to select slot"));
         }
         slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
@@ -142,7 +144,7 @@ public class SlotSelector extends AppCompatActivity {
             course.add(slotPref.getString(courses[i], "Tap to select slot"));
             room.add(slotRoomPref.getString(courses[i], ""));
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             courseLab.add(slotPref.getString(labCourses[i], "Tap to select slot"));
             timeLab.add(labTime.getString(labCourses[i], ""));
             roomLab.add(slotRoomPref.getString(labCourses[i], ""));
@@ -562,6 +564,9 @@ public class SlotSelector extends AppCompatActivity {
             case R.id.slotLab3:
                 indexLab = 2;
                 break;
+            case R.id.slotLab4:
+                indexLab = 3;
+                break;
         }
 
         final SharedPreferences.Editor editor = slotPref.edit();
@@ -857,7 +862,8 @@ public class SlotSelector extends AppCompatActivity {
             "Basic Electrical Engineering",
             "Computer Hardware and Troubleshooting Laboratory",
             "Program Design and Development",
-            "Value Education",
+            "Value Education | Soft Skills",
+            "English | Soft Skills",
             "German Language",
             "French Language",
             "Japanese Language",
@@ -868,8 +874,6 @@ public class SlotSelector extends AppCompatActivity {
             "Discrete Mathematics for Information Technology",
             "Basic Mechanical Engineering",
             "Engineering Graphics",
-            "Soft Skills I",
-            "Soft Skills II",
             "Quantitative Aptitude and Logical Reasoning",
             "Communication and Reasoning Skills",
             "Verbal Aptitude",

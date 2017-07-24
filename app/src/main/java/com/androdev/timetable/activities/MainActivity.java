@@ -50,7 +50,6 @@ import com.androdev.timetable.viewFragments.HomeWhatsNew;
 import com.androdev.timetable.viewFragments.HomeYourTimeTableFragment;
 import com.androdev.timetable.viewFragments.NewsFragment;
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             "hour7", "hour8", "hour9", "hour10"};
 
     private String[] courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE", "courseF", "courseG"};
-    private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3"};
+    private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3", "courseLab4"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) throws IllegalThreadStateException {
@@ -229,18 +228,10 @@ public class MainActivity extends AppCompatActivity {
                             String version = dataSnapshot.getValue(String.class);
                             if (version != null) {
                                 int code = com.androdev.timetable.BuildConfig.VERSION_CODE;
-                                if (!version.equals(Integer.toString(code))) {
+                                if (code < Integer.parseInt(version)) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                     builder.setTitle("Update Available..")
-                                            .setCancelable(false)
                                             .setMessage("An improved version of the app is available, it's highly recommended to update to the latest build!")
-                                            .setNegativeButton("Later!", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                    MainActivity.this.finish();
-                                                    System.exit(0);
-                                                }
-                                            })
                                             .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -322,11 +313,13 @@ public class MainActivity extends AppCompatActivity {
                                 int count = 0;
                                 String batch = getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "");
                                 for (String e : time) {
-                                    String[] labTime = e.split(" ");
-                                    if (batch.equals("1")) {
-                                        initLabDatabaseFirst(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
-                                    } else if (batch.equals("2")) {
-                                        initLabDatabaseSecond(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                    if (!e.isEmpty()) {
+                                        String[] labTime = e.split(" ");
+                                        if (batch.equals("1")) {
+                                            initLabDatabaseFirst(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                        } else if (batch.equals("2")) {
+                                            initLabDatabaseSecond(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                        }
                                     }
                                 }
                             }
@@ -937,11 +930,20 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = slotPref.edit();
         SharedPreferences.Editor editorRoom = slotRoomPref.edit();
         SharedPreferences.Editor editorTime = labTime.edit();
-        for (int i = 0; i < 3; i++) {
-            editor.putString(labCourses[i], course.get(i));
-            editorRoom.putString(labCourses[i], room.get(i));
-            editorTime.putString(labCourses[i], time.get(i));
+        if (course.size() == 4) {
+            for (int i = 0; i < 4; i++) {
+                editor.putString(labCourses[i], course.get(i));
+                editorRoom.putString(labCourses[i], room.get(i));
+                editorTime.putString(labCourses[i], time.get(i));
+            }
+        } else {
+            for (int i = 0; i < 3; i++) {
+                editor.putString(labCourses[i], course.get(i));
+                editorRoom.putString(labCourses[i], room.get(i));
+                editorTime.putString(labCourses[i], time.get(i));
+            }
         }
+
         editor.apply();
         editorRoom.apply();
         editorTime.apply();
