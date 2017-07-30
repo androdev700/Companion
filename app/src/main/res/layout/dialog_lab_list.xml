@@ -2,77 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp">
+
+    <AutoCompleteTextView
+        android:id="@+id/lab_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:hint="Course name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="Ex. P6-P7 : Just enter the number"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <AutoCompleteTextView
-            android:id="@+id/lab_entry"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/lab_hour_entry_start"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:hint="Course name" />
+            android:hint="Start"
+            android:inputType="number"
+            android:maxLength="2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:text="Ex. P6-P7 : Just enter the number"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/lab_hour_entry_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:hint="Start"
-                android:inputType="number"
-                android:maxLength="2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="-"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/lab_hour_entry_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:hint="End"
-                android:inputType="number"
-                android:maxLength="2" />
-
-        </LinearLayout>
+            android:gravity="center"
+            android:text="-"
+            android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/lab_room"
-            android:layout_width="match_parent"
+            android:id="@+id/lab_hour_entry_end"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:hint="Lab Room" />
+            android:layout_marginTop="5dp"
+            android:hint="End"
+            android:inputType="number"
+            android:maxLength="2" />
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/lab_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:hint="Lab Room" />
 
 </LinearLayout>

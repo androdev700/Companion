@@ -104,6 +104,7 @@
     <string name="home">Home</string>
     <string name="back_button">Back Button</string>
     <string name="today_is_day">Today is Day Order</string>
+    <string name="tomorrow_is_day">Tomorrow is Day Order</string>
     <string name="today_is">Today is</string>
     <string name="error_fetch">Error Fetching Day Order, check your internet connection.</string>
     <string name="fetching_day">Fetching today\'s day order…</string>
@@ -126,5 +127,6 @@
     <string name="batch_menu">Change Batch</string>
     <string name="your_batch">Your Batch</string>
     <string name="report_issue">Report Issue</string>
+    <string name="app_url">https://1drv.ms/f/s!ApQyeTQ9lnmjzHh-KLxmiisHUVSv</string>
 
 </resources>

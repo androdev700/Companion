@@ -181,24 +181,31 @@ public class SlotSelector extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.slotA:
                 index = 0;
+                alertDialogBuilder.setTitle("Enter Slot A");
                 break;
             case R.id.slotB:
                 index = 1;
+                alertDialogBuilder.setTitle("Enter Slot B");
                 break;
             case R.id.slotC:
                 index = 2;
+                alertDialogBuilder.setTitle("Enter Slot C");
                 break;
             case R.id.slotD:
                 index = 3;
+                alertDialogBuilder.setTitle("Enter Slot D");
                 break;
             case R.id.slotE:
                 index = 4;
+                alertDialogBuilder.setTitle("Enter Slot E");
                 break;
             case R.id.slotF:
                 index = 5;
+                alertDialogBuilder.setTitle("Enter Slot F");
                 break;
             case R.id.slotG:
                 index = 6;
+                alertDialogBuilder.setTitle("Enter Slot G");
                 break;
         }
 
@@ -557,14 +564,18 @@ public class SlotSelector extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.slotLab1:
                 indexLab = 0;
+                alertDialogBuilder.setTitle("Enter Lab 1");
                 break;
             case R.id.slotLab2:
+                alertDialogBuilder.setTitle("Enter Lab 2");
                 indexLab = 1;
                 break;
             case R.id.slotLab3:
+                alertDialogBuilder.setTitle("Enter Lab 3");
                 indexLab = 2;
                 break;
             case R.id.slotLab4:
+                alertDialogBuilder.setTitle("Enter Lab 4");
                 indexLab = 3;
                 break;
         }

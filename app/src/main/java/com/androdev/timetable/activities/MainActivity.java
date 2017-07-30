@@ -21,12 +21,14 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -61,7 +63,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,13 +73,16 @@ public class MainActivity extends AppCompatActivity {
     private int count = 0;
     private static final String TAG = "MainActivity";
     private String dayOrder = "Today is ";
+    private String dayOrderTomorrow = "Tomorrow is ";
     private String mUsername;
+    private boolean backPressed = false;
 
     private TextView actionBarTitle;
     private Toolbar toolbar;
     private ImageView view;
     private BottomNavigationView bottomNavigationView;
     private TextView timeViewer;
+    private FrameLayout dayView;
     private ProgressBar progressBarDayOrder;
 
     private FirebaseAuth mFirebaseAuth;
@@ -83,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private static DatabaseReference userRef;
 
-    final Animation animationFadeIn = new AlphaAnimation(0.0f, 1.0f);
-    final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
+    private final Animation animationFadeIn = new AlphaAnimation(0.0f, 1.0f);
+    private final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
+    private float dayViewY;
 
     private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
     private SharedPreferences dayOrderPref;
@@ -103,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            Toast.makeText(getBaseContext(), "Thanks for downloading!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Thanks for downloading!", Toast.LENGTH_SHORT).show();
         }
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
 
@@ -127,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         view = (ImageView) findViewById(R.id.toolbar_image);
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
+        dayView = (FrameLayout) findViewById(R.id.header);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         timeViewer = (TextView) findViewById(R.id.time_text);
         progressBarDayOrder = (ProgressBar) findViewById(R.id.progressBarDayOrder);
@@ -142,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
         animationFadeIn.setInterpolator(new AccelerateDecelerateInterpolator());
         animationFadeOut.setDuration(300);
         animationFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
-
-        Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
 
         //Starting the Home Page
         Fragment fragment = HomeYourTimeTableFragment.newInstance();
@@ -178,8 +185,15 @@ public class MainActivity extends AppCompatActivity {
         //Setting Day Order
         Date date = new Date();
         String day = (String) DateFormat.format("dd", date);
-        final String monthNumber = (String) DateFormat.format("MM", date);
+        String monthNumber = (String) DateFormat.format("MM", date);
         final String todayDate = day + " " + monthNumber;
+
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.add(Calendar.DATE, 1);
+        Date tomorrow = gc.getTime();
+        String dayTomorrow = (String) DateFormat.format("dd", tomorrow);
+        String monthNumberTomorrow = (String) DateFormat.format("MM", tomorrow);
+        final String tomorrowDate = dayTomorrow + " " + monthNumberTomorrow;
 
         //Navigation Switcher
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -217,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
+
                     prepSync();
                     mUsername = user.getUid();
                     userRef = mDatabaseReference.child(mUsername);
@@ -236,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
                                                     Toast.makeText(MainActivity.this, "Download the file from OneDrive.", Toast.LENGTH_SHORT).show();
-                                                    Uri uri = Uri.parse("https://1drv.ms/f/s!ApQyeTQ9lnmjzHh-KLxmiisHUVSv");
+                                                    Uri uri = Uri.parse(getString(R.string.app_url));
                                                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                                     startActivity(intent);
                                                 }
@@ -467,7 +483,6 @@ public class MainActivity extends AppCompatActivity {
                                     dayOrder = dayOrder.concat(dataSnapshot.getValue(String.class));
                                     timeViewer.startAnimation(animationFadeIn);
                                     timeViewer.setText(dayOrder);
-                                    Toast.makeText(getBaseContext(), dayOrder, Toast.LENGTH_LONG).show();
                                 }
                             }
                             progressBarDayOrder.setAnimation(animationFadeOut);
@@ -476,6 +491,26 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError error) {
+                        }
+                    });
+
+                    DatabaseReference dayRefTomorrow = FirebaseDatabase.getInstance().getReference("CheckOrder").child(tomorrowDate);
+                    dayRefTomorrow.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            try {
+                                if (dataSnapshot.getValue(Long.class) != null) {
+                                    dayOrderTomorrow = Long.toString(dataSnapshot.getValue(Long.class));
+                                    dayOrderTomorrow = String.format("%s %s", getString(R.string.tomorrow_is_day), dayOrderTomorrow);
+                                    Log.d(TAG, dayOrderTomorrow);
+                                }
+                            } catch (DatabaseException e) {
+                                dayOrderTomorrow = "Tomorrow is a holiday";
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
                         }
                     });
 
@@ -492,9 +527,16 @@ public class MainActivity extends AppCompatActivity {
         };
 
         //Multi Touch Magic :P
-        timeViewer.setOnClickListener(new View.OnClickListener() {
+        dayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Long isFirstRun = getSharedPreferences("PREFERENCE_VIEW_ORDER", MODE_PRIVATE)
+                        .getLong("isFirstRun", 0);
+                if (isFirstRun < 3) {
+                    Toast.makeText(getBaseContext(), "Hold to view Tomorrow's Day Order..", Toast.LENGTH_LONG).show();
+                }
+                getSharedPreferences("PREFERENCE_VIEW_ORDER", MODE_PRIVATE).edit().putLong("isFirstRun", ++isFirstRun).apply();
+
                 if (count % 2 == 0) {
                     timeViewer.startAnimation(animationFadeIn);
                     timeViewer.setText(timeHandler.timeUpdate());
@@ -511,6 +553,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        dayView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (dayOrderTomorrow.equals("Tomorrow is ")) {
+                    Toast.makeText(MainActivity.this, "Fetching tomorrow's day order.. Try Again..", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, dayOrderTomorrow, Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+        });
+
+        dayViewY = dayView.getY() + dayView.getHeight();
+        dayView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                float y = 0;
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        y = motionEvent.getY();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -518,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Signed in!, Fetching previous data if it exists!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Signed in!, Fetching previous data if it exists!", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -549,6 +617,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.edit_details:
+                backPressed = false;
                 toolbar.getMenu().clear();
                 hideBottomBar();
                 revealBack();
@@ -629,11 +698,15 @@ public class MainActivity extends AppCompatActivity {
         actionBarTitle.setText(R.string.home);
         showBottomBar();
         view.setVisibility(View.GONE);
-        toolbar.inflateMenu(R.menu.main_menu);
+        if (!backPressed) {
+            toolbar.inflateMenu(R.menu.main_menu);
+            backPressed = true;
+        }
     }
 
     // View Listeners
     public void card1(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -648,6 +721,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card2(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -662,6 +736,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card3(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -676,6 +751,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card4(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -690,6 +766,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void card5(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -704,6 +781,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void news(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -718,6 +796,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void event(View view) {
+        backPressed = false;
         hideBottomBar();
         revealBack();
         toolbar.getMenu().clear();
@@ -732,9 +811,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void academia(View view) {
-        hideBottomBar();
-        revealBack();
-
         //First Run Check
         Boolean isFirstRun = getSharedPreferences("PREFERENCE_ACADEMIA", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
