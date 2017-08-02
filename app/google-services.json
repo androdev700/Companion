@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "9492694600-81fuupf9vbsmiftr64m638dui6js92la.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.timetable",
+            "certificate_hash": "b1a53ca82ff86740d8b72458d2194a8a1aef9d78"
+          }
+        },
+        {
+          "client_id": "9492694600-2thjbqj96161j1b4ukoot9ge198abtuh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.timetable",
+            "certificate_hash": "daf70a2f3707f5af9bfd0b354c4d7efa8341f0d6"
+          }
+        },
+        {
+          "client_id": "9492694600-h6u8m7teubnkl9er1mboov06diaci376.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.timetable",
+            "certificate_hash": "7722d048e8e575e57468bbf8a92c6c2b2c5075e2"
+          }
+        },
+        {
           "client_id": "9492694600-vp7ip9o640sp2ec6p12emrsqkmugu5b9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -28,6 +52,66 @@
           "android_info": {
             "package_name": "com.androdev.timetable",
             "certificate_hash": "435ab47a9c6ff41dfb109ecf36b2bcc44b5f8d54"
+          }
+        },
+        {
+          "client_id": "9492694600-i1of66rdrp8mdkr4bj2maljoaaac8i7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLqsmK6AojxzX1x_A63wXPj7z7EiVVxAE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9492694600-i1of66rdrp8mdkr4bj2maljoaaac8i7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9492694600:android:a48ea7806eb912ac",
+        "android_client_info": {
+          "package_name": "com.androdev.timecompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9492694600-v68scn7d6id76039f4q3lpvundl5j74u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.timecompanion",
+            "certificate_hash": "daf70a2f3707f5af9bfd0b354c4d7efa8341f0d6"
+          }
+        },
+        {
+          "client_id": "9492694600-3cefgekh6t7hvlu7om1i2qucq9p32599.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.timecompanion",
+            "certificate_hash": "6223853a04f4ac732c1105d96c3c3b4b56da2086"
+          }
+        },
+        {
+          "client_id": "9492694600-4d86eiu181snvh60vimk33qvu5v1j7s8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androdev.timecompanion",
+            "certificate_hash": "7722d048e8e575e57468bbf8a92c6c2b2c5075e2"
           }
         },
         {

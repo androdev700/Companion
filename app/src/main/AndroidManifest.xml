@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.androdev.timetable">
+    package="com.androdev.timecompanion">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
 
         <!-- Splash screen -->
         <activity
-            android:name=".activities.SplashScreen"
+            android:name="com.androdev.timecompanion.activities.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -28,17 +28,17 @@
 
         <!-- Main activity -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.androdev.timecompanion.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.SlotSelector"
+            android:name="com.androdev.timecompanion.activities.SlotSelector"
             android:label="@string/slot_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activities.BatchSelector"
+        <activity android:name="com.androdev.timecompanion.activities.BatchSelector"
             android:label="@string/batch_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
