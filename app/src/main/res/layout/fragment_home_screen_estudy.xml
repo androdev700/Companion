@@ -35,7 +35,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="academia"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -58,7 +59,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="weebly"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">

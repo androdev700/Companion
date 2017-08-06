@@ -29,6 +29,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -52,6 +53,7 @@ import com.androdev.timecompanion.viewFragments.HomeOthers;
 import com.androdev.timecompanion.viewFragments.HomeWhatsNew;
 import com.androdev.timecompanion.viewFragments.HomeYourTimeTableFragment;
 import com.androdev.timecompanion.viewFragments.NewsFragment;
+import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,8 +76,11 @@ public class MainActivity extends AppCompatActivity {
     private int count = 0;
     private static final String TAG = "MainActivity";
     private String dayOrder = "Today is ";
-    private String dayOrderTomorrow = "Tomorrow is ";
+    private String dayOrderTomorrow = "Tomorrow will be ";
     private String mUsername;
+    private String displayName = "You're not signed in";
+    private String displayEmail = "You're not signed in";
+    private String displayPhotoUrl;
     private boolean backPressed = true;
 
     private TextView actionBarTitle;
@@ -93,13 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     private final Animation animationFadeIn = new AlphaAnimation(0.0f, 1.0f);
     private final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
-    private float dayViewY;
 
+    private SharedPreferences prefDisplayName;
     private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
-    private SharedPreferences dayOrderPref;
     private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
             "hour7", "hour8", "hour9", "hour10"};
-
     private String[] courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE", "courseF", "courseG"};
     private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3", "courseLab4"};
 
@@ -129,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         class2 = getSharedPreferences("class3", MODE_PRIVATE);
         class3 = getSharedPreferences("class4", MODE_PRIVATE);
         class4 = getSharedPreferences("class5", MODE_PRIVATE);
+        prefDisplayName = getSharedPreferences("account_info", MODE_PRIVATE);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -232,11 +236,22 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
-
                     prepSync();
                     mUsername = user.getUid();
                     userRef = mDatabaseReference.child(mUsername);
+
+                    displayName = user.getDisplayName();
+                    displayEmail = user.getEmail();
+                    if (user.getPhotoUrl() != null) {
+                        displayPhotoUrl = user.getPhotoUrl().toString();
+                        Log.d(TAG, displayPhotoUrl);
+                    }
+                    SharedPreferences.Editor editorName = prefDisplayName.edit();
+                    editorName.putString("name", displayName);
+                    editorName.putString("email", displayEmail);
+                    editorName.putString("photoUrl", displayPhotoUrl);
+                    editorName.apply();
+                    Log.d(TAG, displayName);
 
                     DatabaseReference appVersion = mDatabaseReference.child("version");
                     appVersion.addValueEventListener(new ValueEventListener() {
@@ -471,6 +486,7 @@ public class MainActivity extends AppCompatActivity {
                     dayRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
                             try {
                                 if (dataSnapshot.getValue(Long.class) != null) {
                                     dayOrder = Long.toString(dataSnapshot.getValue(Long.class));
@@ -505,7 +521,7 @@ public class MainActivity extends AppCompatActivity {
                                     Log.d(TAG, dayOrderTomorrow);
                                 }
                             } catch (DatabaseException e) {
-                                dayOrderTomorrow = "Tomorrow is a holiday";
+                                dayOrderTomorrow = "Tomorrow will be a holiday";
                             }
                         }
 
@@ -516,6 +532,12 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     // User is signed out
+                    displayName = "You're not signed in";
+                    Log.d(TAG, displayName);
+                    SharedPreferences.Editor editorName = prefDisplayName.edit();
+                    editorName.putString("name", displayName);
+                    editorName.putString("email", displayEmail);
+                    editorName.apply();
                     startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                             .setAvailableProviders(Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
@@ -561,20 +583,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Fetching tomorrow's day order.. Try Again..", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, dayOrderTomorrow, Toast.LENGTH_LONG).show();
-                }
-                return false;
-            }
-        });
-
-        dayViewY = dayView.getY() + dayView.getHeight();
-        dayView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                float y = 0;
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_MOVE:
-                        y = motionEvent.getY();
-                        break;
                 }
                 return false;
             }
@@ -656,10 +664,25 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
                 break;
-            case R.id.support:
-                Uri uri = Uri.parse("https://www.paypal.me/androdev700");
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+            case R.id.account:
+                AlertDialog.Builder accountView = new AlertDialog.Builder(this);
+                LayoutInflater layoutInflater = this.getLayoutInflater();
+                View accountDialog = layoutInflater.inflate(R.layout.dialog_account, null);
+                accountView.setTitle("Signed in using");
+                accountView.setView(accountDialog);
+                AlertDialog dialog = accountView.create();
+
+                ImageView accountPicture = accountDialog.findViewById(R.id.account_picture);
+                TextView accountName = accountDialog.findViewById(R.id.account_name);
+                TextView accountEmail = accountDialog.findViewById(R.id.account_email);
+
+                accountName.setText(prefDisplayName.getString("name", "You're not signed in"));
+                accountEmail.setText(prefDisplayName.getString("email", "You're not signed in"));
+
+                if (!prefDisplayName.getString("photoUrl", "").equals("")) {
+                    Glide.with(accountPicture.getContext()).load(prefDisplayName.getString("photoUrl", "")).into(accountPicture);
+                }
+                dialog.show();
                 break;
             case R.id.about:
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -669,6 +692,7 @@ public class MainActivity extends AppCompatActivity {
                 builder1.setView(dialogView);
                 AlertDialog alertDialog = builder1.create();
 
+                Button buttonSupport;
                 ImageView androTwitter, androGPlus, androGithub, apsrTwitter, apsrGPlus, apsrGithub;
                 androTwitter = dialogView.findViewById(R.id.andro_twitter);
                 androGPlus = dialogView.findViewById(R.id.andro_gplus);
@@ -677,6 +701,8 @@ public class MainActivity extends AppCompatActivity {
                 apsrTwitter = dialogView.findViewById(R.id.apsr_twitter);
                 apsrGPlus = dialogView.findViewById(R.id.apsr_gplus);
                 apsrGithub = dialogView.findViewById(R.id.apsr_github);
+
+                buttonSupport = dialogView.findViewById(R.id.support_button);
 
                 androTwitter.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -727,6 +753,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Uri uri = Uri.parse("https://github.com/apsrcreatix");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
+
+                buttonSupport.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Uri uri = Uri.parse("https://www.paypal.me/androdev700");
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
                     }

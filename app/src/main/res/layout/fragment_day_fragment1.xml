@@ -18,7 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass1"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -71,7 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass2"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -124,7 +128,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass3"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -177,7 +183,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass4"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -230,7 +238,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass5"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -283,7 +293,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass6"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -336,7 +348,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass7"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -389,7 +403,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass8"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -442,7 +458,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass9"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">
@@ -495,7 +513,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="0dp"
+            android:clickable="true"
             android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:onClick="showTimeClass10"
             android:stateListAnimator="@animator/raise"
             app:cardBackgroundColor="@color/cardColor">

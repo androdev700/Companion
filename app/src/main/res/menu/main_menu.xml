@@ -16,39 +16,39 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/account"
+        android:orderInCategory="3"
+        android:title="@string/account"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/sign_out"
         android:orderInCategory="4"
         android:title="@string/sign_out"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/help"
-        android:orderInCategory="5"
-        android:title="@string/help_amp_support"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/support"
-        android:orderInCategory="6"
-        android:title="@string/support"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/share"
-        android:orderInCategory="7"
-        android:title="Share"
+        android:orderInCategory="5"
+        android:title="@string/share"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/about"
-        android:orderInCategory="8"
+        android:orderInCategory="6"
         android:title="@string/about"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/report"
-        android:orderInCategory="9"
+        android:orderInCategory="7"
         android:title="@string/report_issue"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/help"
+        android:orderInCategory="8"
+        android:title="@string/help_amp_support"
         app:showAsAction="never" />
 
 </menu>
