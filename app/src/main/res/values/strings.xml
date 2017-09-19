@@ -120,6 +120,16 @@
     <string name="time_hour8">Hour 8 : 14:20 – 15:10</string>
     <string name="time_hour9">Hour 9 : 15:15 – 16:05</string>
     <string name="time_hour10">Hour 10 : 16:05 – 16:55</string>
+    <string name="twelve_time_hour1">Hour 1 : 8:00am – 8:50am</string>
+    <string name="twelve_time_hour2">Hour 2 : 8:50am – 9:40am</string>
+    <string name="twelve_time_hour3">Hour 3 : 9:45am – 10:35am</string>
+    <string name="twelve_time_hour4">Hour 4 : 10:40am – 11:30am</string>
+    <string name="twelve_time_hour5">Hour 5 : 11:35am – 12:25pm</string>
+    <string name="twelve_time_hour6">Hour 6 : 12:30pm – 1:20pm</string>
+    <string name="twelve_time_hour7">Hour 7 : 1:25pm – 2:15pm</string>
+    <string name="twelve_time_hour8">Hour 8 : 2:20pm – 3:10pm</string>
+    <string name="twelve_time_hour9">Hour 9 : 3:15pm – 4:05pm</string>
+    <string name="twelve_time_hour10">Hour 10 : 4:05pm – 4:55pm</string>
     <string name="edit_slots">Edit Slots</string>
     <string name="slot_selector">Slot Selector</string>
     <string name="batch_selector">Choose your batch</string>

@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/edit_details"
+        android:icon="@drawable/ic_edit"
         android:orderInCategory="1"
         android:title="@string/enter_details"
-        android:icon="@drawable/ic_edit"
         app:showAsAction="ifRoom" />
 
     <item
@@ -28,26 +28,33 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/share"
+        android:id="@+id/time_format"
+        android:checkable="true"
+        android:checked="true"
         android:orderInCategory="5"
+        android:title="24 Hour Format" />
+
+    <item
+        android:id="@+id/share"
+        android:orderInCategory="6"
         android:title="@string/share"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/about"
-        android:orderInCategory="6"
+        android:orderInCategory="7"
         android:title="@string/about"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/report"
-        android:orderInCategory="7"
+        android:orderInCategory="8"
         android:title="@string/report_issue"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/help"
-        android:orderInCategory="8"
+        android:orderInCategory="9"
         android:title="@string/help_amp_support"
         app:showAsAction="never" />
 

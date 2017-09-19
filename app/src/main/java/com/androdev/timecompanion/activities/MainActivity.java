@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -33,6 +32,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView view;
     private BottomNavigationView bottomNavigationView;
     private TextView timeViewer;
-    private FrameLayout dayView;
     private ProgressBar progressBarDayOrder;
+    private Menu menu;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
         view = (ImageView) findViewById(R.id.toolbar_image);
         actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
-        dayView = (FrameLayout) findViewById(R.id.header);
+        RelativeLayout dayView = (RelativeLayout) findViewById(R.id.header);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         timeViewer = (TextView) findViewById(R.id.time_text);
         progressBarDayOrder = (ProgressBar) findViewById(R.id.progressBarDayOrder);
@@ -252,36 +252,6 @@ public class MainActivity extends AppCompatActivity {
                     editorName.putString("photoUrl", displayPhotoUrl);
                     editorName.apply();
                     Log.d(TAG, displayName);
-
-                    DatabaseReference appVersion = mDatabaseReference.child("version");
-                    appVersion.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String version = dataSnapshot.getValue(String.class);
-                            if (version != null) {
-                                int code = com.androdev.timecompanion.BuildConfig.VERSION_CODE;
-                                if (code < Integer.parseInt(version)) {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                    builder.setTitle("Update Available..")
-                                            .setMessage("An improved version of the app is available, it's highly recommended to update to the latest build!")
-                                            .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                    Uri uri = Uri.parse(getString(R.string.app_url));
-                                                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                                                    startActivity(intent);
-                                                }
-                                            });
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
 
                     DatabaseReference reference = userRef.child("batch");
                     reference.addValueEventListener(new ValueEventListener() {
@@ -486,7 +456,6 @@ public class MainActivity extends AppCompatActivity {
                     dayRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Toast.makeText(getBaseContext(), R.string.fetching_day, Toast.LENGTH_SHORT).show();
                             try {
                                 if (dataSnapshot.getValue(Long.class) != null) {
                                     dayOrder = Long.toString(dataSnapshot.getValue(Long.class));
@@ -549,7 +518,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         //Multi Touch Magic :P
-        dayView.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener timerView = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Long isFirstRun = getSharedPreferences("PREFERENCE_VIEW_ORDER", MODE_PRIVATE)
@@ -574,7 +543,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        };
+        dayView.setOnClickListener(timerView);
 
         dayView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -615,13 +585,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        actionBarTitle.setText(R.string.home);
+        showBottomBar();
+        view.setVisibility(View.GONE);
+        if (!backPressed) {
+            getMenuInflater().inflate(R.menu.main_menu, menu);
+            MenuItem item = menu.findItem(R.id.time_format);
+            Boolean isEnabled = getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                    .getBoolean("isEnabled", true);
+            item.setChecked(isEnabled);
+            backPressed = true;
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        Log.d(TAG,"onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.time_format);
+        Boolean isEnabled = getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true);
+        item.setChecked(isEnabled);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG,"onOptionsItemSelected");
         int id = item.getItemId();
         switch (id) {
             case R.id.edit_details:
@@ -644,6 +637,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out:
                 clearData();
                 AuthUI.getInstance().signOut(this);
+                break;
+            case R.id.time_format:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE).edit().putBoolean("isEnabled", false).apply();
+                    Toast.makeText(getBaseContext(), "24 Hours Disabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    item.setChecked(true);
+                    getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE).edit().putBoolean("isEnabled", true).apply();
+                    Toast.makeText(getBaseContext(), "24 Hours Enabled", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.help:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -790,18 +794,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        actionBarTitle.setText(R.string.home);
-        showBottomBar();
-        view.setVisibility(View.GONE);
-        if (!backPressed) {
-            toolbar.inflateMenu(R.menu.main_menu);
-            backPressed = true;
-        }
     }
 
     // View Listeners
@@ -996,43 +988,93 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showTimeClass1(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour1, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour1, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour1, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass2(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour2, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour2, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour2, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass3(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour3, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour3, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour3, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass4(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour4, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour4, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour4, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass5(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour5, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour5, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour5, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass6(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour6, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour6, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour6, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass7(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour7, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour7, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour7, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass8(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour8, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour8, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour8, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass9(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour9, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour9, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour9, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showTimeClass10(View view) {
-        Toast.makeText(getBaseContext(), R.string.time_hour10, Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isEnabled", true)) {
+            Toast.makeText(getBaseContext(), R.string.time_hour10, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour10, Toast.LENGTH_SHORT).show();
+        }
     }
 
     // UI Control

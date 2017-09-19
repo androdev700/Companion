@@ -20,9 +20,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:windowBackground">@drawable/gradient</item>
+        <item name="android:textColorTertiaryInverse">@color/white</item>
+        <item name="android:textColorTertiary">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHintInverse">@color/white</item>
+        <item name="android:textColorHighlight">@color/white</item>
+        <item name="android:textColorHighlightInverse">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimaryInverse">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorSecondaryInverse">@color/white</item>
     </style>
 
     <style name="LightOverflow" parent="Theme.AppCompat.NoActionBar">
