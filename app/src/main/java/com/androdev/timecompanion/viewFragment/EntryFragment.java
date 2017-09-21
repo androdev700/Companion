@@ -1,4 +1,4 @@
-package com.androdev.timecompanion.viewFragments;
+package com.androdev.timecompanion.viewFragment;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.androdev.timecompanion.activities.MainActivity;
+import com.androdev.timecompanion.activity.MainActivity;
 import com.androdev.timecompanion.R;
 import com.androdev.timecompanion.dayorder.DayOrder;
 
@@ -352,15 +352,4 @@ public class EntryFragment extends Fragment {
         return v;
     }
 
-    public void prepScreen() {
-
-    }
-
-    public static Fragment newInstance() {
-        EntryFragment fragment = new EntryFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-
-    }
 }

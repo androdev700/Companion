@@ -15,7 +15,7 @@
 
         <!-- Splash screen -->
         <activity
-            android:name="com.androdev.timecompanion.activities.SplashScreen"
+            android:name="com.androdev.timecompanion.activity.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -28,17 +28,17 @@
 
         <!-- Main activity -->
         <activity
-            android:name="com.androdev.timecompanion.activities.MainActivity"
+            android:name="com.androdev.timecompanion.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.androdev.timecompanion.activities.SlotSelector"
+            android:name="com.androdev.timecompanion.activity.SlotSelector"
             android:label="@string/slot_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name="com.androdev.timecompanion.activities.BatchSelector"
+        <activity android:name="com.androdev.timecompanion.activity.BatchSelector"
             android:label="@string/batch_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

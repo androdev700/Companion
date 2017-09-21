@@ -1,4 +1,4 @@
-package com.androdev.timecompanion.activities;
+package com.androdev.timecompanion.activity;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;

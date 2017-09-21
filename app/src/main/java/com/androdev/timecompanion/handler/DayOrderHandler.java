@@ -1,4 +1,4 @@
-package com.androdev.timecompanion.handlers;
+package com.androdev.timecompanion.handler;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

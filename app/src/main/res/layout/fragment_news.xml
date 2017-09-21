@@ -6,11 +6,20 @@
     android:background="@drawable/gradient"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/news_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/news_swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ListView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/news_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="10dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>

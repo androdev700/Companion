@@ -1,4 +1,4 @@
-package com.androdev.timecompanion.viewFragments;
+package com.androdev.timecompanion.viewFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,10 +31,4 @@ public class HomeYourTimeTableFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home_screen_your_time_table, container, false);
     }
 
-    public static Fragment newInstance() {
-        HomeYourTimeTableFragment fragment = new HomeYourTimeTableFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 }

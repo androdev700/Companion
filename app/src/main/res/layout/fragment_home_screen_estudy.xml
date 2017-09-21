@@ -1,80 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient">
+    android:background="@drawable/gradient"
+    android:orientation="vertical"
+    android:paddingBottom="56dp"
+    android:weightSum="5">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/academia_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="56dp">
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight=".95"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:onClick="academia"
+        android:stateListAnimator="@animator/raise"
+        app:cardBackgroundColor="@color/cardColor">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/academia"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:text="@string/estudy"
-                android:textColor="@android:color/white"
-                android:textStyle="normal|bold" />
+    </android.support.v7.widget.CardView>
 
-        </RelativeLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/weebly_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight=".95"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:onClick="weebly"
+        android:stateListAnimator="@animator/raise"
+        app:cardBackgroundColor="@color/cardColor">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/news_card"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            android:onClick="academia"
-            android:stateListAnimator="@animator/raise"
-            app:cardBackgroundColor="@color/cardColor">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/srm_weebly"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/academia"
-                android:textColor="@android:color/black"
-                android:textSize="25sp" />
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/events_card"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            android:onClick="weebly"
-            android:stateListAnimator="@animator/raise"
-            app:cardBackgroundColor="@color/cardColor">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/srm_weebly"
-                android:textColor="@android:color/black"
-                android:textSize="25sp" />
-
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
-
-</ScrollView>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

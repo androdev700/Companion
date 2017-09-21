@@ -1,4 +1,4 @@
-package com.androdev.timecompanion.handlers;
+package com.androdev.timecompanion.handler;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

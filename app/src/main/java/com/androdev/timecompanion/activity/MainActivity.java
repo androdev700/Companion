@@ -1,4 +1,4 @@
-package com.androdev.timecompanion.activities;
+package com.androdev.timecompanion.activity;
 
 import android.animation.Animator;
 import android.content.DialogInterface;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +27,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -43,16 +40,16 @@ import com.androdev.timecompanion.days.DayFragment2;
 import com.androdev.timecompanion.days.DayFragment3;
 import com.androdev.timecompanion.days.DayFragment4;
 import com.androdev.timecompanion.days.DayFragment5;
-import com.androdev.timecompanion.handlers.DayOrderHandler;
-import com.androdev.timecompanion.handlers.TimeHandler;
+import com.androdev.timecompanion.handler.DayOrderHandler;
+import com.androdev.timecompanion.handler.TimeHandler;
 import com.androdev.timecompanion.labslot.LabSlot;
 import com.androdev.timecompanion.slot.Slot;
-import com.androdev.timecompanion.viewFragments.EntryFragment;
-import com.androdev.timecompanion.viewFragments.EventsFragment;
-import com.androdev.timecompanion.viewFragments.HomeOthers;
-import com.androdev.timecompanion.viewFragments.HomeWhatsNew;
-import com.androdev.timecompanion.viewFragments.HomeYourTimeTableFragment;
-import com.androdev.timecompanion.viewFragments.NewsFragment;
+import com.androdev.timecompanion.viewFragment.EntryFragment;
+import com.androdev.timecompanion.viewFragment.EventsFragment;
+import com.androdev.timecompanion.viewFragment.HomeOthers;
+import com.androdev.timecompanion.viewFragment.HomeWhatsNew;
+import com.androdev.timecompanion.viewFragment.HomeYourTimeTableFragment;
+import com.androdev.timecompanion.viewFragment.NewsFragment;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -148,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 .setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
 
         //Setting Home ActionBarText
-        actionBarTitle.setText(R.string.home);
+        actionBarTitle.setText(R.string.app_name);
         view.setVisibility(View.GONE);
 
         //Customizing Animations
@@ -158,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         animationFadeOut.setInterpolator(new AccelerateDecelerateInterpolator());
 
         //Starting the Home Page
-        Fragment fragment = HomeYourTimeTableFragment.newInstance();
+        Fragment fragment = new HomeYourTimeTableFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_frag, fragment)
                 .commit();
@@ -203,26 +200,25 @@ public class MainActivity extends AppCompatActivity {
         //Navigation Switcher
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    Fragment frag;
-                    FragmentTransaction transaction;
-
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment fragment;
+                        FragmentTransaction fragmentTransaction;
                         switch (item.getItemId()) {
                             case R.id.action_time_table:
-                                frag = HomeYourTimeTableFragment.newInstance();
-                                transaction = getSupportFragmentManager().beginTransaction();
-                                transaction.replace(R.id.main_frag, frag).commit();
+                                fragment = new HomeYourTimeTableFragment();
+                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.main_frag, fragment).commit();
                                 break;
                             case R.id.action_whats_new:
-                                frag = HomeWhatsNew.newInstance();
-                                transaction = getSupportFragmentManager().beginTransaction();
-                                transaction.replace(R.id.main_frag, frag).commit();
+                                fragment = new HomeWhatsNew();
+                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.main_frag, fragment).commit();
                                 break;
                             case R.id.action_estudy:
-                                frag = HomeOthers.newInstance();
-                                transaction = getSupportFragmentManager().beginTransaction();
-                                transaction.replace(R.id.main_frag, frag).commit();
+                                fragment = new HomeOthers();
+                                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.main_frag, fragment).commit();
                                 break;
                         }
                         return true;
@@ -244,14 +240,12 @@ public class MainActivity extends AppCompatActivity {
                     displayEmail = user.getEmail();
                     if (user.getPhotoUrl() != null) {
                         displayPhotoUrl = user.getPhotoUrl().toString();
-                        Log.d(TAG, displayPhotoUrl);
                     }
                     SharedPreferences.Editor editorName = prefDisplayName.edit();
                     editorName.putString("name", displayName);
                     editorName.putString("email", displayEmail);
                     editorName.putString("photoUrl", displayPhotoUrl);
                     editorName.apply();
-                    Log.d(TAG, displayName);
 
                     DatabaseReference reference = userRef.child("batch");
                     reference.addValueEventListener(new ValueEventListener() {
@@ -260,9 +254,6 @@ public class MainActivity extends AppCompatActivity {
                             String data = dataSnapshot.getValue(String.class);
                             if (data != null) {
                                 getSharedPreferences("batch", MODE_PRIVATE).edit().putString("batch", data).apply();
-                                if ((data.equals("1") || data.equals("2"))) {
-                                    Log.d(TAG, "Fetched");
-                                }
                             } else {
                                 startActivity(new Intent(MainActivity.this, BatchSelector.class));
                             }
@@ -487,7 +478,6 @@ public class MainActivity extends AppCompatActivity {
                                 if (dataSnapshot.getValue(Long.class) != null) {
                                     dayOrderTomorrow = Long.toString(dataSnapshot.getValue(Long.class));
                                     dayOrderTomorrow = String.format("%s %s", getString(R.string.tomorrow_is_day), dayOrderTomorrow);
-                                    Log.d(TAG, dayOrderTomorrow);
                                 }
                             } catch (DatabaseException e) {
                                 dayOrderTomorrow = "Tomorrow will be a holiday";
@@ -502,7 +492,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // User is signed out
                     displayName = "You're not signed in";
-                    Log.d(TAG, displayName);
                     SharedPreferences.Editor editorName = prefDisplayName.edit();
                     editorName.putString("name", displayName);
                     editorName.putString("email", displayEmail);
@@ -603,7 +592,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
-        Log.d(TAG,"onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem item = menu.findItem(R.id.time_format);
         Boolean isEnabled = getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
@@ -614,7 +602,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(TAG,"onOptionsItemSelected");
         int id = item.getItemId();
         switch (id) {
             case R.id.edit_details:
@@ -623,7 +610,7 @@ public class MainActivity extends AppCompatActivity {
                 hideBottomBar();
                 revealBack();
                 actionBarTitle.setText(R.string.enter_details);
-                Fragment fragment = EntryFragment.newInstance();
+                Fragment fragment = new EntryFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                         R.anim.enter_from_left, R.anim.exit_to_right)
@@ -803,7 +790,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder1);
-        Fragment fragment = DayFragment1.newInstance();
+        Fragment fragment = new DayFragment1();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -818,7 +805,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder2);
-        Fragment fragment = DayFragment2.newInstance();
+        Fragment fragment = new DayFragment2();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -833,7 +820,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder3);
-        Fragment fragment = DayFragment3.newInstance();
+        Fragment fragment = new DayFragment3();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -848,7 +835,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder4);
-        Fragment fragment = DayFragment4.newInstance();
+        Fragment fragment = new DayFragment4();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -863,7 +850,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.dayorder5);
-        Fragment fragment = DayFragment5.newInstance();
+        Fragment fragment = new DayFragment5();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -878,7 +865,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.announcement);
-        Fragment fragment = NewsFragment.newInstance();
+        Fragment fragment = new NewsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -893,7 +880,7 @@ public class MainActivity extends AppCompatActivity {
         revealBack();
         toolbar.getMenu().clear();
         actionBarTitle.setText(R.string.events);
-        Fragment fragment = EventsFragment.newInstance();
+        Fragment fragment = new EventsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
                 R.anim.enter_from_left, R.anim.exit_to_right)
@@ -1372,7 +1359,6 @@ public class MainActivity extends AppCompatActivity {
         String s = Integer.toString(startTime % 10);
 
         while (startTime <= endTime) {
-            Log.d("TAG", "hour".concat(s));
             venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
             startTime++;
             int n = Integer.parseInt(s);
@@ -1396,28 +1382,12 @@ public class MainActivity extends AppCompatActivity {
         String s = Integer.toString(startTime % 10);
 
         while (startTime <= endTime) {
-            Log.d("TAG", "hour".concat(s));
             venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
             startTime++;
             int n = Integer.parseInt(s);
             s = Integer.toString(++n);
         }
         venueEdit.apply();
-    }
-
-    @Deprecated
-    public boolean checkConnection() {
-        ConnectivityManager connect = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-            return true;
-        } else if (connect.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                connect.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
-            return false;
-        }
-        return false;
     }
 
     public void revealBack() {
