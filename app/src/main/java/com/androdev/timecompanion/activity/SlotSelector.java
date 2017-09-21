@@ -157,7 +157,7 @@ public class SlotSelector extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             String courseDay[] = new String[10];
             SharedPreferences pushDay = coursePrefList.get(i);
-            Log.d(dayName[i],"--------------");
+            Log.d(dayName[i], "--------------");
             for (int j = 0; j < 10; j++) {
                 String data = pushDay.getString(hourName[j], "");
                 if (data.isEmpty()) {
@@ -688,10 +688,10 @@ public class SlotSelector extends AppCompatActivity {
                             edit = coursePrefList.get(4).edit();
                             venueEdit = courseClassPrefList.get(4).edit();
                         }
-                        String s = Integer.toString(startTime%10);
+                        String s = Integer.toString(startTime % 10);
 
                         while (startTime <= endTime) {
-                            Log.d("TAG","hour".concat(s));
+                            Log.d("TAG", "hour".concat(s));
                             edit.putString("hour".concat(s), slotPref.getString(labCourses[indexLab], ""));
                             venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
                             startTime++;
@@ -718,10 +718,10 @@ public class SlotSelector extends AppCompatActivity {
                             edit = coursePrefList.get(4).edit();
                             venueEdit = courseClassPrefList.get(4).edit();
                         }
-                        String s = Integer.toString(startTime%10);
+                        String s = Integer.toString(startTime % 10);
 
                         while (startTime <= endTime) {
-                            Log.d("TAG","hour".concat(s));
+                            Log.d("TAG", "hour".concat(s));
                             edit.putString("hour".concat(s), slotPref.getString(labCourses[indexLab], ""));
                             venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
                             startTime++;

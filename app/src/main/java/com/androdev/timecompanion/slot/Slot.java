@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 
 public class Slot {
-    public ArrayList<String> course;
-    public ArrayList<String> room;
+    private ArrayList<String> course;
+    private ArrayList<String> room;
 
     public Slot() {
 

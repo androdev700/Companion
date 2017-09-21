@@ -60,7 +60,7 @@ public class BatchSelector extends AppCompatActivity {
         batch1.setEnabled(false);
         batch2.setEnabled(false);
 
-        batch = batchPref.getString("batch","none");
+        batch = batchPref.getString("batch", "none");
         if (batch.equals("none")) {
             batch1.setEnabled(true);
             batch2.setEnabled(true);
@@ -70,7 +70,7 @@ public class BatchSelector extends AppCompatActivity {
                     batch1.setEnabled(false);
                     batch2.setEnabled(true);
                     batchEditor.putString("batch", "1");
-                    batchEditor.putBoolean("batchSelected",true);
+                    batchEditor.putBoolean("batchSelected", true);
                     batchEditor.apply();
                     batch = "1";
                     batchDisplay.setText("Batch 1 Selected");
@@ -84,7 +84,7 @@ public class BatchSelector extends AppCompatActivity {
                     batch2.setEnabled(false);
                     batch1.setEnabled(true);
                     batchEditor.putString("batch", "2");
-                    batchEditor.putBoolean("batchSelected",true);
+                    batchEditor.putBoolean("batchSelected", true);
                     batchEditor.apply();
                     batch = "2";
                     batchDisplay.setText("Batch 2 Selected");

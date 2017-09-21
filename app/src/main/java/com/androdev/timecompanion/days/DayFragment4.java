@@ -126,12 +126,4 @@ public class DayFragment4 extends Fragment {
 
         return v;
     }
-
-    public static Fragment newInstance() {
-        DayFragment4 fragment = new DayFragment4();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-
-    }
 }

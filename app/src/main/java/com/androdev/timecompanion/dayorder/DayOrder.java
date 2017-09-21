@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DayOrder {
 
-    public ArrayList<String> course;
+    private ArrayList<String> course;
 
     public DayOrder() {
 
