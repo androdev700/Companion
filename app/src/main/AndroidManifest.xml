@@ -12,7 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <!-- Splash screen -->
         <activity
             android:name="com.androdev.timecompanion.activity.SplashScreen"
@@ -25,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Main activity -->
         <activity
             android:name="com.androdev.timecompanion.activity.MainActivity"
             android:label="@string/app_name"
@@ -37,11 +34,10 @@
             android:label="@string/slot_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name="com.androdev.timecompanion.activity.BatchSelector"
+        <activity
+            android:name="com.androdev.timecompanion.activity.BatchSelector"
             android:label="@string/batch_selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
 </manifest>

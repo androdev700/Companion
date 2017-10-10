@@ -10,12 +10,12 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.androdev.timecompanion"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 32
+        versionCode 33
         versionName "3.2"
     }
     buildTypes {
@@ -44,14 +44,12 @@ dependencies {
     // Circular Image View
     compile 'de.hdodenhof:circleimageview:2.1.0'
     // Firebase
-    compile 'com.google.firebase:firebase-database:11.0.4'
-    compile 'com.google.firebase:firebase-core:11.0.4'
-    compile 'com.google.firebase:firebase-messaging:11.0.4'
-    compile 'com.google.firebase:firebase-auth:11.0.4'
-    compile 'com.google.firebase:firebase-storage:11.0.4'
-    compile 'com.google.firebase:firebase-config:11.0.4'
+    compile 'com.google.firebase:firebase-database:11.4.2'
+    compile 'com.google.firebase:firebase-core:11.4.2'
+    compile 'com.google.firebase:firebase-messaging:11.4.2'
+    compile 'com.google.firebase:firebase-auth:11.4.2'
     // Firebase UI
-    compile 'com.firebaseui:firebase-ui-auth:2.3.0'
+    compile 'com.firebaseui:firebase-ui-auth:3.0.0'
     // Displaying images
     compile 'com.github.bumptech.glide:glide:3.7.0'
     testCompile 'junit:junit:4.12'
