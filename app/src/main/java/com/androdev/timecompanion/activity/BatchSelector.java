@@ -20,13 +20,13 @@ public class BatchSelector extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_selector);
-        final RelativeLayout layout = (RelativeLayout) findViewById(R.id.batch_view);
-        final Button batch1 = (Button) findViewById(R.id.radioBatch1);
-        final Button batch2 = (Button) findViewById(R.id.radioBatch2);
-        final Button proceedButton = (Button) findViewById(R.id.proceed_batch);
-        final Button fillSlots = (Button) findViewById(R.id.fill_slots);
-        final TextView batchDisplay = (TextView) findViewById(R.id.batch_display);
-        final TextView warning = (TextView) findViewById(R.id.warning);
+        final RelativeLayout layout = findViewById(R.id.batch_view);
+        final Button batch1 = findViewById(R.id.radioBatch1);
+        final Button batch2 = findViewById(R.id.radioBatch2);
+        final Button proceedButton = findViewById(R.id.proceed_batch);
+        final Button fillSlots = findViewById(R.id.fill_slots);
+        final TextView batchDisplay = findViewById(R.id.batch_display);
+        final TextView warning = findViewById(R.id.warning);
         SharedPreferences batchPref = getSharedPreferences("batch", MODE_PRIVATE);
         final SharedPreferences.Editor batchEditor = batchPref.edit();
 

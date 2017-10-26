@@ -97,11 +97,14 @@ public class MainActivity extends AppCompatActivity {
     private final Animation animationFadeOut = new AlphaAnimation(1.0f, 0.0f);
 
     private SharedPreferences prefDisplayName;
-    private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3, class4;
+    private SharedPreferences pref0, pref1, pref2, pref3, pref4, class0, class1, class2, class3,
+            class4;
     private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
             "hour7", "hour8", "hour9", "hour10"};
-    private String[] courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE", "courseF", "courseG"};
-    private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3", "courseLab4"};
+    private String[] courses = new String[]{"courseA", "courseB", "courseC", "courseD", "courseE",
+            "courseF", "courseG"};
+    private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3",
+            "courseLab4"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) throws IllegalThreadStateException {
@@ -112,9 +115,11 @@ public class MainActivity extends AppCompatActivity {
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            Toast.makeText(getBaseContext(), "Thanks for downloading!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Thanks for downloading!",
+                    Toast.LENGTH_SHORT).show();
         }
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).apply();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -131,16 +136,16 @@ public class MainActivity extends AppCompatActivity {
         class4 = getSharedPreferences("class5", MODE_PRIVATE);
         prefDisplayName = getSharedPreferences("account_info", MODE_PRIVATE);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        view = (ImageView) findViewById(R.id.toolbar_image);
-        actionBarTitle = (TextView) findViewById(R.id.action_bar_title);
-        RelativeLayout dayView = (RelativeLayout) findViewById(R.id.header);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        timeViewer = (TextView) findViewById(R.id.time_text);
-        progressBarDayOrder = (ProgressBar) findViewById(R.id.progressBarDayOrder);
+        view = findViewById(R.id.toolbar_image);
+        actionBarTitle = findViewById(R.id.action_bar_title);
+        RelativeLayout dayView = findViewById(R.id.header);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        timeViewer = findViewById(R.id.time_text);
+        progressBarDayOrder = findViewById(R.id.progressBarDayOrder);
         progressBarDayOrder.getIndeterminateDrawable()
                 .setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
 
@@ -253,9 +258,11 @@ public class MainActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String data = dataSnapshot.getValue(String.class);
                             if (data != null) {
-                                getSharedPreferences("batch", MODE_PRIVATE).edit().putString("batch", data).apply();
+                                getSharedPreferences("batch", MODE_PRIVATE).edit()
+                                        .putString("batch", data).apply();
                             } else {
-                                startActivity(new Intent(MainActivity.this, BatchSelector.class));
+                                startActivity(new Intent(MainActivity.this,
+                                        BatchSelector.class));
                             }
                         }
 
@@ -275,7 +282,8 @@ public class MainActivity extends AppCompatActivity {
                                 course = slot.getCourse();
                                 room = slot.getRoom();
                                 setSlot(course, room);
-                                String data = getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "");
+                                String data = getSharedPreferences("batch", MODE_PRIVATE)
+                                        .getString("batch", "");
                                 if (data.equals("1")) {
                                     initDatabaseFirst();
                                 } else if (data.equals("2")) {
@@ -303,14 +311,17 @@ public class MainActivity extends AppCompatActivity {
                                 time = labSlot.getTime();
                                 setLabSlot(course, room, time);
                                 int count = 0;
-                                String batch = getSharedPreferences("batch", MODE_PRIVATE).getString("batch", "");
+                                String batch = getSharedPreferences("batch", MODE_PRIVATE)
+                                        .getString("batch", "");
                                 for (String e : time) {
                                     if (!e.isEmpty()) {
                                         String[] labTime = e.split(" ");
                                         if (batch.equals("1")) {
-                                            initLabDatabaseFirst(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                            initLabDatabaseFirst(Integer.parseInt(labTime[0]),
+                                                    Integer.parseInt(labTime[1]), count++);
                                         } else if (batch.equals("2")) {
-                                            initLabDatabaseSecond(Integer.parseInt(labTime[0]), Integer.parseInt(labTime[1]), count++);
+                                            initLabDatabaseSecond(Integer.parseInt(labTime[0]),
+                                                    Integer.parseInt(labTime[1]), count++);
                                         }
                                     }
                                 }
@@ -420,10 +431,10 @@ public class MainActivity extends AppCompatActivity {
                     /*
                     DatabaseReference checkReference = mDatabaseReference.child("CheckOrder");
                     int day = 1;
-                    int month = 10;
+                    int month = 11;
                     String dayString;
                     int order = 5;
-                    for (; day < 32; day++) {
+                    for (; day < 31; day++) {
                         if (day < 10) {
                             dayString = "0".concat(Integer.toString(day));
                         } else {
@@ -432,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
                         if (order > 5) {
                             order = 1;
                         }
-                        if (day == 1 || day == 2 || day == 7 || day == 8 || day == 14 || day == 15 || day == 18 || day == 21 || day == 22 || day == 28 || day == 29) {
+                        if (day == 4 || day == 5 || day == 11 || day == 12 || day == 18 || day == 19 || day == 25 || day == 26) {
                             DatabaseReference hello = checkReference.child(dayString.concat(" ").concat(Integer.toString(month)));
                             hello.setValue("a holiday");
                         } else {
@@ -470,14 +481,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    DatabaseReference dayRefTomorrow = FirebaseDatabase.getInstance().getReference("CheckOrder").child(tomorrowDate);
+                    DatabaseReference dayRefTomorrow = FirebaseDatabase.getInstance()
+                            .getReference("CheckOrder").child(tomorrowDate);
                     dayRefTomorrow.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             try {
                                 if (dataSnapshot.getValue(Long.class) != null) {
                                     dayOrderTomorrow = Long.toString(dataSnapshot.getValue(Long.class));
-                                    dayOrderTomorrow = String.format("%s %s", getString(R.string.tomorrow_is_day), dayOrderTomorrow);
+                                    dayOrderTomorrow = String.format("%s %s",
+                                            getString(R.string.tomorrow_is_day), dayOrderTomorrow);
                                 }
                             } catch (DatabaseException e) {
                                 dayOrderTomorrow = "Tomorrow will be a holiday";
@@ -513,9 +526,11 @@ public class MainActivity extends AppCompatActivity {
                 Long isFirstRun = getSharedPreferences("PREFERENCE_VIEW_ORDER", MODE_PRIVATE)
                         .getLong("isFirstRun", 0);
                 if (isFirstRun < 3) {
-                    Toast.makeText(getBaseContext(), "Hold to view Tomorrow's Day Order..", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Hold to view Tomorrow's Day Order..",
+                            Toast.LENGTH_LONG).show();
                 }
-                getSharedPreferences("PREFERENCE_VIEW_ORDER", MODE_PRIVATE).edit().putLong("isFirstRun", ++isFirstRun).apply();
+                getSharedPreferences("PREFERENCE_VIEW_ORDER", MODE_PRIVATE)
+                        .edit().putLong("isFirstRun", ++isFirstRun).apply();
 
                 if (count % 2 == 0) {
                     timeViewer.startAnimation(animationFadeIn);
@@ -539,7 +554,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 if (dayOrderTomorrow.equals("Tomorrow is ")) {
-                    Toast.makeText(MainActivity.this, "Fetching tomorrow's day order.. Try Again..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,
+                            "Fetching tomorrow's day order.. Try Again..", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, dayOrderTomorrow, Toast.LENGTH_LONG).show();
                 }
@@ -553,7 +569,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Signed in!, Fetching previous data if it exists!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        R.string.msg_signin_success, Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
@@ -628,30 +645,36 @@ public class MainActivity extends AppCompatActivity {
             case R.id.time_format:
                 if (item.isChecked()) {
                     item.setChecked(false);
-                    getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE).edit().putBoolean("isEnabled", false).apply();
-                    Toast.makeText(getBaseContext(), "24 Hours Disabled", Toast.LENGTH_SHORT).show();
+                    getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                            .edit().putBoolean("isEnabled", false).apply();
+                    Toast.makeText(getBaseContext(), "24 Hours Disabled",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     item.setChecked(true);
-                    getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE).edit().putBoolean("isEnabled", true).apply();
-                    Toast.makeText(getBaseContext(), "24 Hours Enabled", Toast.LENGTH_SHORT).show();
+                    getSharedPreferences("TIME_FORMAT_PREFERENCE", MODE_PRIVATE)
+                            .edit().putBoolean("isEnabled", true).apply();
+                    Toast.makeText(getBaseContext(), "24 Hours Enabled",
+                            Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.help:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.help_amp_support).setItems(R.array.help_support, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (i == 0) {
-                            Toast.makeText(getBaseContext(), R.string.help0, Toast.LENGTH_LONG).show();
-                        } else if (i == 1) {
-                            Toast.makeText(getBaseContext(), R.string.help1,
-                                    Toast.LENGTH_LONG).show();
-                        } else if (i == 2) {
-                            Toast.makeText(getBaseContext(), R.string.help2,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                builder.setTitle(R.string.help_amp_support)
+                        .setItems(R.array.help_support, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == 0) {
+                                    Toast.makeText(getBaseContext(),
+                                            R.string.help0, Toast.LENGTH_LONG).show();
+                                } else if (i == 1) {
+                                    Toast.makeText(getBaseContext(), R.string.help1,
+                                            Toast.LENGTH_LONG).show();
+                                } else if (i == 2) {
+                                    Toast.makeText(getBaseContext(), R.string.help2,
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                 AlertDialog alert = builder.create();
                 alert.show();
                 break;
@@ -667,11 +690,15 @@ public class MainActivity extends AppCompatActivity {
                 TextView accountName = accountDialog.findViewById(R.id.account_name);
                 TextView accountEmail = accountDialog.findViewById(R.id.account_email);
 
-                accountName.setText(prefDisplayName.getString("name", "You're not signed in"));
-                accountEmail.setText(prefDisplayName.getString("email", "You're not signed in"));
+                accountName.setText(prefDisplayName.getString("name",
+                        "You're not signed in"));
+                accountEmail.setText(prefDisplayName.getString("email",
+                        "You're not signed in"));
 
                 if (!prefDisplayName.getString("photoUrl", "").equals("")) {
-                    Glide.with(accountPicture.getContext()).load(prefDisplayName.getString("photoUrl", "")).into(accountPicture);
+                    Glide.with(accountPicture.getContext())
+                            .load(prefDisplayName.getString("photoUrl", ""))
+                            .into(accountPicture);
                 }
                 dialog.show();
                 break;
@@ -769,13 +796,15 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(emailIntent, "Send mail.."));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,
+                            "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this app, to ease out your timetable. " + getString(R.string.app_url));
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        getString(R.string.share_msg) + getString(R.string.app_url));
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share App with Friends"));
                 break;
@@ -896,7 +925,7 @@ public class MainActivity extends AppCompatActivity {
         if (isFirstRun) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Just a reminder..")
-                    .setMessage("Login in once here, and never log in again. \n(Signing into Academia on other device might sign you out of Companion.)")
+                    .setMessage(getString(R.string.alert_academia))
                     .setNeutralButton("Gotcha!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -918,7 +947,8 @@ public class MainActivity extends AppCompatActivity {
             customTabsIntent.launchUrl(MainActivity.this,
                     Uri.parse("http://academia.srmuniv.ac.in"));
         }
-        getSharedPreferences("PREFERENCE_ACADEMIA", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+        getSharedPreferences("PREFERENCE_ACADEMIA", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).apply();
 
     }
 
@@ -997,7 +1027,8 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean("isEnabled", true)) {
             Toast.makeText(getBaseContext(), R.string.time_hour3, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getBaseContext(), R.string.twelve_time_hour3, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour3,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1006,7 +1037,8 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean("isEnabled", true)) {
             Toast.makeText(getBaseContext(), R.string.time_hour4, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getBaseContext(), R.string.twelve_time_hour4, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour4,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1015,7 +1047,8 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean("isEnabled", true)) {
             Toast.makeText(getBaseContext(), R.string.time_hour5, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getBaseContext(), R.string.twelve_time_hour5, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour5,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1024,7 +1057,8 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean("isEnabled", true)) {
             Toast.makeText(getBaseContext(), R.string.time_hour6, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getBaseContext(), R.string.twelve_time_hour6, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour6,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1060,7 +1094,8 @@ public class MainActivity extends AppCompatActivity {
                 .getBoolean("isEnabled", true)) {
             Toast.makeText(getBaseContext(), R.string.time_hour10, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getBaseContext(), R.string.twelve_time_hour10, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.twelve_time_hour10,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1128,7 +1163,8 @@ public class MainActivity extends AppCompatActivity {
         editorRoom.apply();
     }
 
-    public void setLabSlot(ArrayList<String> course, ArrayList<String> room, ArrayList<String> time) {
+    public void setLabSlot(ArrayList<String> course, ArrayList<String> room,
+                           ArrayList<String> time) {
         SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
         SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
         SharedPreferences labTime = getSharedPreferences("LabTime", MODE_PRIVATE);
@@ -1359,7 +1395,8 @@ public class MainActivity extends AppCompatActivity {
         String s = Integer.toString(startTime % 10);
 
         while (startTime <= endTime) {
-            venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
+            venueEdit.putString("class".concat(s),
+                    slotRoomPref.getString(labCourses[indexLab], ""));
             startTime++;
             int n = Integer.parseInt(s);
             s = Integer.toString(++n);
@@ -1382,7 +1419,8 @@ public class MainActivity extends AppCompatActivity {
         String s = Integer.toString(startTime % 10);
 
         while (startTime <= endTime) {
-            venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
+            venueEdit.putString("class".concat(s),
+                    slotRoomPref.getString(labCourses[indexLab], ""));
             startTime++;
             int n = Integer.parseInt(s);
             s = Integer.toString(++n);
@@ -1394,14 +1432,16 @@ public class MainActivity extends AppCompatActivity {
         int cx = view.getWidth() / 2;
         int cy = view.getHeight() / 2;
         float finalRadius = (float) Math.hypot(cx, cy);
-        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
+        Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy,
+                0, finalRadius);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         view.setVisibility(View.VISIBLE);
         anim.start();
     }
 
     public void hideBottomBar() {
-        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, bottomNavigationView.getHeight());
+        TranslateAnimation animation = new TranslateAnimation(0,
+                0, 0, bottomNavigationView.getHeight());
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.setDuration(300);
         bottomNavigationView.setAnimation(animation);
@@ -1409,7 +1449,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showBottomBar() {
-        TranslateAnimation animation = new TranslateAnimation(0, 0, bottomNavigationView.getHeight(), 0);
+        TranslateAnimation animation = new TranslateAnimation(0,
+                0, bottomNavigationView.getHeight(), 0);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.setDuration(300);
         bottomNavigationView.setAnimation(animation);

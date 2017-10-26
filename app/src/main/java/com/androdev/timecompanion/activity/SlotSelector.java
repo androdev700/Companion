@@ -50,17 +50,17 @@ public class SlotSelector extends AppCompatActivity {
         setContentView(R.layout.activity_slot_selector);
 
         TextView courseA, courseB, courseC, courseD, courseE, courseF, courseG, courseLab1, courseLab2, courseLab3, courseLab4;
-        courseA = (TextView) findViewById(R.id.courseA);
-        courseB = (TextView) findViewById(R.id.courseB);
-        courseC = (TextView) findViewById(R.id.courseC);
-        courseD = (TextView) findViewById(R.id.courseD);
-        courseE = (TextView) findViewById(R.id.courseE);
-        courseF = (TextView) findViewById(R.id.courseF);
-        courseG = (TextView) findViewById(R.id.courseG);
-        courseLab1 = (TextView) findViewById(R.id.courseLab1);
-        courseLab2 = (TextView) findViewById(R.id.courseLab2);
-        courseLab3 = (TextView) findViewById(R.id.courseLab3);
-        courseLab4 = (TextView) findViewById(R.id.courseLab4);
+        courseA = findViewById(R.id.courseA);
+        courseB = findViewById(R.id.courseB);
+        courseC = findViewById(R.id.courseC);
+        courseD = findViewById(R.id.courseD);
+        courseE = findViewById(R.id.courseE);
+        courseF = findViewById(R.id.courseF);
+        courseG = findViewById(R.id.courseG);
+        courseLab1 = findViewById(R.id.courseLab1);
+        courseLab2 = findViewById(R.id.courseLab2);
+        courseLab3 = findViewById(R.id.courseLab3);
+        courseLab4 = findViewById(R.id.courseLab4);
 
         courseList = new ArrayList<>();
         courseList.add(courseA);
