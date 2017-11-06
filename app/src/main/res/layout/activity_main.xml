@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/app_name"
                 android:textColor="@android:color/white"
                 android:textSize="25sp"
@@ -59,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/hi"
                 android:textAlignment="center"
                 android:textColor="@color/cardview_light_background"
@@ -70,8 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="6dp"
+                android:layout_marginTop="4dp"
                 android:background="@xml/progress" />
 
         </RelativeLayout>

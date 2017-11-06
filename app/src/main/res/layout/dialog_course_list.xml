@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingEnd="10dp"
-    android:paddingStart="10dp"
-    android:orientation="vertical">
+    android:paddingStart="10dp">
 
     <AutoCompleteTextView
         android:id="@+id/course_entry"
@@ -13,6 +13,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
         android:hint="Course name" />
 
     <EditText
@@ -23,6 +24,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
         android:hint="Class Room"
         android:inputType="number" />
 

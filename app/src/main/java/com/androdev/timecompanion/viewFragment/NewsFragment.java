@@ -112,6 +112,7 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         @Override
         protected String doInBackground(String... arg0) {
             org.jsoup.nodes.Document doc;
+            values.clear();
             try {
                 doc = Jsoup.connect("http://www.srmuniv.ac.in/featured-announcements").get();
                 Elements elements = doc.getElementsByTag("h4");

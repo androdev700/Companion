@@ -34,6 +34,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="Ayush Singh"
                     android:textColor="@color/white" />
 
@@ -43,6 +44,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="\@androdev700"
                     android:textColor="@color/white"
                     android:textStyle="italic" />
@@ -53,6 +55,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="Developer"
                     android:textColor="@color/white" />
 
@@ -98,9 +101,9 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
@@ -126,6 +129,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="Aditya Rajput"
                     android:textColor="@color/white" />
 
@@ -135,6 +139,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="\@apsrcreatix"
                     android:textColor="@color/white"
                     android:textStyle="italic" />
@@ -145,6 +150,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="Icon Design"
                     android:textColor="@color/white" />
 
@@ -188,11 +194,12 @@
     </android.support.v7.widget.CardView>
 
     <Button
-        android:layout_marginBottom="10dp"
         android:id="@+id/support_button"
-        android:layout_gravity="center"
-        android:text="@string/support"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/support" />
 
 </LinearLayout>

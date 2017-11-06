@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/your_batch"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -27,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/montserrat"
                 android:padding="10dp"
                 android:text="@string/help2"
                 android:textColor="#FF0000"
@@ -44,6 +46,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="@string/select"
                     android:textSize="20sp" />
 
@@ -67,6 +70,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/save" />
 
             <RelativeLayout
@@ -82,6 +87,7 @@
                     android:id="@+id/ed1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy1"
                     android:textSize="20sp"
@@ -95,6 +101,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed1"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -114,19 +121,21 @@
                     android:id="@+id/ed2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy2"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed2"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -146,19 +155,21 @@
                     android:id="@+id/ed3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy3"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed3"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -178,19 +189,21 @@
                     android:id="@+id/ed4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy4"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed4"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -210,19 +223,21 @@
                     android:id="@+id/ed5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy5"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed5"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -242,19 +257,21 @@
                     android:id="@+id/ed6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy6"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed6"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -274,19 +291,21 @@
                     android:id="@+id/ed7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy7"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed7"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -306,19 +325,21 @@
                     android:id="@+id/ed8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy8"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed8"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -338,19 +359,21 @@
                     android:id="@+id/ed9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy9"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed9"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />
@@ -370,19 +393,21 @@
                     android:id="@+id/ed10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="10dp"
                     android:text="@string/dy10"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
                     android:id="@+id/eth10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/ed10"
+                    android:fontFamily="@font/montserrat"
                     android:hint="@string/enter_course"
                     android:maxLines="1"
                     android:textAlignment="viewEnd" />

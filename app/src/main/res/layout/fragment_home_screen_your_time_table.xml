@@ -18,6 +18,7 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="card1"
         android:stateListAnimator="@animator/raise"
@@ -27,9 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
+            android:fontFamily="@font/montserrat"
             android:text="@string/dayorder1"
             android:textColor="@android:color/black"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            app:fontFamily="@font/montserrat" />
 
     </android.support.v7.widget.CardView>
 
@@ -43,6 +47,7 @@
         android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="card2"
         android:stateListAnimator="@animator/raise"
@@ -52,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/montserrat"
             android:text="@string/dayorder2"
             android:textColor="@android:color/black"
             android:textSize="25sp" />
@@ -68,6 +74,7 @@
         android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="card3"
         android:stateListAnimator="@animator/raise"
@@ -77,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/montserrat"
             android:text="@string/dayorder3"
             android:textColor="@android:color/black"
             android:textSize="25sp" />
@@ -93,6 +101,7 @@
         android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="card4"
         android:stateListAnimator="@animator/raise"
@@ -102,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/montserrat"
             android:text="@string/dayorder4"
             android:textColor="@android:color/black"
             android:textSize="25sp" />
@@ -118,6 +128,7 @@
         android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:onClick="card5"
         android:stateListAnimator="@animator/raise"
@@ -127,6 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/montserrat"
             android:text="@string/dayorder5"
             android:textColor="@android:color/black"
             android:textSize="25sp" />

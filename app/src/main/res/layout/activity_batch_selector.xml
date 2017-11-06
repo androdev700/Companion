@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/montserrat"
             android:text="@string/batch_selector"
             android:textColor="@android:color/white"
             android:textSize="25sp"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
+        android:fontFamily="@font/montserrat"
         android:text="Check your connection and try again!"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold" />
@@ -46,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat"
             android:padding="10dp"
             android:text="@string/hello_text"
             android:textAlignment="center"
@@ -58,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearButton"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat"
             android:padding="10dp"
             android:text="Selected an option"
             android:textColor="@color/white"
@@ -74,12 +78,14 @@
                 android:id="@+id/radioBatch1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="Batch 1" />
 
             <Button
                 android:id="@+id/radioBatch2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="Batch 2" />
 
         </LinearLayout>
@@ -91,6 +97,7 @@
             android:layout_below="@+id/linearButton"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat"
             android:text="Fill Slots" />
 
         <TextView
@@ -98,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/fill_slots"
             android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat"
             android:padding="10dp"
             android:text="OR\nProceed, Slots can be filled later too!"
             android:textAlignment="center"
@@ -111,6 +119,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
             android:buttonTint="@color/white"
+            android:fontFamily="@font/montserrat"
             android:onClick="proceed"
             android:text="Proceed" />
 

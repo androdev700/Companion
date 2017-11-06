@@ -15,7 +15,7 @@ android {
         applicationId "com.androdev.timecompanion"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 34
+        versionCode 35
         versionName "3.2"
     }
     buildTypes {

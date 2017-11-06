@@ -113,6 +113,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         @Override
         protected String doInBackground(String... params) {
             org.jsoup.nodes.Document doc;
+            values.clear();
             try {
                 doc = Jsoup.connect("http://www.srmuniv.ac.in/featured-events").get();
                 Elements elements = doc.getElementsByTag("h4");
