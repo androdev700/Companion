@@ -63,7 +63,7 @@ public class TimeHandler {
         } else if (j > 1035 && j <= 1040) {
             temp = 1040 - j;
             t = Integer.toString(temp);
-            return ("Hour 4 will start in " + t + " Mins");
+            return ("Hour 4 will start in " + t + " Mins.");
         } else if (j > 1040 && j <= 1130) {
             if (j < 1100) {
                 temp = 1130 - j - 40;
@@ -75,7 +75,7 @@ public class TimeHandler {
         } else if (j > 1130 && j <= 1135) {
             temp = 1040 - j;
             t = Integer.toString(temp);
-            return ("Hour 5 will start in " + t + " Mins");
+            return ("Hour 5 will start in " + t + " Mins.");
         } else if (j > 1135 && j <= 1225) {
             if (j < 1200) {
                 temp = 1230 - j - 40;
@@ -87,7 +87,7 @@ public class TimeHandler {
         } else if (j > 1225 && j <= 1230) {
             temp = 1230 - j;
             t = Integer.toString(temp);
-            return ("Hour 6 will start in " + t + " Mins");
+            return ("Hour 6 will start in " + t + " Mins.");
         } else if (j > 1230 && j <= 1320) {
             if (j < 1300) {
                 temp = 1320 - j - 40;
@@ -99,7 +99,7 @@ public class TimeHandler {
         } else if (j > 1320 && j <= 1325) {
             temp = 1325 - j;
             t = Integer.toString(temp);
-            return ("Hour 7 will start in " + t + " Mins");
+            return ("Hour 7 will start in " + t + " Mins.");
         } else if (j > 1325 && j <= 1415) {
             if (j < 1400) {
                 temp = 1415 - j - 40;
@@ -111,7 +111,7 @@ public class TimeHandler {
         } else if (j > 1415 && j <= 1420) {
             temp = 1420 - j;
             t = Integer.toString(temp);
-            return ("Hour 8 will start in " + t + " Mins");
+            return ("Hour 8 will start in " + t + " Mins.");
         } else if (j > 1420 && j <= 1510) {
             if (j < 1500) {
                 temp = 1510 - j - 40;
