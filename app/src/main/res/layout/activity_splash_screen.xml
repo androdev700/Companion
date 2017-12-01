@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="40dp"
-        android:fontFamily="@font/aladin"
+        android:fontFamily="@font/montserrat"
         android:gravity="center_horizontal"
         android:text="@string/app_name"
         android:textColor="@android:color/darker_gray"

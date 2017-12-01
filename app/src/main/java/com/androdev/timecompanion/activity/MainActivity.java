@@ -3,6 +3,7 @@ package com.androdev.timecompanion.activity;
 import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -431,10 +432,10 @@ public class MainActivity extends AppCompatActivity {
                     /*
                     DatabaseReference checkReference = mDatabaseReference.child("CheckOrder");
                     int day = 1;
-                    int month = 11;
+                    int month = 5;
                     String dayString;
-                    int order = 5;
-                    for (; day < 31; day++) {
+                    int order = 2;
+                    for (; day < 5; day++) {
                         if (day < 10) {
                             dayString = "0".concat(Integer.toString(day));
                         } else {
@@ -443,11 +444,11 @@ public class MainActivity extends AppCompatActivity {
                         if (order > 5) {
                             order = 1;
                         }
-                        if (day == 4 || day == 5 || day == 11 || day == 12 || day == 18 || day == 19 || day == 25 || day == 26) {
-                            DatabaseReference hello = checkReference.child(dayString.concat(" ").concat(Integer.toString(month)));
+                        if (day == 1 || day == 7 || day == 8 || day == 14 || day == 15 || day == 21 || day == 22 || day == 28 || day == 29) {
+                            DatabaseReference hello = checkReference.child(dayString.concat(" ").concat("0").concat(Integer.toString(month)));
                             hello.setValue("a holiday");
                         } else {
-                            DatabaseReference hello = checkReference.child(dayString.concat(" ").concat(Integer.toString(month)));
+                            DatabaseReference hello = checkReference.child(dayString.concat(" ").concat("0").concat(Integer.toString(month)));
                             hello.setValue(order++);
                         }
                     }
