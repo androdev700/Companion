@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androdev.timecompanion.R;
 
@@ -20,6 +21,9 @@ public class BatchSelector extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch_selector);
+
+        Toast.makeText(getBaseContext(), "Choose your batch..", Toast.LENGTH_LONG).show();
+
         final RelativeLayout layout = findViewById(R.id.batch_view);
         final Button batch1 = findViewById(R.id.radioBatch1);
         final Button batch2 = findViewById(R.id.radioBatch2);
@@ -57,8 +61,8 @@ public class BatchSelector extends AppCompatActivity {
         };
         timeThread.start();
 
-        batch1.setEnabled(false);
-        batch2.setEnabled(false);
+        batch1.setEnabled(true);
+        batch2.setEnabled(true);
 
         batch = batchPref.getString("batch", "none");
         if (batch.equals("none")) {
@@ -93,6 +97,7 @@ public class BatchSelector extends AppCompatActivity {
             });
         } else {
             batchDisplay.setText("Batch ".concat(batch).concat(" Selected"));
+            MainActivity.writeBatch(batch);
         }
 
         fillSlots.setOnClickListener(new View.OnClickListener() {

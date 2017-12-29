@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             "courseF", "courseG"};
     private String[] labCourses = new String[]{"courseLab1", "courseLab2", "courseLab3",
             "courseLab4"};
+    private boolean hasStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) throws IllegalThreadStateException {
@@ -248,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                         displayPhotoUrl = user.getPhotoUrl().toString();
                     }
                     SharedPreferences.Editor editorName = prefDisplayName.edit();
+                    editorName.putString("uid", mUsername);
                     editorName.putString("name", displayName);
                     editorName.putString("email", displayEmail);
                     editorName.putString("photoUrl", displayPhotoUrl);
@@ -262,8 +264,13 @@ public class MainActivity extends AppCompatActivity {
                                 getSharedPreferences("batch", MODE_PRIVATE).edit()
                                         .putString("batch", data).apply();
                             } else {
-                                startActivity(new Intent(MainActivity.this,
-                                        BatchSelector.class));
+                                if (!hasStarted || getSharedPreferences("batch",
+                                        MODE_PRIVATE).getString("batch", "none")
+                                        .equals("none")) {
+                                    hasStarted = true;
+                                    startActivity(new Intent(MainActivity.this,
+                                            BatchSelector.class));
+                                }
                             }
                         }
 

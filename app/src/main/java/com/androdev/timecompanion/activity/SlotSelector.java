@@ -2,9 +2,9 @@ package com.androdev.timecompanion.activity;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,6 +19,12 @@ import com.androdev.timecompanion.R;
 import com.androdev.timecompanion.dayorder.DayOrder;
 import com.androdev.timecompanion.labslot.LabSlot;
 import com.androdev.timecompanion.slot.Slot;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +49,7 @@ public class SlotSelector extends AppCompatActivity {
     private String[] hourName = new String[]{"hour1", "hour2", "hour3", "hour4", "hour5", "hour6",
             "hour7", "hour8", "hour9", "hour10"};
     private String[] dayName = new String[]{"day_order1", "day_order2", "day_order3", "day_order4", "day_order5"};
+    private SharedPreferences prefDisplayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +83,64 @@ public class SlotSelector extends AppCompatActivity {
         courseLabList.add(courseLab2);
         courseLabList.add(courseLab3);
         courseLabList.add(courseLab4);
-
+        prefDisplayName = getSharedPreferences("account_info", MODE_PRIVATE);
         startDatabase();
+    }
+
+    public void deleteUserData(View view) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        Query userData = databaseReference.child(prefDisplayName.getString("uid", ""));
+                        userData.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot e : dataSnapshot.getChildren()) {
+                                    e.getRef().removeValue();
+                                    removeUserData();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.e("SLOT_SELECTOR", "onCancelled", databaseError.toException());
+                            }
+                        });
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("This will delete all your data. Are you sure?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener)
+                .show();
+    }
+
+    public void removeUserData() {
+        pref0.edit().clear().apply();
+        pref1.edit().clear().apply();
+        pref2.edit().clear().apply();
+        pref3.edit().clear().apply();
+        pref4.edit().clear().apply();
+        class0.edit().clear().apply();
+        class1.edit().clear().apply();
+        class2.edit().clear().apply();
+        class3.edit().clear().apply();
+        class4.edit().clear().apply();
+        SharedPreferences slotPref = getSharedPreferences("SlotChoice", MODE_PRIVATE);
+        SharedPreferences slotRoomPref = getSharedPreferences("SlotRoom", MODE_PRIVATE);
+        SharedPreferences labTime = getSharedPreferences("LabTime", MODE_PRIVATE);
+        slotPref.edit().clear().apply();
+        slotRoomPref.edit().clear().apply();
+        labTime.edit().clear().apply();
+        getSharedPreferences("batch", MODE_PRIVATE).edit().clear().apply();
+        Toast.makeText(getBaseContext(), "All data cleared..", Toast.LENGTH_LONG).show();
+        this.finish();
     }
 
     public void startDatabase() {
@@ -541,9 +604,7 @@ public class SlotSelector extends AppCompatActivity {
             }
         });
 
-        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-
-        {
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
             }
@@ -827,6 +888,7 @@ public class SlotSelector extends AppCompatActivity {
             "Fundamentals of Big Data Analytics",
             "Fundamentals of Cloud Computing",
             "Computer Networking",
+            "Statistics For Information Technology",
 
             //Software
 
