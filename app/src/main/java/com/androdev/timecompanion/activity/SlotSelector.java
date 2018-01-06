@@ -923,7 +923,7 @@ public class SlotSelector extends AppCompatActivity {
             "Software Measurements And Metrics",
 
             //Fetched from Academia
-
+            "Employability Skills",
             "Basic Civil Engineering",
             "Programming Laboratory",
             "Algorithm Analysis And Design",

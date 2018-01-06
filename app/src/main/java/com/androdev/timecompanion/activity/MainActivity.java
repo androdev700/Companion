@@ -3,7 +3,6 @@ package com.androdev.timecompanion.activity;
 import android.animation.Animator;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -439,10 +438,10 @@ public class MainActivity extends AppCompatActivity {
                     /*
                     DatabaseReference checkReference = mDatabaseReference.child("CheckOrder");
                     int day = 1;
-                    int month = 5;
+                    int month = 3;
                     String dayString;
-                    int order = 2;
-                    for (; day < 5; day++) {
+                    int order = 4;
+                    for (; day < 32; day++) {
                         if (day < 10) {
                             dayString = "0".concat(Integer.toString(day));
                         } else {
@@ -451,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
                         if (order > 5) {
                             order = 1;
                         }
-                        if (day == 1 || day == 7 || day == 8 || day == 14 || day == 15 || day == 21 || day == 22 || day == 28 || day == 29) {
+                        if (day == 3 || day == 4 || day == 7 || day == 8 || day == 9 || day == 10 || day == 11 || day == 17 || day == 18 || day == 24 || day == 25 || day == 29|| day == 30|| day == 31) {
                             DatabaseReference hello = checkReference.child(dayString.concat(" ").concat("0").concat(Integer.toString(month)));
                             hello.setValue("a holiday");
                         } else {
