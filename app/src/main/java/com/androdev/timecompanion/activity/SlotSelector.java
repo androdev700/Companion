@@ -713,86 +713,90 @@ public class SlotSelector extends AppCompatActivity {
                 roomEditor.putString(labCourses[indexLab], roomSelection);
                 roomEditor.apply();
                 Log.d("DATA_ENTRY", roomSelection);
-                int startTime = Integer.parseInt(start.getText().toString());
-                int endTime = Integer.parseInt(end.getText().toString());
-                if (endTime - startTime > 4) {
-                    Toast.makeText(getBaseContext(), "Cannot set length more than 5 hours, Try Again", Toast.LENGTH_SHORT).show();
-                } else if (endTime < 0 || endTime > 50) {
-                    Toast.makeText(getBaseContext(), "Cannot set length more than 50, Try Again", Toast.LENGTH_SHORT).show();
-                } else if (startTime < 0 || startTime > 50) {
-                    Toast.makeText(getBaseContext(), "Cannot set length more than 50, Try Again", Toast.LENGTH_SHORT).show();
-                } else if (startTime > endTime) {
-                    Toast.makeText(getBaseContext(), "Start cannot exceed end, Try Again", Toast.LENGTH_SHORT).show();
-                } else if (!batchCheck(startTime, endTime)) {
-                    Toast.makeText(getBaseContext(), "Your batch doesn't allow this lab timing", Toast.LENGTH_SHORT).show();
+                if (start.getText().toString().equals("") || end.getText().toString().equals("")) {
+                    Toast.makeText(getBaseContext(), "Start & End hours can't be empty, If you wish to remove slot, click on trash!", Toast.LENGTH_LONG).show();
                 } else {
-                    String data = start.getText().toString().concat(" ").concat(end.getText().toString());
-                    labTimeEditor.putString(labCourses[indexLab], data);
-                    labTimeEditor.apply();
-                    Log.d("DATA_ENTRY", data);
-                    alertDialog.dismiss();
+                    int startTime = Integer.parseInt(start.getText().toString());
+                    int endTime = Integer.parseInt(end.getText().toString());
+                    if (endTime - startTime > 4) {
+                        Toast.makeText(getBaseContext(), "Cannot set length more than 5 hours, Try Again", Toast.LENGTH_SHORT).show();
+                    } else if (endTime < 0 || endTime > 50) {
+                        Toast.makeText(getBaseContext(), "Cannot set length more than 50, Try Again", Toast.LENGTH_SHORT).show();
+                    } else if (startTime < 0 || startTime > 50) {
+                        Toast.makeText(getBaseContext(), "Cannot set length more than 50, Try Again", Toast.LENGTH_SHORT).show();
+                    } else if (startTime > endTime) {
+                        Toast.makeText(getBaseContext(), "Start cannot exceed end, Try Again", Toast.LENGTH_SHORT).show();
+                    } else if (!batchCheck(startTime, endTime)) {
+                        Toast.makeText(getBaseContext(), "Your batch doesn't allow this lab timing", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String data = start.getText().toString().concat(" ").concat(end.getText().toString());
+                        labTimeEditor.putString(labCourses[indexLab], data);
+                        labTimeEditor.apply();
+                        Log.d("DATA_ENTRY", data);
+                        alertDialog.dismiss();
 
-                    if (batchPref.getString("batch", "Error").equals("1")) {
-                        if (endTime < 11) {
-                            edit = coursePrefList.get(0).edit();
-                            venueEdit = courseClassPrefList.get(0).edit();
-                        } else if (endTime < 16) {
-                            edit = coursePrefList.get(1).edit();
-                            venueEdit = courseClassPrefList.get(1).edit();
-                        } else if (endTime < 31) {
-                            edit = coursePrefList.get(2).edit();
-                            venueEdit = courseClassPrefList.get(2).edit();
-                        } else if (endTime < 36) {
-                            edit = coursePrefList.get(3).edit();
-                            venueEdit = courseClassPrefList.get(3).edit();
-                        } else if (endTime < 51) {
-                            edit = coursePrefList.get(4).edit();
-                            venueEdit = courseClassPrefList.get(4).edit();
-                        }
-                        String s = Integer.toString(startTime % 10);
+                        if (batchPref.getString("batch", "Error").equals("1")) {
+                            if (endTime < 11) {
+                                edit = coursePrefList.get(0).edit();
+                                venueEdit = courseClassPrefList.get(0).edit();
+                            } else if (endTime < 16) {
+                                edit = coursePrefList.get(1).edit();
+                                venueEdit = courseClassPrefList.get(1).edit();
+                            } else if (endTime < 31) {
+                                edit = coursePrefList.get(2).edit();
+                                venueEdit = courseClassPrefList.get(2).edit();
+                            } else if (endTime < 36) {
+                                edit = coursePrefList.get(3).edit();
+                                venueEdit = courseClassPrefList.get(3).edit();
+                            } else if (endTime < 51) {
+                                edit = coursePrefList.get(4).edit();
+                                venueEdit = courseClassPrefList.get(4).edit();
+                            }
+                            String s = Integer.toString(startTime % 10);
 
-                        while (startTime <= endTime) {
-                            Log.d("TAG", "hour".concat(s));
-                            edit.putString("hour".concat(s), slotPref.getString(labCourses[indexLab], ""));
-                            venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
-                            startTime++;
-                            int n = Integer.parseInt(s);
-                            s = Integer.toString(++n);
-                        }
-                        edit.apply();
-                        venueEdit.apply();
+                            while (startTime <= endTime) {
+                                Log.d("TAG", "hour".concat(s));
+                                edit.putString("hour".concat(s), slotPref.getString(labCourses[indexLab], ""));
+                                venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
+                                startTime++;
+                                int n = Integer.parseInt(s);
+                                s = Integer.toString(++n);
+                            }
+                            edit.apply();
+                            venueEdit.apply();
 
-                    } else if (batchPref.getString("batch", "Error").equals("2")) {
-                        if (endTime < 6) {
-                            edit = coursePrefList.get(0).edit();
-                            venueEdit = courseClassPrefList.get(0).edit();
-                        } else if (endTime < 21) {
-                            edit = coursePrefList.get(1).edit();
-                            venueEdit = courseClassPrefList.get(1).edit();
-                        } else if (endTime < 26) {
-                            edit = coursePrefList.get(2).edit();
-                            venueEdit = courseClassPrefList.get(2).edit();
-                        } else if (endTime < 41) {
-                            edit = coursePrefList.get(3).edit();
-                            venueEdit = courseClassPrefList.get(3).edit();
-                        } else if (endTime < 46) {
-                            edit = coursePrefList.get(4).edit();
-                            venueEdit = courseClassPrefList.get(4).edit();
-                        }
-                        String s = Integer.toString(startTime % 10);
+                        } else if (batchPref.getString("batch", "Error").equals("2")) {
+                            if (endTime < 6) {
+                                edit = coursePrefList.get(0).edit();
+                                venueEdit = courseClassPrefList.get(0).edit();
+                            } else if (endTime < 21) {
+                                edit = coursePrefList.get(1).edit();
+                                venueEdit = courseClassPrefList.get(1).edit();
+                            } else if (endTime < 26) {
+                                edit = coursePrefList.get(2).edit();
+                                venueEdit = courseClassPrefList.get(2).edit();
+                            } else if (endTime < 41) {
+                                edit = coursePrefList.get(3).edit();
+                                venueEdit = courseClassPrefList.get(3).edit();
+                            } else if (endTime < 46) {
+                                edit = coursePrefList.get(4).edit();
+                                venueEdit = courseClassPrefList.get(4).edit();
+                            }
+                            String s = Integer.toString(startTime % 10);
 
-                        while (startTime <= endTime) {
-                            Log.d("TAG", "hour".concat(s));
-                            edit.putString("hour".concat(s), slotPref.getString(labCourses[indexLab], ""));
-                            venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
-                            startTime++;
-                            int n = Integer.parseInt(s);
-                            s = Integer.toString(++n);
+                            while (startTime <= endTime) {
+                                Log.d("TAG", "hour".concat(s));
+                                edit.putString("hour".concat(s), slotPref.getString(labCourses[indexLab], ""));
+                                venueEdit.putString("class".concat(s), slotRoomPref.getString(labCourses[indexLab], ""));
+                                startTime++;
+                                int n = Integer.parseInt(s);
+                                s = Integer.toString(++n);
+                            }
+                            edit.apply();
+                            venueEdit.apply();
                         }
-                        edit.apply();
-                        venueEdit.apply();
+
                     }
-
                 }
             }
         });

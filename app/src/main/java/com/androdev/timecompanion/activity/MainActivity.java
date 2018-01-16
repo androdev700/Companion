@@ -437,8 +437,8 @@ public class MainActivity extends AppCompatActivity {
 
                     /*
                     DatabaseReference checkReference = mDatabaseReference.child("CheckOrder");
-                    int day = 1;
-                    int month = 3;
+                    int day = 18;
+                    int month = 1;
                     String dayString;
                     int order = 4;
                     for (; day < 32; day++) {
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
                         if (order > 5) {
                             order = 1;
                         }
-                        if (day == 3 || day == 4 || day == 7 || day == 8 || day == 9 || day == 10 || day == 11 || day == 17 || day == 18 || day == 24 || day == 25 || day == 29|| day == 30|| day == 31) {
+                        if (day == 20 || day == 21 || day == 26 || day == 27 || day == 28) {
                             DatabaseReference hello = checkReference.child(dayString.concat(" ").concat("0").concat(Integer.toString(month)));
                             hello.setValue("a holiday");
                         } else {
