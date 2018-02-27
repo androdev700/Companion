@@ -5,4 +5,4 @@ Using firebase to authenticate users and storing their timetable in firebase dat
 
 The app fetches college's day order from a firebase database, that i have made, and other algorithms to made the app dyanamic and responsive.
 
-[a link](https://play.google.com/store/apps/details?id=com.androdev.timecompanion&hl=en)
+[Google Play Link](https://play.google.com/store/apps/details?id=com.androdev.timecompanion&hl=en)
